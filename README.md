@@ -1,20 +1,20 @@
-# 魔豆路由器 Web Service API 规格文档
+# 魔豆路由器 Web Services API 规格文档
 
-####  系统操作处于锁的状态下返回code=－1
+## 基本说明
 
-#### 未登录状态下访问需要auth的api则返回 403状态码
+- 系统操作处于锁的状态下返回 code=－1
+- 未登录状态下访问需要 auth 的 API 返回 403 状态码
+- 单位：流量的单位（kbps），磁盘容量单位（MB），时间单位（s）
+- 所有 POST 的请求的返回值的格式都为 JSON
 
-单位：流量的单位（kbps），磁盘容量单位（MB），时间单位（s）
+基础返回格式：
 
-#### 所有post的请求的返回值的格式都为json,后续不再单独说明
-
-<pre>
+```
 {
   "code":number,         // 返回代码，0为成功，其他失败
   "msg":string             // 可能存在的出错消息
 }
-</pre>
-
+```
 
 ### 登录页
 
@@ -26,53 +26,6 @@
   "password":string
 }
 </pre>
-   
-
-* api/auth/get_admin_password_info                  // draft
-
-  get 需要登录验证：否
-<pre>
-{
-  "default_password":string,           // 默认的密码
-  "has_set_custom_password":bool       // 是否已经设置了用户自定义的密码
-}
-</pre>
-
-* api/auth/get_verify_code_for_admin_password_modifying
-
- get 需要登录验证:否
-<pre>
-{
-  "verify_code":string,                // 取得验证码(用于修改web admin密码)
-  "deadline":number                    // 验证码的有效时间（单位秒）
-}
-</pre>
-
-* api/auth/set_password
- 
- post 需要登录验证:否
-<pre>
-{
-  "new_password":string,         // 新设置的密码
-  "verify_code":string           // 需要的验证码
-}
-</pre>
-
-*api/auth/modify_password  //修改密码
-post 需要登录验证
- post json：
-{
-“old_password”: “xxx”,
-“new_password”:”ooo”
-}
-<pre>
-{
-code: 0成功设置; 1老密码不符; 2新密码设置失败; 3获取现有密码失败; 4 post的老密码为空; 5 post的新密码为空
-msg: “”
-}
-</pre>
-
-
 
 ### 版本升级
 
