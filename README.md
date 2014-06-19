@@ -4,6 +4,7 @@
 
 - 系统操作处于锁的状态下返回 code=－1
 - 身份鉴权基于 cookies
+- 除非明确标出，所有 API 都需要进行身份鉴权
 - 未登录状态下访问需要 auth 的 API 返回 403 状态码
 - 单位：流量的单位（kbps），磁盘容量单位（MB），时间单位（s）
 - 所有 POST 的请求的返回值的格式都为 JSON
@@ -19,9 +20,9 @@
 
 ## 登录
 
-* /api/auth/login
+**不需要登录验证**
 
- post 需要登录验证：否
+`POST /api/auth/login`
 
 ```
 {
@@ -33,9 +34,7 @@
 
 ### 获取当前版本信息
 
-* api/system/get_version_info
-  
-get 不需要auth
+`GET /api/system/get_version_info`
 
 return
 
@@ -48,11 +47,7 @@ return
 
 ### 检查是否有新版本
 
-* api/system/check_remote_version_upgrade
-  
-  get
-
-  return
+`GET /api/system/check_remote_version_upgrade`
 
 ```
 {
@@ -165,12 +160,13 @@ return
   get
 
   return
-  <pre>
-    {
-      "code": 0,
-      "msg": ""
-    }
-  </pre>
+
+```
+{
+  "code": 0,
+  "msg": ""
+}
+```
 
 ### 重启进安全模式
 
@@ -179,17 +175,19 @@ return
   get
 
   return
-  <pre>
-    {
-      "code": 0,
-      "msg": ""
-    }
-  </pre>
+
+```
+{
+  "code": 0,
+  "msg": ""
+}
+```
 
   
 ### 恢复出厂设置
 
 *api/system/reset_config
+
 get  需要auth 
 
 
@@ -288,7 +286,12 @@ return :
 
 * /api/wan/clientmacaddr
    获取client macaddr,专门给mac clone feature 使用 
-   {"macaddr":"40:6C:8F:2D:6C:3A"}
+
+```
+{
+  "macaddr":"40:6C:8F:2D:6C:3A"
+}
+```
 
 ### 获取dhcp设置
 
@@ -944,63 +947,70 @@ return:
 * api/devices/whitelist_add
 
   post
-  <pre>
-  {
-    "mac": "32:21:44:55:11:42"
-  }
-  </pre>
+  
+```
+{
+  "mac": "32:21:44:55:11:42"
+}
+```
   
 ### 从白名单移除
 
 * api/devices/whitelist_remove
 
   post
-  <pre>
-  {
-    "mac": "32:21:44:55:11:42"
-  }
-  </pre>
+  
+```
+{
+  "mac": "32:21:44:55:11:42"
+}
+```
 
 ### 应用防火墙规则
 
 * api/devices/apply_rule
 
   post
-  <pre>
-  {
-    "mac": "32:21:44:55:11:42"
-  }
-  </pre>
 
+```
+{
+  "mac": "32:21:44:55:11:42"
+}
+```
 
 ## 极客模式相关接口
 
 /api/system/get_expertMode
+
 需要验证 ：yes
 方法        ：get
 return 
-<pre>
-  {
-    "enabled": true/false
-  }
-  </pre>
+
+```
+{
+  "enabled": true/false
+}
+```
 
 /api/system/set_expertMode
+
 需要验证 ：yes
 方法        ：post
 post data：
-<pre>
-  {
-    "enabled": true/false
-  }
-  </pre>
+
+```
+{
+  "enabled": true/false
+}
+```
 
 return data：
-<pre>
-  {
-    “code”: 0,
-“msg”: “error message when failed” (optional, when error happens)
-“password”: “XXXXXXX”    (optional, when expert mode is enabled)
-  }
-  </pre>
+
+```
+{
+  “code”: 0,
+  “msg”: “error message when failed” (optional, when error happens)
+  “password”: “XXXXXXX”    (optional, when expert mode is enabled)
+}
+```
 
