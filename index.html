@@ -28,7 +28,1103 @@
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-          <p>API for modou wifi router</p>
+          <h1>
+<a name="%E9%AD%94%E8%B1%86%E8%B7%AF%E7%94%B1%E5%99%A8-web-services-api-%E8%A7%84%E6%A0%BC%E6%96%87%E6%A1%A3" class="anchor" href="#%E9%AD%94%E8%B1%86%E8%B7%AF%E7%94%B1%E5%99%A8-web-services-api-%E8%A7%84%E6%A0%BC%E6%96%87%E6%A1%A3"><span class="octicon octicon-link"></span></a>魔豆路由器 Web Services API 规格文档</h1>
+
+<h2>
+<a name="%E5%9F%BA%E6%9C%AC%E8%AF%B4%E6%98%8E" class="anchor" href="#%E5%9F%BA%E6%9C%AC%E8%AF%B4%E6%98%8E"><span class="octicon octicon-link"></span></a>基本说明</h2>
+
+<ul>
+<li>系统操作处于锁的状态下返回 code=－1</li>
+<li>身份鉴权基于 cookies</li>
+<li>未登录状态下访问需要 auth 的 API 返回 403 状态码</li>
+<li>单位：流量的单位（kbps），磁盘容量单位（MB），时间单位（s）</li>
+<li>所有 POST 的请求的返回值的格式都为 JSON</li>
+</ul><p>基础返回格式：</p>
+
+<pre><code>{
+  "code":number,         // 返回代码，0为成功，其他失败
+  "msg":string             // 可能存在的出错消息
+}
+</code></pre>
+
+<h2>
+<a name="%E7%99%BB%E5%BD%95" class="anchor" href="#%E7%99%BB%E5%BD%95"><span class="octicon octicon-link"></span></a>登录</h2>
+
+<ul>
+<li>
+<p>/api/auth/login</p>
+
+<p>post 需要登录验证：否</p>
+</li>
+</ul><pre><code>{
+  "password":string
+}
+</code></pre>
+
+<h2>
+<a name="%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7" class="anchor" href="#%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7"><span class="octicon octicon-link"></span></a>版本升级</h2>
+
+<h3>
+<a name="%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF" class="anchor" href="#%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="octicon octicon-link"></span></a>获取当前版本信息</h3>
+
+<ul>
+<li>api/system/get_version_info</li>
+</ul><p>get 不需要auth</p>
+
+<p>return</p>
+
+<pre><code>{
+  "version1": "1.0.5 Build 130608",  // 当前软件版本
+  "version2": "WR841N 10.0"          // 当前硬件版本
+}
+</code></pre>
+
+<h3>
+<a name="%E6%A3%80%E6%9F%A5%E6%98%AF%E5%90%A6%E6%9C%89%E6%96%B0%E7%89%88%E6%9C%AC" class="anchor" href="#%E6%A3%80%E6%9F%A5%E6%98%AF%E5%90%A6%E6%9C%89%E6%96%B0%E7%89%88%E6%9C%AC"><span class="octicon octicon-link"></span></a>检查是否有新版本</h3>
+
+<ul>
+<li>
+<p>api/system/check_remote_version_upgrade</p>
+
+<p>get</p>
+
+<p>return</p>
+</li>
+</ul><pre><code>{
+  "code": 0, // 0-&gt;有新版本，3-&gt;read json faild, 4-&gt;已经是最新版
+  "msg": "",
+  " ": [0-9]*,
+  "filename": ***.bin,
+  "version": ****, 
+  "releasenote": "release note"
+}
+</code></pre>
+
+<h3>
+<a name="%E4%B8%8B%E8%BD%BD%E6%96%B0%E5%9B%BA%E4%BB%B6" class="anchor" href="#%E4%B8%8B%E8%BD%BD%E6%96%B0%E5%9B%BA%E4%BB%B6"><span class="octicon octicon-link"></span></a>下载新固件</h3>
+
+<ul>
+<li>
+<p>api/system/download_version_upgrade
+get</p>
+
+<p>return</p>
+</li>
+</ul><pre><code>{
+  "code": 0,
+  "msg": "",
+}
+</code></pre>
+
+<h3>
+<a name="%E6%9F%A5%E7%9C%8B%E4%B8%8B%E8%BD%BD%E8%BF%9B%E5%BA%A6" class="anchor" href="#%E6%9F%A5%E7%9C%8B%E4%B8%8B%E8%BD%BD%E8%BF%9B%E5%BA%A6"><span class="octicon octicon-link"></span></a>查看下载进度</h3>
+
+<ul>
+<li>
+<p>api/system/check_download_progress(jsondata)</p>
+
+<p>post  jsondata[filename]
+          jsondata[filesize]</p>
+
+<p>return</p>
+</li>
+</ul><pre><code>{
+  "code": 0|1|2,        // (0 -&gt; success, 1-&gt; running ,2-&gt;没有mount /data, 3-&gt;读取latestversion失败 4-&gt; 解析json失败 5-&gt;存储空间不足 6-&gt; 下载失败 7-&gt;md5校验失败 8-&gt;link创建失败 9-&gt;自动升级正在下载 10-&gt;正在升级中不能下载 11-&gt;更名失效)
+  "msg": "",
+  "percent": "xx",
+  "stage": 0        // (0-&gt;pre check, 1-&gt; download, 2-&gt;post check)
+}
+</code></pre>
+
+<h3>
+<a name="%E5%8F%96%E6%B6%88%E4%B8%8B%E8%BD%BD" class="anchor" href="#%E5%8F%96%E6%B6%88%E4%B8%8B%E8%BD%BD"><span class="octicon octicon-link"></span></a>取消下载</h3>
+
+<ul>
+<li>
+<p>api/system/cancel_download</p>
+
+<p>get</p>
+
+<p>return</p>
+</li>
+</ul><pre><code>{
+  "code": 0|1,
+  "msg": ""
+}
+</code></pre>
+
+<h3>
+<a name="%E8%BF%9B%E8%A1%8C%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7" class="anchor" href="#%E8%BF%9B%E8%A1%8C%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7"><span class="octicon octicon-link"></span></a>进行版本升级</h3>
+
+<ul>
+<li>
+<p>api/system/upgrade_version</p>
+
+<p>get</p>
+
+<p>return</p>
+</li>
+</ul><pre><code>{
+  "code": 0,  // 0|1(0,成功；１,失败)
+  "msg": "" // 
+}
+</code></pre>
+
+<h3>
+<a name="%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E5%8D%87%E7%BA%A7%E7%99%BE%E5%88%86%E6%AF%94" class="anchor" href="#%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E5%8D%87%E7%BA%A7%E7%99%BE%E5%88%86%E6%AF%94"><span class="octicon octicon-link"></span></a>获取当前升级百分比</h3>
+
+<ul>
+<li>
+<p>api/system/check_upgrade_progress</p>
+
+<p>get</p>
+
+<p>return</p>
+</li>
+</ul><pre><code>{
+"code": 0|1|2,          //(0-&gt; success,
+                                        2-&gt;faild, upgraded nothing, Error
+                                        3-&gt;faild, upgraded safe only, Error
+                                        4-&gt;faild, upgraded vm only, Error
+                                        5-&gt;faild, upgraded sys only, Error
+                                        6-&gt;faild, upgraded safe and vm, Error
+                                        7-&gt;faild, upgraded safe and sys, Error
+                                        8-&gt;faild. 自动下载正在进行
+    9-&gt;faild, 数字签名出错
+                                        -1-&gt;progress)
+"percent": 10           // number 表示升级进度10% (0-100)
+"msg":"xx",
+"stage": 0               // (0-&gt;uboot, 1-&gt;check image, 2-&gt;safe, 3-&gt;vm, 4-&gt;sys, 5-&gt;sys check, -1-&gt;wait)
+}
+</code></pre>
+
+<h2>
+<a name="%E9%87%8D%E5%90%AF" class="anchor" href="#%E9%87%8D%E5%90%AF"><span class="octicon octicon-link"></span></a>重启</h2>
+
+<h3>
+<a name="%E6%AD%A3%E5%B8%B8%E9%87%8D%E5%90%AF" class="anchor" href="#%E6%AD%A3%E5%B8%B8%E9%87%8D%E5%90%AF"><span class="octicon octicon-link"></span></a>正常重启</h3>
+
+<ul>
+<li>
+<p>api/system/reboot</p>
+
+<p>get</p>
+
+<p>return</p>
+
+<pre>
+  {
+    "code": 0,
+    "msg": ""
+  }
+</pre>
+</li>
+</ul><h3>
+<a name="%E9%87%8D%E5%90%AF%E8%BF%9B%E5%AE%89%E5%85%A8%E6%A8%A1%E5%BC%8F" class="anchor" href="#%E9%87%8D%E5%90%AF%E8%BF%9B%E5%AE%89%E5%85%A8%E6%A8%A1%E5%BC%8F"><span class="octicon octicon-link"></span></a>重启进安全模式</h3>
+
+<ul>
+<li>
+<p>api/system/safe_reboot</p>
+
+<p>get</p>
+
+<p>return</p>
+
+<pre>
+  {
+    "code": 0,
+    "msg": ""
+  }
+</pre>
+</li>
+</ul><h3>
+<a name="%E6%81%A2%E5%A4%8D%E5%87%BA%E5%8E%82%E8%AE%BE%E7%BD%AE" class="anchor" href="#%E6%81%A2%E5%A4%8D%E5%87%BA%E5%8E%82%E8%AE%BE%E7%BD%AE"><span class="octicon octicon-link"></span></a>恢复出厂设置</h3>
+
+<p>*api/system/reset_config
+get  需要auth </p>
+
+<h2>
+<a name="%E8%83%8C%E5%85%89%E6%8E%A7%E5%88%B6" class="anchor" href="#%E8%83%8C%E5%85%89%E6%8E%A7%E5%88%B6"><span class="octicon octicon-link"></span></a>背光控制</h2>
+
+<h3>
+<a name="%E9%94%81%E5%AE%9A%E8%83%8C%E5%85%89%E4%BF%9D%E6%8C%81%E5%B8%B8%E4%BA%AE" class="anchor" href="#%E9%94%81%E5%AE%9A%E8%83%8C%E5%85%89%E4%BF%9D%E6%8C%81%E5%B8%B8%E4%BA%AE"><span class="octicon octicon-link"></span></a>锁定背光，保持常亮</h3>
+
+<p>*api/system/lock_backlight</p>
+
+<h3>
+<a name="%E8%A7%A3%E9%94%81%E8%83%8C%E5%85%89%E5%81%9C%E6%AD%A2%E4%BF%9D%E6%8C%81" class="anchor" href="#%E8%A7%A3%E9%94%81%E8%83%8C%E5%85%89%E5%81%9C%E6%AD%A2%E4%BF%9D%E6%8C%81"><span class="octicon octicon-link"></span></a>解锁背光，停止保持</h3>
+
+<p>*api/system/release_backlight</p>
+
+<h3>
+<a name="%E5%94%A4%E9%86%92%E8%83%8C%E5%85%89" class="anchor" href="#%E5%94%A4%E9%86%92%E8%83%8C%E5%85%89"><span class="octicon octicon-link"></span></a>唤醒背光</h3>
+
+<p>*api/system/wakeup_backlight</p>
+
+<h2>
+<a name="%E9%98%B2%E8%B9%AD%E7%BD%91" class="anchor" href="#%E9%98%B2%E8%B9%AD%E7%BD%91"><span class="octicon octicon-link"></span></a>防蹭网</h2>
+
+<ul>
+<li>api/security/get_config</li>
+</ul><p>method: get
+return </p>
+
+<pre><code>{
+  “code”: 0,
+   “enabled”:true             (type: boolean)        // 防蹭网是否开启
+}
+</code></pre>
+
+<ul>
+<li>api/security/set_config</li>
+</ul><p>method: post
+post data</p>
+
+<pre><code>{
+  “enabled”: true            (type:boolean)   // 是否开启防蹭网
+}
+</code></pre>
+
+<p>post 需要登录验证：否</p>
+
+<ul>
+<li>api/security/request_permission         // 请求上网权限</li>
+</ul><p>method: post
+post data:</p>
+
+<pre><code>{
+  “username”: “aaa”    (type:string)    // 用户名字
+}
+</code></pre>
+
+<p>post 需要登录验证：否</p>
+
+<ul>
+<li>api/security/check_permission      // 检查上网权限
+method: get</li>
+</ul><p>return : </p>
+
+<pre><code>{
+  “code”: 0,                  （type:number）         // 0 -&gt; 允许上网，1-&gt;不允许上网,2-&gt;等待主人处理 -1 -&gt;系统内部错误
+}
+</code></pre>
+
+<h2>
+<a name="wan-%E5%8F%A3%E8%AE%BE%E7%BD%AE" class="anchor" href="#wan-%E5%8F%A3%E8%AE%BE%E7%BD%AE"><span class="octicon octicon-link"></span></a>WAN 口设置</h2>
+
+<h3>
+<a name="%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D-wan-%E5%8F%A3%E8%AE%BE%E7%BD%AE" class="anchor" href="#%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D-wan-%E5%8F%A3%E8%AE%BE%E7%BD%AE"><span class="octicon octicon-link"></span></a>获取当前 WAN 口设置</h3>
+
+<ul>
+<li>
+<p>api/wan/get_info</p>
+
+<p>get 需要登录验证：是</p>
+</li>
+</ul><pre><code>{
+  "type":"STATIC", // 当前连接方式( DHCP, PPPOE, STATIC, wireless-repeater)
+  "ip":"192.168.1.12",
+  "mask":"182.168.1.1",
+  "gateway":"255.255.255.0",
+  "dns1":"8.8.8.8",
+  "dns2":"8.8.4.4",
+  "mtu":2,
+  "stp": true,
+  "account":"account",    // 如果当前是PPPOE
+  "password":"password",   // 如果当前是PPPOE
+ "macCloneEnabled":true, //是否开启Macclone
+ "macCloneMac":"40:6c:8f:2d:6c:3b" ,//MAC CLONE mac
+"uptime":"22486" 路由器运行时间
+}
+</code></pre>
+
+<h3>
+<a name="%E8%8E%B7%E5%8F%96%E5%AE%A2%E6%88%B7%E7%AB%AF-mac-%E5%9C%B0%E5%9D%80" class="anchor" href="#%E8%8E%B7%E5%8F%96%E5%AE%A2%E6%88%B7%E7%AB%AF-mac-%E5%9C%B0%E5%9D%80"><span class="octicon octicon-link"></span></a>获取客户端 MAC 地址</h3>
+
+<ul>
+<li>/api/wan/clientmacaddr
+获取client macaddr,专门给mac clone feature 使用 
+{"macaddr":"40:6C:8F:2D:6C:3A"}</li>
+</ul><h3>
+<a name="%E8%8E%B7%E5%8F%96dhcp%E8%AE%BE%E7%BD%AE" class="anchor" href="#%E8%8E%B7%E5%8F%96dhcp%E8%AE%BE%E7%BD%AE"><span class="octicon octicon-link"></span></a>获取dhcp设置</h3>
+
+<ul>
+<li>
+<p>api/wan/get_info/dhcp</p>
+
+<p>get 需要登录验证：是</p>
+</li>
+</ul><pre><code>{
+  "dns1":"8.8.8.8",
+  "dns2":"8.8.4.4",
+  "mtu":2,
+  "stp": true
+}
+</code></pre>
+
+<h3>
+<a name="%E8%8E%B7%E5%8F%96-pppoe-%E8%AE%BE%E7%BD%AE" class="anchor" href="#%E8%8E%B7%E5%8F%96-pppoe-%E8%AE%BE%E7%BD%AE"><span class="octicon octicon-link"></span></a>获取 PPPoE 设置</h3>
+
+<ul>
+<li>
+<p>api/wan/get_info/pppoe</p>
+
+<p>get 需要登录验证：是</p>
+</li>
+</ul><pre><code>{
+  "account":"account",  
+  "password":"password",
+  "pppoe_method": "KeepAlive" // 连接模式(KeepAlive, OnDemand, Manual)
+  "pedial_period": 60         // 连接断开xx秒后尝试重拨,单位(秒) 当前KeepAlive
+  "idle_time": 5              // 无流量时xx分钟后断开,单位(分) 当前OnDemand
+  "status": -1/0/1/2/3/4/5/6/7// -1: PPPoE暂时无状态；
+                              // 0: 连接已成功；
+                              // 1: 用户名／密码错误；
+                              // 2: 连接已断开; 
+                              // 3: 不允许本帐户在此时间登录; 
+                              // 4: 帐户已禁用;
+                              // 5: 密码已过期;
+                              // 6: 帐户没有远程访问权限;
+                              // 7: 未知错误.
+}
+</code></pre>
+
+<h3>
+<a name="%E8%8E%B7%E5%8F%96%E9%9D%99%E6%80%81-ip-%E8%AE%BE%E7%BD%AE" class="anchor" href="#%E8%8E%B7%E5%8F%96%E9%9D%99%E6%80%81-ip-%E8%AE%BE%E7%BD%AE"><span class="octicon octicon-link"></span></a>获取静态 IP 设置</h3>
+
+<ul>
+<li>
+<p>api/wan/get_info/static</p>
+
+<p>get 需要登录验证：是</p>
+</li>
+</ul><pre><code>{
+  "ip":"192.168.1.12",
+  "mask":"182.168.1.1",
+  "gateway":"255.255.255.0",
+  "dns1":"8.8.8.8",
+  "dns2":"8.8.4.4",
+  "mtu":2,
+  "stp": true
+}
+</code></pre>
+
+<h3>
+<a name="%E8%AE%BE%E7%BD%AE-wan-%E5%8F%A3%E8%BF%9E%E6%8E%A5%E6%96%B9%E5%BC%8F" class="anchor" href="#%E8%AE%BE%E7%BD%AE-wan-%E5%8F%A3%E8%BF%9E%E6%8E%A5%E6%96%B9%E5%BC%8F"><span class="octicon octicon-link"></span></a>设置 WAN 口连接方式</h3>
+
+<ul>
+<li>
+<p>api/wan/set_config</p>
+
+<p>post 需要登录验证：是</p>
+</li>
+</ul><pre><code>{
+  "type":"STATIC", // 当前连接方式( DHCP, PPPOE, STATIC, wireless-repeater)
+  "ip":"192.168.1.12",
+  "mask":"255.255.255.0",
+  "gateway":"192.168.1.1",
+  "dns1":"8.8.8.8",
+  "dns2":"8.8.4.4",
+  "mtu":2,
+  "stp": true,
+  "account":"account",    // 如果当前是PPPOE
+  "password":"password"   // 如果当前是PPPOE
+  "pppoe_method": "KeepAlive" // 连接模式(KeepAlive, OnDemand, Manual)
+  "pedial_period": 60         // 连接断开xx秒后尝试重拨,单位(秒) 当前KeepAlive
+  "idle_time": 5              // 无流量时xx分钟后断开,单位(分) 当前OnDemand
+ "macCloneEnabled":true, //是否开启Macclone
+  "macCloneMac":"40:6c:8f:2d:6c:3b" //MAC CLONE mac
+}
+return
+{
+“code”: 0,          // (0-&gt;设置成功，1-&gt; 正在设置，-1 -&gt;已有全局设置锁)
+“msg”: “xx”
+}
+</code></pre>
+
+<h3>
+<a name="%E6%A3%80%E6%B5%8B%E4%BA%92%E8%81%94%E7%BD%91%E8%BF%9E%E9%80%9A%E7%8A%B6%E6%80%81" class="anchor" href="#%E6%A3%80%E6%B5%8B%E4%BA%92%E8%81%94%E7%BD%91%E8%BF%9E%E9%80%9A%E7%8A%B6%E6%80%81"><span class="octicon octicon-link"></span></a>检测互联网连通状态</h3>
+
+<ul>
+<li>
+<p>api/wan/is_internet_available</p>
+
+<p>get : 需要登录验证：是</p>
+</li>
+</ul><pre><code>{
+  "code":0                // 取得外网是否正常可用(0-&gt;网通， 1-&gt;（不通）不能解析域名，２-&gt;（不通）不能到达网关， -1-&gt;等待)
+
+}
+</code></pre>
+
+<h3>
+<a name="%E8%8E%B7%E5%8F%96-wan-%E5%8F%A3%E4%B8%8A%E4%B8%8B%E8%A1%8C%E6%B5%81%E9%87%8F%E4%BF%A1%E6%81%AF" class="anchor" href="#%E8%8E%B7%E5%8F%96-wan-%E5%8F%A3%E4%B8%8A%E4%B8%8B%E8%A1%8C%E6%B5%81%E9%87%8F%E4%BF%A1%E6%81%AF"><span class="octicon octicon-link"></span></a>获取 WAN 口上下行流量信息</h3>
+
+<ul>
+<li>
+<p>api/wan/get_traffics</p>
+
+<p>get : 需要登录验证：是</p>
+</li>
+</ul><pre><code>{
+  "up":number,               // 取得自系统启动以来，上行数据的总量(单位字节）
+  "up_str":"number",             // up 值的字符串形式 例如: "12345678"
+  "down":number              // 取得自系统启动依赖，下行数据的总量（单位字节）
+  "down_str":"number"              //  down 值的字符串形式 例如: "12345678"
+  "code":0, 成功
+  "tx_rate":0, 发丢包率
+  "rx_dropped":0, 收丢包
+
+  "rx_packets":270649, 收包
+  "tx_packets":282499, 发包
+  "rx_rate":0, 收丢包率
+  "tx_dropped":0 发丢包
+
+}
+</code></pre>
+
+<h2>
+<a name="wifi-%E8%AE%BE%E7%BD%AE" class="anchor" href="#wifi-%E8%AE%BE%E7%BD%AE"><span class="octicon octicon-link"></span></a>WiFi 设置</h2>
+
+<h3>
+<a name="%E5%8F%96%E5%BE%97-wifi-%E7%9A%84%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF" class="anchor" href="#%E5%8F%96%E5%BE%97-wifi-%E7%9A%84%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF"><span class="octicon octicon-link"></span></a>取得 WiFi 的配置信息</h3>
+
+<ul>
+<li>
+<p>api/wifi/get_config </p>
+
+<p>get 需要登录验证:是</p>
+</li>
+</ul><pre><code>{
+  "2g": {
+    "enabled":true,                                     // 2.4g开关    RadioOff
+    "ssid": "ssid1",                                    // 名称 SSID1(长度1-32字符)
+    “broadcastssid”:true,                                    // 是否广播SSID
+    "security_mode": "WPAPSKWPA2PSK"      // Security Mode
+     "encrypt": "TKIP",                          // WPA Algorithms(TKIP,AES ,TKIPAES)  EncrypType
+    "password": "123456kskdajksdasdasdasdasdasdasda",   // 密码   AuthMode（长度8-64字符）
+    "power": 20,                                        // 无线信号功率   TXPower
+    "channel": 6,                                       // 信道                         Channel
+    "net_type": 9,       (0,1,4,6,9,)                          // 网络模式              WirelessMode
+    "band_width_mode":1,           (0|1)// 频道带宽         HT_BW
+    "mac":"28-2c-b2-97-82-39",                          // mac地址        命令行ifconfig
+    "beacon": 40,                    (20~1024)                    // Beacon时槽       BeaconPeriod
+    "apsd_enabled": true,                                       // APSD开关         APSDCapable
+    "ap_enabled":true,                                          // AP隔离开关         NoForwarding
+    "shortgi_enabled": true,                                    // short GI开关    HT_GI
+    "wmm_enabled": true                                         // 多媒体优先WMM开关            WmmCapable
+  },
+  "5g": {
+    "enabled":true,                                     // 5g开关
+    "ssid": "ssid1",                                    // 名称
+    “broadcastssid”:true,                                    // 是否广播SSID
+    "security_mode": "WPAPSKWPA2PSK"                    // Security Mode
+     "encrypt": "TKIP",                                 // WPA Algorithms(TKIP,AES ,TKIPAES)                    EncrypType
+    "password": "123456kskdajksdasdasdasdasdasdasda",   // 密码
+    "power": 20,                                        // 无线信号功率
+    "channel": 14,                                      // 信道
+    "net_type": 14           (2,8,14,15)                     // 网络模式
+    "band_width_mode":1       (0|1)            // 频道带宽
+    "mac":"28-2c-b2-97-82-39",                          // mac地址
+    "beacon": 40,                                       // Beacon时槽
+    "apsd_enabled": true,                                       // APSD开关
+    "ap_enabled":true,                                          // AP隔离开关
+    "shortgi_enabled": true,                                    // short GI开关
+    "wmm_enabled": true                                         // 多媒体优先WMM开关
+    “same_as_2g”: true                                       // 使用与2.4g相同的设置（包含：无线名称，加密方式，加密算法，密码，传输功率，Beacon时槽，APSD，AP隔离，Short GI，多媒体优先WMM，无线广播）
+  }
+}
+</code></pre>
+
+<h3>
+<a name="%E8%AE%BE%E7%BD%AE-wifi%E9%9D%9E%E9%98%BB%E5%A1%9E" class="anchor" href="#%E8%AE%BE%E7%BD%AE-wifi%E9%9D%9E%E9%98%BB%E5%A1%9E"><span class="octicon octicon-link"></span></a>设置 WiFi（非阻塞）</h3>
+
+<ul>
+<li>
+<p>api/wifi/set_config</p>
+
+<p>post 需要登录验证：否</p>
+</li>
+</ul><pre><code>{
+  "2g": {
+    "enabled":true,                    (true|false)          // 2.4g开关
+    "ssid": "ssid1",                    (any string)        // 名称(长度1-32字符)
+    “broadcastssid”:true,                                    // 是否广播SSID
+    "security_mode": "Disable" (Disable,WPAPSK,WPA2PSK,WPAPSKWPA2PSK) //Security Mode
+     "encrypt": "TKIP",   (NONE&lt;&gt;Disable,   TKIP&lt;&gt;WPA(2)PSK,    AES&lt;&gt;WPA(2)PSK ,   TKIPAES&lt;&gt;WPA(2)PSK  )  // WPA Algorithms EncrypType
+    "password": "123456kskdajksdasdasdasdasdasdasda",  (any string)   // 密码(长度8-64字符)
+    "power": 20,           (100,90,60,30,15,0)            // 无线信号功率
+   "channel": 0,           (0)            // 哪个信道
+      //
+                {'name': '自动选择', 'value': 0},
+    {'name': '2412MHz (Channel 1)', 'value': 1},
+    {'name': '2417MHz (Channel 2)', 'value': 2},
+    {'name': '2422MHz (Channel 3)', 'value': 3},
+    {'name': '2427MHz (Channel 4)', 'value': 4},
+    {'name': '2432MHz (Channel 5)', 'value': 5},
+    {'name': '2437MHz (Channel 6)', 'value': 6},
+    {'name': '2442MHz (Channel 7)', 'value': 7},
+    {'name': '2447MHz (Channel 8)', 'value': 8},
+    {'name': '2452MHz (Channel 9)', 'value': 9},
+    {'name': '2457MHz (Channel 10)', 'value': 10},
+    {'name': '2462MHz (Channel 11)', 'value': 11},
+    {'name': '2467MHz (Channel 12)', 'value': 12},
+    {'name': '2472MHz (Channel 13)', 'value': 13}
+
+  "net_type": 9,        (0,1,4,6,9,)                     // 网络模式
+2G: 9
+0: legacy 11b/g mixed
+1: legacy 11B only
+4: legacy 11G only
+6: 11N only
+9: 11BGN mixed
+
+    "band_width_mode":1,      (0|1|2)                 // 频道带宽(20Mhz-&gt;0, 20Mhz/40Mhz-&gt;1,强制40Mhz-&gt;2)
+    "beacon": 40,                       (20~1024)        // Beacon时槽
+    "apsd_enabled": true,                         (true|flase)      // APSD开关
+    "ap_enabled":true,                              (true|flase)     // AP隔离开关
+    "shortgi_enabled": true,                       (true|flase)      // short GI开关
+    "wmm_enabled": true                          (true|flase)        // 多媒体优先WMM开关
+  },
+  "5g": {
+    "enabled":true,                              // 5g开关
+    "ssid": "ssid1",                              // 名称(长度1-32字符)
+    “broadcastssid”:true,                    // 是否广播SSID
+    "security_mode": "Disable"    // Security Mode(Disable,WPAPSK,WPA2PSK,WPAPSKWPA2PSK)
+     "encrypt": "TKIP",    (NONE&lt;&gt;Disable,   TKIP&lt;&gt;WPA(2)PSK,    AES&lt;&gt;WPA(2)PSK ,   TKIPAES&lt;&gt;WPA(2)PSK  )   // WPA Algorithms(TKIP,AES ,TKIPAES)
+    "password": "123456kskdajksdasdasdasdasdasdasda",    // 密码(长度8-64字符)
+    "power": 20,      (100,90,60,30,15,0)        // 无线信号功率
+    "channel": 0,                          // 哪个信道
+ //
+      {'name': '自动选择', 'value': 0},
+    {'name': '5180MHz (Channel 36)', 'value': 36},
+    {'name': '5200MHz (Channel 40)', 'value': 40},
+    {'name': '5220MHz (Channel 44)', 'value': 44},
+    {'name': '5240MHz (Channel 48)', 'value': 48},
+    {'name': '5260MHz (Channel 52)', 'value': 52},
+    {'name': '5280MHz (Channel 56)', 'value': 56},
+    {'name': '5300MHz (Channel 60)', 'value': 60},
+    {'name': '5320MHz (Channel 64)', 'value': 64},
+    {'name': '5745MHz (Channel 149)', 'value': 149},
+    {'name': '5765MHz (Channel 153)', 'value': 153},
+    {'name': '5785MHz (Channel 157)', 'value': 157},
+    {'name': '5805MHz (Channel 161)', 'value': 161},
+    {'name': '5825MHz (Channel 165)', 'value': 165}
+
+
+    "net_type": 14,                (2,8,14,15)         // 网络模式
+5G 14
+2: legacy 11A only
+8: 11AN mixed
+14: 11A/AN/AC mixed 5G band only
+15: 11 AN/AC mixed 5G band only
+
+    "band_width_mode":1       (0|1) ,                   // 频道带宽
+    "beacon": 40,                               // Beacon时槽
+    "apsd_enabled": true,                               // APSD开关
+    "ap_enabled":true,                                  // AP隔离开关
+    "shortgi_enabled": true,                            // short GI开关
+    "wmm_enabled": true                                 // 多媒体优先WMM开关
+ “same_as_2g”: true                                       // 使用与2.4g相同的设置（包含：无线名称，加密方式，加密算法，密码，传输功率，Beacon时槽，APSD，AP隔离，Short GI，多媒体优先WMM，无线广播）
+  }
+}
+</code></pre>
+
+<ul>
+<li>api/wifi/check_set</li>
+</ul><p>gett  需要登录验证：是
+return</p>
+
+<pre><code>{
+“code”: 0,          // (0-&gt;设置成功，1-&gt; 正在设置，-1 -&gt;已有全局设置锁)
+“msg”: “xx”
+}
+</code></pre>
+
+<h3>
+<a name="%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C%E6%98%AF%E5%90%A6%E5%B7%B2%E6%89%93%E5%BC%80" class="anchor" href="#%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C%E6%98%AF%E5%90%A6%E5%B7%B2%E6%89%93%E5%BC%80"><span class="octicon octicon-link"></span></a>无线网络是否已打开</h3>
+
+<ul>
+<li>
+<p>api/wifi/is_enabled</p>
+
+<p>get  需要登录验证：是</p>
+</li>
+</ul><pre><code>{
+  "is_enabled":bool,              // 是否已经打开了wifi
+}
+</code></pre>
+
+<ul>
+<li>
+<p>api/wifi/ssid_get_config  (TODO)</p>
+
+<p>get 需要登录验证：是
+return </p>
+</li>
+</ul><pre><code>[
+  {
+    "enable": true,                                       // 是否启用
+    "name": "ssid1",                                      // 名称
+    "encrypt": "WAP/WAP2",                               // 无线加密方式
+    "password": "123456kskdajksdasdasdasdasdasdasda",    // 密码
+    "rate": "5G",                                        // 无线频段
+    "double_security": true                              // 是否开启双重安全认证
+  },
+  {
+    "enable": false,
+    "name": "ssid2idsijdoajosjdaojsijdao",
+    "encrypt": "不加密",
+    "password": "",
+    "rate": "2.4G",
+    "double_security": false
+  }
+]
+</code></pre>
+
+<ul>
+<li>
+<p>api/wifi/ssid_set_config   (TODO)</p>
+
+<p>post 需要登录验证：是</p>
+</li>
+</ul><pre><code>[
+  {
+    "enable": true,                                       // 是否启用
+    "name": "ssid1",                                      // 名称
+    "encrypt": "WAP/WAP2",                               // 无线加密方式
+    "password": "123456kskdajksdasdasdasdasdasdasda",    // 密码
+    "rate": "5G",                                        // 无线频段
+    "double_security": true                              // 是否开启双重安全认证
+  },
+  {
+    "enable": false,
+    "name": "ssid2idsijdoajosjdaojsijdao",
+    "encrypt": "不加密",
+    "password": "",
+    "rate": "2.4G",
+    "double_security": false
+  }
+]
+</code></pre>
+
+<h2>
+<a name="lan-%E5%8F%A3" class="anchor" href="#lan-%E5%8F%A3"><span class="octicon octicon-link"></span></a>LAN 口</h2>
+
+<h3>
+<a name="%E8%8E%B7%E5%8F%96-lan-%E5%8F%A3%E8%AE%BE%E7%BD%AE" class="anchor" href="#%E8%8E%B7%E5%8F%96-lan-%E5%8F%A3%E8%AE%BE%E7%BD%AE"><span class="octicon octicon-link"></span></a>获取 LAN 口设置</h3>
+
+<ul>
+<li>
+<p>api/lan/get_lan_config</p>
+
+<p>get 需要登录验证：是</p>
+</li>
+</ul><pre><code>{
+  "ip": "192.168.1.2",                        // ip
+  "net_mask": "255.255.255.0",                // 子网掩码
+  "dhcp_enabled": true,                       // dhcp开关
+  "ipaddr_start": "4.4.4.4",                  // IP地址开始段
+  "ipaddr_end": "4.4.4.4",                    // IP地址结束段
+  "gateway": "192.168.1.0",                   // 网关
+  "dhcp_net_mask": "255.255.255.0",           // dhcp子网掩码
+  "dns1Method": "手动",                       // dns1设置方式（手动，自动）
+  "dns2Method": "自动",                        // dns2设置方式（手动，自动）
+  "dns1": "8.8.8.8",                          // 首选dns
+  "dns2": "",                                 // 备用dns
+  "time": 381,                                // 地址租期
+  "mac":"28-2c-b2-97-82-39"                   // mac地址
+}
+</code></pre>
+
+<h3>
+<a name="%E4%BF%AE%E6%94%B9-lan-%E5%8F%A3%E8%AE%BE%E7%BD%AE" class="anchor" href="#%E4%BF%AE%E6%94%B9-lan-%E5%8F%A3%E8%AE%BE%E7%BD%AE"><span class="octicon octicon-link"></span></a>修改 LAN 口设置</h3>
+
+<ul>
+<li>
+<p>api/lan/set_lan_config</p>
+
+<p>post 需要登录验证：是</p>
+</li>
+</ul><pre><code>{
+  "ip": "192.168.1.2",                        // ip
+  "net_mask": "255.255.255.0",                // 子网掩码
+  "dhcp_enabled": true,                       // dhcp开关
+  "ipaddr_start": "4.4.4.4",                  // IP地址开始段
+  "ipaddr_end": "4.4.4.4",                    // IP地址结束段
+  "gateway": "192.168.1.0",                   // 网关
+  "dhcp_net_mask": "255.255.255.0",           // dhcp子网掩码
+  "dns1Method": "手动",                       // dns1设置方式（手动，自动）
+  "dns2Method": "自动",                       // dns2设置方式（手动，自动）
+  "dns1": "8.8.8.8",                          // 首选dns
+  "dns2": "",                                 // 备用dns
+  "time": 381,                                // 地址租期
+  "mac":"28-2c-b2-97-82-39"                   // mac地址
+}
+</code></pre>
+
+<ul>
+<li>api/lan/check_set</li>
+</ul><p>gett  需要登录验证：是
+return</p>
+
+<pre><code>{
+“code”: 0,          // (0-&gt;设置成功，1-&gt; 正在设置，2-&gt; 设置失败)
+“msg”: “xx”
+}
+</code></pre>
+
+<h3>
+<a name="%E8%8E%B7%E5%8F%96%E7%89%A9%E7%90%86%E8%BF%9E%E6%8E%A5%E6%83%85%E5%86%B5" class="anchor" href="#%E8%8E%B7%E5%8F%96%E7%89%A9%E7%90%86%E8%BF%9E%E6%8E%A5%E6%83%85%E5%86%B5"><span class="octicon octicon-link"></span></a>获取物理连接情况</h3>
+
+<ul>
+<li>
+<p>api/system/get_cable_connection</p>
+
+<p>get 需要登录验证:是</p>
+
+<pre>
+{
+"wan":true   // wan口是否有物理连接
+"lan1":true   // wan口是否有物理连接
+“lan2":true   // wan口是否有物理连接
+“usb”:true   // usb是否有连接
+}
+</pre>
+</li>
+</ul><h3>
+<a name="%E8%8E%B7%E5%8F%96%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4" class="anchor" href="#%E8%8E%B7%E5%8F%96%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4"><span class="octicon octicon-link"></span></a>获取系统时间</h3>
+
+<p>*api/system/get_time<br>
+get 需要登录验证:是</p>
+
+<p>return json </p>
+
+<pre><code>{
+  “time”: 2361632818231,       //路由器时间（单位秒）
+  “time_type”: 0|1   (type:number)                 //时间格式，0-&gt;12小时制式,1-&gt;24小时制式
+}
+</code></pre>
+
+<h3>
+<a name="%E8%AE%BE%E7%BD%AE%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4" class="anchor" href="#%E8%AE%BE%E7%BD%AE%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4"><span class="octicon octicon-link"></span></a>设置系统时间</h3>
+
+<p>*api/system/set_time</p>
+
+<p>post  需要登录验证:是</p>
+
+<p>post data:</p>
+
+<pre><code>{
+ “time_type”: 0|1   (type:number)                 //时间格式，0-&gt;12小时制式,1-&gt;24小时制式
+}
+</code></pre>
+
+<h2>
+<a name="%E5%A4%96%E8%81%94%E8%AE%BE%E5%A4%87" class="anchor" href="#%E5%A4%96%E8%81%94%E8%AE%BE%E5%A4%87"><span class="octicon octicon-link"></span></a>外联设备</h2>
+
+<h3>
+<a name="%E7%A1%AC%E7%9B%98%E8%AE%BE%E5%A4%87%E4%BF%A1%E6%81%AF" class="anchor" href="#%E7%A1%AC%E7%9B%98%E8%AE%BE%E5%A4%87%E4%BF%A1%E6%81%AF"><span class="octicon octicon-link"></span></a>硬盘设备信息</h3>
+
+<ul>
+<li>
+<p>api/devices/disk</p>
+
+<p>get</p>
+</li>
+</ul><p>return:</p>
+
+<pre><code>{
+  "totalSize": 1,             // 总大小(KB)
+  "left": 0.23,               // 剩余空间(KB)
+  "name": "disk1",            // 硬盘的名字
+  "time": 5677                // 连接时间
+}
+</code></pre>
+
+<h3>
+<a name="%E5%8D%B8%E8%BD%BD%E7%A1%AC%E7%9B%98" class="anchor" href="#%E5%8D%B8%E8%BD%BD%E7%A1%AC%E7%9B%98"><span class="octicon octicon-link"></span></a>卸载硬盘</h3>
+
+<ul>
+<li>api/devices/disk_uninstall</li>
+</ul><p>get</p>
+
+<p>return</p>
+
+<pre><code>{
+  "code": 0,
+  "msg": ""
+}
+</code></pre>
+
+<h3>
+<a name="%E8%8E%B7%E5%8F%96%E5%86%85%E5%AD%98%E5%92%8C%E9%97%AA%E5%AD%98%E4%BF%A1%E6%81%AF" class="anchor" href="#%E8%8E%B7%E5%8F%96%E5%86%85%E5%AD%98%E5%92%8C%E9%97%AA%E5%AD%98%E4%BF%A1%E6%81%AF"><span class="octicon octicon-link"></span></a>获取内存和闪存信息</h3>
+
+<ul>
+<li>api/devices/ddr2_flash</li>
+</ul><p>method:get</p>
+
+<p>return:</p>
+
+<pre><code>{
+  "ddr2_total_size": 64,            //ddr2总大小（KB）
+  "ddr2_remain": 28,              // ddr2剩余（KB）
+  "flash_total_size": 64,                           // flash总大小（KB）
+  "flash_remain": 28,                             // flash剩余（KB）
+}
+</code></pre>
+
+<h3>
+<a name="%E8%8E%B7%E5%8F%96%E6%9C%89%E7%BA%BF%E8%AE%BE%E5%A4%87%E5%88%97%E8%A1%A8" class="anchor" href="#%E8%8E%B7%E5%8F%96%E6%9C%89%E7%BA%BF%E8%AE%BE%E5%A4%87%E5%88%97%E8%A1%A8"><span class="octicon octicon-link"></span></a>获取有线设备列表</h3>
+
+<ul>
+<li>
+<p>api/devices/cables</p>
+
+<p>get</p>
+
+<p>return</p>
+
+<pre>
+{
+  "code": 0,
+  "devices": [
+      {
+          "platform": "phone",                    // 设备类型(phone, pad, unknow)
+          "total_speed": 200,                     // 总速率
+          "down_speed": 100,                      // 下载速度
+          "up_speed": 100,                        // 上传速度
+          "host_name": "android-a078b707872bc9a", // 主机名
+          "connectType": "WIFI5G",                // 连接类型c
+          "up": "10MB",                           // 总上传
+          "down": "10GB",                         // 总下载
+          "type": 1,                         // 设备连接方式(1-&gt;cable, 2-&gt;wifi2.4g,3-&gt;wifi5g)
+          "ip": "192.168.1.11",                   // ip地址
+          "mac": "97:32:21:44:55:11:42",          // mac地址
+          "leftTime": 31223,                      // 租约剩余时间单位(s)
+          "time": 31223,                          // 连接时间单位(s)
+          "tag": "white"                          // 白名单，黑名单，或没有(white, black, "")
+          "up_limit": 400,                        // 上传限速
+          "down_limit": 600                       // 下载限速
+  “local”,0 or 1 // web使用,是否是当前主机
+      },...  
+  ]
+}
+</pre>
+</li>
+</ul><h3>
+<a name="%E8%8E%B7%E5%8F%96%E6%97%A0%E7%BA%BF%E8%AE%BE%E5%A4%87%E5%88%97%E8%A1%A8" class="anchor" href="#%E8%8E%B7%E5%8F%96%E6%97%A0%E7%BA%BF%E8%AE%BE%E5%A4%87%E5%88%97%E8%A1%A8"><span class="octicon octicon-link"></span></a>获取无线设备列表</h3>
+
+<ul>
+<li>
+<p>api/devices/wifis</p>
+
+<p>get</p>
+
+<p>return
+</p>
+<pre>
+{
+  "code": 0,
+  "devices": [
+      {
+          "platform": "phone",                    // 设备类型(phone, pad, unknow)
+          "total_speed": 200,                     // 总速率
+          "down_speed": 100,                      // 下载速度
+          "up_speed": 100,                        // 上传速度
+          "host_name": "android-a078b707872bc9a", // 主机名
+          "connectType": "WIFI5G",                // 连接类型
+          "up": "10MB",                           // 总上传
+          "down": "10GB",                         // 总下载
+          "type": 1,                         // 设备连接方式(1-&gt;cable, 2-&gt;wifi2.4g,3-&gt;wifi5g)
+          "ip": "192.168.1.11",                   // ip地址
+          "mac": "97:32:21:44:55:11:42",          // mac地址
+          "leftTime": 31223,                      // 租约剩余时间单位(s)
+          "time": 31223,                          // 连接时间单位(s)
+          "tag": "white"                          // 白名单，黑名单，或没有(white, black, "")
+          "up_limit": 400,                        // 上传限速
+          "down_limit": 600                       // 下载限速
+  “single”： 100                            // 信号强度
+“local”,0 or 1 // web使用,是否是当前主机
+“rssi0”,-30 //信号强度
+“rssi1”,0 //信号强度</pre>
+</li>
+</ul><p>“rssi2”,-50//信号强度</p>
+
+<pre><code>    },...
+]
+</code></pre>
+
+<p>}
+  </p>
+
+<h3>
+<a name="%E4%BF%AE%E6%94%B9%E8%AE%BE%E5%A4%87%E4%B8%BB%E6%9C%BA%E5%90%8D" class="anchor" href="#%E4%BF%AE%E6%94%B9%E8%AE%BE%E5%A4%87%E4%B8%BB%E6%9C%BA%E5%90%8D"><span class="octicon octicon-link"></span></a>修改设备主机名</h3>
+
+<ul>
+<li>
+<p>api/devices/edit_hostname</p>
+
+<p>post</p>
+
+<pre>
+{
+  "mac": "97:32:21:44:55:11:42",
+  "host_name": "android-a078b"
+}
+</pre>
+</li>
+</ul><h3>
+<a name="%E8%8E%B7%E5%BE%97%E9%BB%91%E5%90%8D%E5%8D%95%E5%88%97%E8%A1%A8" class="anchor" href="#%E8%8E%B7%E5%BE%97%E9%BB%91%E5%90%8D%E5%8D%95%E5%88%97%E8%A1%A8"><span class="octicon octicon-link"></span></a>获得黑名单列表</h3>
+
+<p>*/api/devices/blacklist</p>
+
+<pre><code>{"devices":[{
+            "platform": "phone",                    // 设备类型(phone, pad, unknow)
+            "host_name": "android-a078b707872bc9a", // 主机名
+            "type": 1,                         // 设备连接方式(1-&gt;cable, 2-&gt;wifi2.4g,3-&gt;wifi5g)
+            "mac": "97:32:21:44:55:11:42",          // mac地址
+
+},...],"code":0}
+</code></pre>
+
+<h3>
+<a name="%E8%8E%B7%E5%BE%97%E7%99%BD%E5%90%8D%E5%8D%95%E5%88%97%E8%A1%A8" class="anchor" href="#%E8%8E%B7%E5%BE%97%E7%99%BD%E5%90%8D%E5%8D%95%E5%88%97%E8%A1%A8"><span class="octicon octicon-link"></span></a>获得白名单列表</h3>
+
+<p>*/api/devices/whitelist</p>
+
+<pre><code>{"devices":[{
+            "platform": "phone",                    // 设备类型(phone, pad, unknow)
+            "host_name": "android-a078b707872bc9a", // 主机名
+            "type": 1,                         // 设备连接方式(1-&gt;cable, 2-&gt;wifi2.4g,3-&gt;wifi5g)
+            "mac": "97:32:21:44:55:11:42",          // mac地址
+
+},...],"code":0}
+</code></pre>
+
+<h3>
+<a name="%E8%8E%B7%E5%BE%97%E7%81%B0%E5%90%8D%E5%8D%95%E5%88%97%E8%A1%A8%E4%B8%8A%E7%BD%91%E8%AF%B7%E6%B1%82%E8%AE%BE%E5%A4%87%E5%88%97%E8%A1%A8" class="anchor" href="#%E8%8E%B7%E5%BE%97%E7%81%B0%E5%90%8D%E5%8D%95%E5%88%97%E8%A1%A8%E4%B8%8A%E7%BD%91%E8%AF%B7%E6%B1%82%E8%AE%BE%E5%A4%87%E5%88%97%E8%A1%A8"><span class="octicon octicon-link"></span></a>获得灰名单列表（上网请求设备列表）</h3>
+
+<p>*/api/devices/graylist</p>
+
+<pre><code>{"devices":[{
+            "mac”: "AA:BB:CC:DD:EE:FF",                    // 请求设备的MAC地址
+            "ip": "192.168.10.100",                                  // IP地址
+            "username": "张三丰",                             // 用户名
+
+},...],"code":0}
+</code></pre>
+
+<h3>
+<a name="%E6%8A%8A%E8%AE%BE%E5%A4%87%E6%B7%BB%E5%8A%A0%E5%88%B0%E9%BB%91%E5%90%8D%E5%8D%95" class="anchor" href="#%E6%8A%8A%E8%AE%BE%E5%A4%87%E6%B7%BB%E5%8A%A0%E5%88%B0%E9%BB%91%E5%90%8D%E5%8D%95"><span class="octicon octicon-link"></span></a>把设备添加到黑名单</h3>
+
+<ul>
+<li>
+<p>api/devices/blacklist_add</p>
+
+<p>post</p>
+
+<pre>
+{
+  "mac": "32:21:44:55:11:42"
+}
+</pre>
+</li>
+</ul><h3>
+<a name="%E4%BB%8E%E9%BB%91%E5%90%8D%E5%8D%95%E7%A7%BB%E9%99%A4" class="anchor" href="#%E4%BB%8E%E9%BB%91%E5%90%8D%E5%8D%95%E7%A7%BB%E9%99%A4"><span class="octicon octicon-link"></span></a>从黑名单移除</h3>
+
+<ul>
+<li>
+<p>api/devices/blacklist_remove</p>
+
+<p>post</p>
+
+<pre>
+{
+  "mac": "32:21:44:55:11:42"
+}
+</pre>
+</li>
+</ul><h3>
+<a name="%E6%B7%BB%E5%8A%A0%E5%88%B0%E7%99%BD%E5%90%8D%E5%8D%95" class="anchor" href="#%E6%B7%BB%E5%8A%A0%E5%88%B0%E7%99%BD%E5%90%8D%E5%8D%95"><span class="octicon octicon-link"></span></a>添加到白名单</h3>
+
+<ul>
+<li>
+<p>api/devices/whitelist_add</p>
+
+<p>post</p>
+
+<pre>
+{
+  "mac": "32:21:44:55:11:42"
+}
+</pre>
+</li>
+</ul><h3>
+<a name="%E4%BB%8E%E7%99%BD%E5%90%8D%E5%8D%95%E7%A7%BB%E9%99%A4" class="anchor" href="#%E4%BB%8E%E7%99%BD%E5%90%8D%E5%8D%95%E7%A7%BB%E9%99%A4"><span class="octicon octicon-link"></span></a>从白名单移除</h3>
+
+<ul>
+<li>
+<p>api/devices/whitelist_remove</p>
+
+<p>post</p>
+
+<pre>
+{
+  "mac": "32:21:44:55:11:42"
+}
+</pre>
+</li>
+</ul><h3>
+<a name="%E5%BA%94%E7%94%A8%E9%98%B2%E7%81%AB%E5%A2%99%E8%A7%84%E5%88%99" class="anchor" href="#%E5%BA%94%E7%94%A8%E9%98%B2%E7%81%AB%E5%A2%99%E8%A7%84%E5%88%99"><span class="octicon octicon-link"></span></a>应用防火墙规则</h3>
+
+<ul>
+<li>
+<p>api/devices/apply_rule</p>
+
+<p>post</p>
+
+<pre>
+{
+  "mac": "32:21:44:55:11:42"
+}
+</pre>
+</li>
+</ul><h2>
+<a name="%E6%9E%81%E5%AE%A2%E6%A8%A1%E5%BC%8F%E7%9B%B8%E5%85%B3%E6%8E%A5%E5%8F%A3" class="anchor" href="#%E6%9E%81%E5%AE%A2%E6%A8%A1%E5%BC%8F%E7%9B%B8%E5%85%B3%E6%8E%A5%E5%8F%A3"><span class="octicon octicon-link"></span></a>极客模式相关接口</h2>
+
+<p>/api/system/get_expertMode
+需要验证 ：yes
+方法        ：get
+return </p>
+
+<pre>
+  {
+    "enabled": true/false
+  }
+  </pre>
+
+<p>/api/system/set_expertMode
+需要验证 ：yes
+方法        ：post
+post data：</p>
+
+<pre>
+  {
+    "enabled": true/false
+  }
+  </pre>
+
+<p>return data：</p>
+
+<pre>
+  {
+    “code”: 0,
+“msg”: “error message when failed” (optional, when error happens)
+“password”: “XXXXXXX”    (optional, when expert mode is enabled)
+  }
+  </pre>
         </section>
 
         <aside id="sidebar">
