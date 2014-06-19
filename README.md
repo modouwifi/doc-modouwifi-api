@@ -537,6 +537,8 @@ return
 “msg”: “xx”
 }
 
+### 无线网络是否已打开
+
 * api/wifi/is_enabled
 
   get  需要登录验证：是
@@ -600,6 +602,8 @@ return
 
 ## LAN 口
 
+### 获取 LAN 口设置
+
 * api/lan/get_lan_config
 
   get 需要登录验证：是
@@ -620,6 +624,8 @@ return
   "mac":"28-2c-b2-97-82-39"                   // mac地址
 }
 </pre>
+
+### 修改 LAN 口设置
 
 * api/lan/set_lan_config
 
@@ -642,6 +648,7 @@ return
   "mac":"28-2c-b2-97-82-39"                   // mac地址
 }
 </pre>
+
 * api/lan/check_set
 gett  需要登录验证：是
 return
@@ -651,7 +658,7 @@ return
 }
 
 
-
+### 获取物理连接情况
 
 * api/system/get_cable_connection
 
@@ -665,6 +672,7 @@ return
 }
 </pre>
 
+### 获取系统时间
 
 *api/system/get_time  
 get 需要登录验证:是
@@ -675,6 +683,8 @@ return json
   “time_type”: 0|1   (type:number)                 //时间格式，0->12小时制式,1->24小时制式
 }
 
+### 设置系统时间
+
 *api/system/set_time
 post  需要登录验证:是
 
@@ -683,9 +693,11 @@ post data:
  “time_type”: 0|1   (type:number)                 //时间格式，0->12小时制式,1->24小时制式
 }
 
-### devices manager
+## 外联设备
 
-* api/devices/disk(硬盘设备信息)
+### 硬盘设备信息
+
+* api/devices/disk
 
   get
   
@@ -699,7 +711,9 @@ return:
 }
 </pre>
 
-* api/devices/disk_uninstall(卸载硬盘)
+### 卸载硬盘
+
+* api/devices/disk_uninstall
   
 get
 
@@ -710,9 +724,13 @@ return
   "msg": ""
 }
 </pre>
-  
-* api/devices/ddr2_flash                   // 内存 DDR2,闪存 NAND FLASH信息
+
+### 获取内存和闪存信息
+
+* api/devices/ddr2_flash
+
 method:get
+
 return:
 {
   "ddr2_total_size": 64,            //ddr2总大小（KB）
@@ -722,8 +740,9 @@ return:
 }
 
 
+### 获取有线设备列表
 
-* api/devices/cables(获取有线设备列表)
+* api/devices/cables
 
   get
   
@@ -756,7 +775,9 @@ return:
   </pre>
 
 
-* api/devices/wifis(获取无线设备列表)
+### 获取无线设备列表
+
+* api/devices/wifis
 
   get
   
@@ -795,8 +816,9 @@ return:
 }
   </pre>
 
+### 修改设备主机名
 
-* api/devices/edit_hostname (修改设备主机名)
+* api/devices/edit_hostname
 
   post
   <pre>
@@ -805,8 +827,10 @@ return:
     "host_name": "android-a078b"
   }
   </pre>
-  
-*/api/devices/blacklist (黑名单列表)
+
+### 获得黑名单列表
+
+*/api/devices/blacklist
 {"devices":[{
             "platform": "phone",                    // 设备类型(phone, pad, unknow)
             "host_name": "android-a078b707872bc9a", // 主机名
@@ -815,7 +839,9 @@ return:
 
 },...],"code":0}
 
-*/api/devices/whitelist (白名单列表)
+### 获得白名单列表
+
+*/api/devices/whitelist
 {"devices":[{
             "platform": "phone",                    // 设备类型(phone, pad, unknow)
             "host_name": "android-a078b707872bc9a", // 主机名
@@ -823,7 +849,10 @@ return:
             "mac": "97:32:21:44:55:11:42",          // mac地址
 
 },...],"code":0}
-*/api/devices/graylist (灰名单，请求列表)
+
+### 获得灰名单列表（上网请求设备列表）
+
+*/api/devices/graylist
 {"devices":[{
             "mac”: "AA:BB:CC:DD:EE:FF",                    // 请求设备的MAC地址
             "ip": "192.168.10.100",                                  // IP地址
@@ -831,35 +860,9 @@ return:
 
 },...],"code":0}
 
-* api/devices/blacklist_add (加到黑名单)
+### 把设备添加到黑名单
 
-  post
-  <pre>
-  {
-    "mac": "32:21:44:55:11:42"
-  }
-  </pre>
-  
-* api/devices/blacklist_remove (从黑名单移除)
-
-  post
-  <pre>
-  {
-    "mac": "32:21:44:55:11:42"
-  }
-  </pre>
-  
-  
-* api/devices/whitelist_add (加到白名单)
-
-  post
-  <pre>
-  {
-    "mac": "32:21:44:55:11:42"
-  }
-  </pre>
-  
-* api/devices/whitelist_remove (从白名单移除)
+* api/devices/blacklist_add
 
   post
   <pre>
@@ -868,7 +871,42 @@ return:
   }
   </pre>
 
-* api/devices/apply_rule (应用防火墙规则)
+### 从黑名单移除
+
+* api/devices/blacklist_remove
+
+  post
+  <pre>
+  {
+    "mac": "32:21:44:55:11:42"
+  }
+  </pre>
+  
+### 添加到白名单
+  
+* api/devices/whitelist_add
+
+  post
+  <pre>
+  {
+    "mac": "32:21:44:55:11:42"
+  }
+  </pre>
+  
+### 从白名单移除
+
+* api/devices/whitelist_remove
+
+  post
+  <pre>
+  {
+    "mac": "32:21:44:55:11:42"
+  }
+  </pre>
+
+### 应用防火墙规则
+
+* api/devices/apply_rule
 
   post
   <pre>
