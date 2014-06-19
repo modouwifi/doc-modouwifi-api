@@ -274,9 +274,7 @@ return :
 
 ### 获取 PPPoE 设置
 
-* api/wan/get_info/pppoe
-
- get 需要登录验证：是
+`GET /api/wan/get_info/pppoe`
 
 ```
 {
@@ -299,9 +297,7 @@ return :
 
 ### 获取静态 IP 设置
 
-* api/wan/get_info/static
-
- get 需要登录验证：是
+`GET /api/wan/get_info/static`
 
 ```
 {
@@ -317,9 +313,7 @@ return :
 
 ### 设置 WAN 口连接方式
 
-* api/wan/set_config
-
-  post 需要登录验证：是
+`POST /api/wan/set_config`
   
 ```
 {
@@ -348,9 +342,7 @@ return
 
 ### 检测互联网连通状态
 
-* api/wan/is_internet_available
-
- get : 需要登录验证：是
+`GET /api/wan/is_internet_available`
 
 ```
 {
@@ -361,9 +353,7 @@ return
 
 ### 获取 WAN 口上下行流量信息
 
-* api/wan/get_traffics
-
-  get : 需要登录验证：是
+`GET /api/wan/get_traffics`
 
 ```
 {
@@ -387,9 +377,7 @@ return
 
 ### 取得 WiFi 的配置信息
 
-* api/wifi/get_config 
-
-  get 需要登录验证:是
+`GET /api/wifi/get_config`
   
 ```
 {
@@ -435,9 +423,7 @@ return
 
 ### 设置 WiFi（非阻塞）
 
-* api/wifi/set_config
-  
-  post 需要登录验证：否
+`POST /api/wifi/set_config`
 
 ```
 {
@@ -525,10 +511,7 @@ return
 }
 ```
 
-* api/wifi/check_set
-
-gett  需要登录验证：是
-return
+`GET /api/wifi/check_set`
 
 ```
 {
@@ -539,9 +522,7 @@ return
 
 ### 无线网络是否已打开
 
-* api/wifi/is_enabled
-
-  get  需要登录验证：是
+`GET /api/wifi/is_enabled`
 
 ```
 {
@@ -549,64 +530,11 @@ return
 }
 ```
 
-* api/wifi/ssid_get_config  (TODO)
-  
-  get 需要登录验证：是
-  return 
- 
-```
-[
-  {
-    "enable": true,                                       // 是否启用
-    "name": "ssid1",                                      // 名称
-    "encrypt": "WAP/WAP2",                               // 无线加密方式
-    "password": "123456kskdajksdasdasdasdasdasdasda",    // 密码
-    "rate": "5G",                                        // 无线频段
-    "double_security": true                              // 是否开启双重安全认证
-  },
-  {
-    "enable": false,
-    "name": "ssid2idsijdoajosjdaojsijdao",
-    "encrypt": "不加密",
-    "password": "",
-    "rate": "2.4G",
-    "double_security": false
-  }
-]
-```
-
-* api/wifi/ssid_set_config   (TODO)
-  
-  post 需要登录验证：是
-
-```
-[
-  {
-    "enable": true,                                       // 是否启用
-    "name": "ssid1",                                      // 名称
-    "encrypt": "WAP/WAP2",                               // 无线加密方式
-    "password": "123456kskdajksdasdasdasdasdasdasda",    // 密码
-    "rate": "5G",                                        // 无线频段
-    "double_security": true                              // 是否开启双重安全认证
-  },
-  {
-    "enable": false,
-    "name": "ssid2idsijdoajosjdaojsijdao",
-    "encrypt": "不加密",
-    "password": "",
-    "rate": "2.4G",
-    "double_security": false
-  }
-]
-```
-
 ## LAN 口
 
 ### 获取 LAN 口设置
 
-* api/lan/get_lan_config
-
-  get 需要登录验证：是
+`GET /api/lan/get_lan_config`
 
 ```
 {
@@ -650,10 +578,7 @@ return
 }
 ```
 
-* api/lan/check_set
-
-gett  需要登录验证：是
-return
+`GET /api/lan/check_set`
 
 ```
 {
@@ -664,24 +589,20 @@ return
 
 ### 获取物理连接情况
 
-* api/system/get_cable_connection
+`GET /api/system/get_cable_connection`
 
- get 需要登录验证:是
-<pre>
+```
 {
   "wan":true   // wan口是否有物理连接
   "lan1":true   // wan口是否有物理连接
   “lan2":true   // wan口是否有物理连接
   “usb”:true   // usb是否有连接
 }
-</pre>
+```
 
 ### 获取系统时间
 
-*api/system/get_time  
-get 需要登录验证:是
-
-return json 
+`GET /api/system/get_time`
 
 ```
 {
@@ -692,9 +613,7 @@ return json
 
 ### 设置系统时间
 
-*api/system/set_time
-
-post  需要登录验证:是
+`POST /api/system/set_time`
 
 post data:
 
@@ -708,11 +627,7 @@ post data:
 
 ### 硬盘设备信息
 
-* api/devices/disk
-
-  get
-  
-return:
+`GET /api/devices/disk`
 
 ```
 {
@@ -725,11 +640,7 @@ return:
 
 ### 卸载硬盘
 
-* api/devices/disk_uninstall
-  
-get
-
-return
+`GET /api/devices/disk_uninstall`
 
 ```
 {
@@ -740,11 +651,7 @@ return
 
 ### 获取内存和闪存信息
 
-* api/devices/ddr2_flash
-
-method:get
-
-return:
+`GET /api/devices/ddr2_flash`
 
 ```
 {
@@ -757,160 +664,160 @@ return:
 
 ### 获取有线设备列表
 
-* api/devices/cables
+`GET /api/devices/cables`
 
-  get
-  
-  return
-  <pre>
-  {
-    "code": 0,
-    "devices": [
-        {
-            "platform": "phone",                    // 设备类型(phone, pad, unknow)
-            "total_speed": 200,                     // 总速率
-            "down_speed": 100,                      // 下载速度
-            "up_speed": 100,                        // 上传速度
-            "host_name": "android-a078b707872bc9a", // 主机名
-            "connectType": "WIFI5G",                // 连接类型c
-            "up": "10MB",                           // 总上传
-            "down": "10GB",                         // 总下载
-            "type": 1,                         // 设备连接方式(1->cable, 2->wifi2.4g,3->wifi5g)
-            "ip": "192.168.1.11",                   // ip地址
-            "mac": "97:32:21:44:55:11:42",          // mac地址
-            "leftTime": 31223,                      // 租约剩余时间单位(s)
-            "time": 31223,                          // 连接时间单位(s)
-            "tag": "white"                          // 白名单，黑名单，或没有(white, black, "")
-            "up_limit": 400,                        // 上传限速
-            "down_limit": 600                       // 下载限速
-	“local”,0 or 1 // web使用,是否是当前主机
-        },...  
-    ]
+```
+{
+  "code": 0,
+  "devices": [
+      {
+          "platform": "phone",                    // 设备类型(phone, pad, unknow)
+          "total_speed": 200,                     // 总速率
+          "down_speed": 100,                      // 下载速度
+          "up_speed": 100,                        // 上传速度
+          "host_name": "android-a078b707872bc9a", // 主机名
+          "connectType": "WIFI5G",                // 连接类型c
+          "up": "10MB",                           // 总上传
+          "down": "10GB",                         // 总下载
+          "type": 1,                         // 设备连接方式(1->cable, 2->wifi2.4g,3->wifi5g)
+          "ip": "192.168.1.11",                   // ip地址
+          "mac": "97:32:21:44:55:11:42",          // mac地址
+          "leftTime": 31223,                      // 租约剩余时间单位(s)
+          "time": 31223,                          // 连接时间单位(s)
+          "tag": "white"                          // 白名单，黑名单，或没有(white, black, "")
+          "up_limit": 400,                        // 上传限速
+          "down_limit": 600                       // 下载限速
+“local”,0 or 1 // web使用,是否是当前主机
+      },...  
+  ]
 }
-  </pre>
-
+```
 
 ### 获取无线设备列表
 
-* api/devices/wifis
+`GET /api/devices/wifis`
 
-  get
-  
-  return
-  <pre>
-  {
-    "code": 0,
-    "devices": [
-        {
-            "platform": "phone",                    // 设备类型(phone, pad, unknow)
-            "total_speed": 200,                     // 总速率
-            "down_speed": 100,                      // 下载速度
-            "up_speed": 100,                        // 上传速度
-            "host_name": "android-a078b707872bc9a", // 主机名
-            "connectType": "WIFI5G",                // 连接类型
-            "up": "10MB",                           // 总上传
-            "down": "10GB",                         // 总下载
-            "type": 1,                         // 设备连接方式(1->cable, 2->wifi2.4g,3->wifi5g)
-            "ip": "192.168.1.11",                   // ip地址
-            "mac": "97:32:21:44:55:11:42",          // mac地址
-            "leftTime": 31223,                      // 租约剩余时间单位(s)
-            "time": 31223,                          // 连接时间单位(s)
-            "tag": "white"                          // 白名单，黑名单，或没有(white, black, "")
-            "up_limit": 400,                        // 上传限速
-            "down_limit": 600                       // 下载限速
-	“single”： 100                            // 信号强度
-“local”,0 or 1 // web使用,是否是当前主机
-“rssi0”,-30 //信号强度
-“rssi1”,0 //信号强度
-
-“rssi2”,-50//信号强度
-
-
-        },...
-    ]
+```
+{
+  "code": 0,
+  "devices": [
+      {
+        "platform": "phone",                    // 设备类型(phone, pad, unknow)
+        "total_speed": 200,                     // 总速率
+        "down_speed": 100,                      // 下载速度
+        "up_speed": 100,                        // 上传速度
+        "host_name": "android-a078b707872bc9a", // 主机名
+        "connectType": "WIFI5G",                // 连接类型
+        "up": "10MB",                           // 总上传
+        "down": "10GB",                         // 总下载
+        "type": 1,                              // 设备连接方式(1->cable, 2->wifi2.4g,3->wifi5g)
+        "ip": "192.168.1.11",                   // ip地址
+        "mac": "97:32:21:44:55:11:42",          // mac地址
+        "leftTime": 31223,                      // 租约剩余时间单位(s)
+        "time": 31223,                          // 连接时间单位(s)
+        "tag": "white",                         // 白名单，黑名单，或没有(white, black, "")
+        "up_limit": 400,                        // 上传限速
+        "down_limit": 600,                      // 下载限速
+        "single": 100,                          // 信号强度
+        "local": 0,                             // or 1, web使用, 是否是当前主机
+        "rssi0": -30,                           // 信号强度
+        "rssi1": 0,                             // 信号强度
+        "rssi2": -50                            // 信号强度
+      },...
+  ]
 }
-  </pre>
+```
 
 ### 修改设备主机名
 
-* api/devices/edit_hostname
+`POST /api/devices/edit_hostname`
 
-  post
-  <pre>
-  {
-    "mac": "97:32:21:44:55:11:42",
-    "host_name": "android-a078b"
-  }
-  </pre>
+```
+{
+  "mac": "97:32:21:44:55:11:42",
+  "host_name": "android-a078b"
+}
+```
 
 ### 获得黑名单列表
 
-*/api/devices/blacklist
+`GET /api/devices/blacklist`
 
 ```
-{"devices":[{
-            "platform": "phone",                    // 设备类型(phone, pad, unknow)
-            "host_name": "android-a078b707872bc9a", // 主机名
-            "type": 1,                         // 设备连接方式(1->cable, 2->wifi2.4g,3->wifi5g)
-            "mac": "97:32:21:44:55:11:42",          // mac地址
-
-},...],"code":0}
+{
+  "devices":
+    [
+      {
+        "platform": "phone",                    // 设备类型(phone, pad, unknow)
+        "host_name": "android-a078b707872bc9a", // 主机名
+        "type": 1,                              // 设备连接方式(1->cable, 2->wifi2.4g,3->wifi5g)
+        "mac": "97:32:21:44:55:11:42",          // mac地址
+      },...
+    ],
+  "code": 0
+}
 ```
 
 ### 获得白名单列表
 
-*/api/devices/whitelist
+`GET /api/devices/whitelist`
 
 ```
-{"devices":[{
-            "platform": "phone",                    // 设备类型(phone, pad, unknow)
-            "host_name": "android-a078b707872bc9a", // 主机名
-            "type": 1,                         // 设备连接方式(1->cable, 2->wifi2.4g,3->wifi5g)
-            "mac": "97:32:21:44:55:11:42",          // mac地址
-
-},...],"code":0}
+{
+  "devices":
+    [
+      {
+        "platform": "phone",                    // 设备类型(phone, pad, unknow)
+        "host_name": "android-a078b707872bc9a", // 主机名
+        "type": 1,                              // 设备连接方式(1->cable, 2->wifi2.4g,3->wifi5g)
+        "mac": "97:32:21:44:55:11:42",          // mac地址
+      },...
+    ],
+  "code":0
+}
 ```
 
 ### 获得灰名单列表（上网请求设备列表）
 
-*/api/devices/graylist
+`GET /api/devices/graylist`
 
 ```
-{"devices":[{
-            "mac”: "AA:BB:CC:DD:EE:FF",                    // 请求设备的MAC地址
-            "ip": "192.168.10.100",                                  // IP地址
-            "username": "张三丰",                             // 用户名
-
-},...],"code":0}
+{
+  "devices":
+    [
+      {
+        "mac”: "AA:BB:CC:DD:EE:FF",                    // 请求设备的MAC地址
+        "ip": "192.168.10.100",                                  // IP地址
+        "username": "张三丰",                             // 用户名
+      },...
+    ],
+  "code": 0
+}
 ```
 
 ### 把设备添加到黑名单
 
-* api/devices/blacklist_add
+`POST /api/devices/blacklist_add`
 
-  post
-  <pre>
-  {
-    "mac": "32:21:44:55:11:42"
-  }
-  </pre>
+```
+{
+  "mac": "32:21:44:55:11:42"
+}
+```
 
 ### 从黑名单移除
 
-* api/devices/blacklist_remove
+`POST /api/devices/blacklist_remove`
 
-  post
-  <pre>
-  {
-    "mac": "32:21:44:55:11:42"
-  }
-  </pre>
+```
+{
+  "mac": "32:21:44:55:11:42"
+}
+```
   
 ### 添加到白名单
   
-* api/devices/whitelist_add
-
-  post
+`POST /api/devices/whitelist_add`
   
 ```
 {
@@ -920,9 +827,7 @@ return:
   
 ### 从白名单移除
 
-* api/devices/whitelist_remove
-
-  post
+`POST /api/devices/whitelist_remove`
   
 ```
 {
@@ -932,9 +837,7 @@ return:
 
 ### 应用防火墙规则
 
-* api/devices/apply_rule
-
-  post
+`POST /api/devices/apply_rule`
 
 ```
 {
@@ -944,11 +847,7 @@ return:
 
 ## 极客模式相关接口
 
-/api/system/get_expertMode
-
-需要验证 ：yes
-方法        ：get
-return 
+`GET /api/system/get_expertMode`
 
 ```
 {
@@ -956,10 +855,8 @@ return
 }
 ```
 
-/api/system/set_expertMode
+`POST /api/system/set_expertMode`
 
-需要验证 ：yes
-方法        ：post
 post data：
 
 ```
@@ -977,4 +874,3 @@ return data：
   “password”: “XXXXXXX”    (optional, when expert mode is enabled)
 }
 ```
-
