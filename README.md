@@ -557,9 +557,7 @@ return
 
 ### 修改 LAN 口设置
 
-* api/lan/set_lan_config
-
-  post 需要登录验证：是
+`POST /api/lan/set_lan_config`
 
 ```
 {
