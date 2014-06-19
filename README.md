@@ -214,19 +214,23 @@ get  需要auth
 method: get
 return 
 
+```
 {
   “code”: 0,
    “enabled”:true             (type: boolean)        // 防蹭网是否开启
 }
+```
 
 * api/security/set_config
 
 method: post
 post data
 
+```
 {
   “enabled”: true            (type:boolean)   // 是否开启防蹭网
 }
+```
 
 post 需要登录验证：否
 
@@ -235,9 +239,11 @@ post 需要登录验证：否
 method: post
 post data:
 
+```
 {
   “username”: “aaa”    (type:string)    // 用户名字
 }
+```
 
 post 需要登录验证：否
 
@@ -246,10 +252,11 @@ method: get
 
 return : 
 
+```
 {
   “code”: 0,                  （type:number）         // 0 -> 允许上网，1->不允许上网,2->等待主人处理 -1 ->系统内部错误
 }
-
+```
 
 ## WAN 口设置
 
@@ -259,7 +266,7 @@ return :
 
  get 需要登录验证：是
 
-<pre>
+```
 {
   "type":"STATIC", // 当前连接方式( DHCP, PPPOE, STATIC, wireless-repeater)
   "ip":"192.168.1.12",
@@ -275,7 +282,7 @@ return :
  "macCloneMac":"40:6c:8f:2d:6c:3b" ,//MAC CLONE mac
 "uptime":"22486" 路由器运行时间
 }
-</pre>
+```
 
 ### 获取客户端 MAC 地址
 
@@ -289,14 +296,14 @@ return :
 
  get 需要登录验证：是
 
-<pre>
+```
 {
   "dns1":"8.8.8.8",
   "dns2":"8.8.4.4",
   "mtu":2,
   "stp": true
 }
-</pre>
+```
 
 ### 获取 PPPoE 设置
 
@@ -304,7 +311,7 @@ return :
 
  get 需要登录验证：是
 
-<pre>
+```
 {
   "account":"account",  
   "password":"password",
@@ -321,7 +328,7 @@ return :
                               // 6: 帐户没有远程访问权限;
                               // 7: 未知错误.
 }
-</pre>
+```
 
 ### 获取静态 IP 设置
 
@@ -329,7 +336,7 @@ return :
 
  get 需要登录验证：是
 
-<pre>
+```
 {
   "ip":"192.168.1.12",
   "mask":"182.168.1.1",
@@ -339,7 +346,7 @@ return :
   "mtu":2,
   "stp": true
 }
-</pre>
+```
 
 ### 设置 WAN 口连接方式
 
@@ -347,7 +354,7 @@ return :
 
   post 需要登录验证：是
   
-  <pre>
+```
 {
   "type":"STATIC", // 当前连接方式( DHCP, PPPOE, STATIC, wireless-repeater)
   "ip":"192.168.1.12",
@@ -370,7 +377,7 @@ return
 “code”: 0,          // (0->设置成功，1-> 正在设置，-1 ->已有全局设置锁)
 “msg”: “xx”
 }
-</pre>
+```
 
 ### 检测互联网连通状态
 
@@ -378,12 +385,12 @@ return
 
  get : 需要登录验证：是
 
-<pre>
+```
 {
   "code":0                // 取得外网是否正常可用(0->网通， 1->（不通）不能解析域名，２->（不通）不能到达网关， -1->等待)
 
 }
-</pre>
+```
 
 ### 获取 WAN 口上下行流量信息
 
@@ -391,24 +398,23 @@ return
 
   get : 需要登录验证：是
 
-<pre>
+```
 {
   "up":number,               // 取得自系统启动以来，上行数据的总量(单位字节）
   "up_str":"number",             // up 值的字符串形式 例如: "12345678"
   "down":number              // 取得自系统启动依赖，下行数据的总量（单位字节）
   "down_str":"number"              //  down 值的字符串形式 例如: "12345678"
-"code":0, 成功
-"tx_rate":0, 发丢包率
-"rx_dropped":0, 收丢包
+  "code":0, 成功
+  "tx_rate":0, 发丢包率
+  "rx_dropped":0, 收丢包
 
-"rx_packets":270649, 收包
-"tx_packets":282499, 发包
-"rx_rate":0, 收丢包率
-"tx_dropped":0 发丢包
+  "rx_packets":270649, 收包
+  "tx_packets":282499, 发包
+  "rx_rate":0, 收丢包率
+  "tx_dropped":0 发丢包
 
-
-</pre>
-
+}
+```
 
 ## WiFi 设置
 
@@ -418,7 +424,7 @@ return
 
   get 需要登录验证:是
   
-  <pre>
+```
 {
   "2g": {
     "enabled":true,                                     // 2.4g开关    RadioOff
@@ -458,7 +464,7 @@ return
     “same_as_2g”: true                                       // 使用与2.4g相同的设置（包含：无线名称，加密方式，加密算法，密码，传输功率，Beacon时槽，APSD，AP隔离，Short GI，多媒体优先WMM，无线广播）
   }
 }
-</pre>
+```
 
 ### 设置 WiFi（非阻塞）
 
@@ -606,7 +612,7 @@ return
   
   post 需要登录验证：是
 
- <pre>
+```
 [
   {
     "enable": true,                                       // 是否启用
@@ -625,7 +631,7 @@ return
     "double_security": false
   }
 ]
-</pre>
+```
 
 ## LAN 口
 
@@ -634,7 +640,8 @@ return
 * api/lan/get_lan_config
 
   get 需要登录验证：是
-<pre>
+
+```
 {
   "ip": "192.168.1.2",                        // ip
   "net_mask": "255.255.255.0",                // 子网掩码
@@ -650,15 +657,15 @@ return
   "time": 381,                                // 地址租期
   "mac":"28-2c-b2-97-82-39"                   // mac地址
 }
-</pre>
+```
 
 ### 修改 LAN 口设置
 
 * api/lan/set_lan_config
 
-
   post 需要登录验证：是
-<pre>
+
+```
 {
   "ip": "192.168.1.2",                        // ip
   "net_mask": "255.255.255.0",                // 子网掩码
@@ -674,16 +681,19 @@ return
   "time": 381,                                // 地址租期
   "mac":"28-2c-b2-97-82-39"                   // mac地址
 }
-</pre>
+```
 
 * api/lan/check_set
+
 gett  需要登录验证：是
 return
+
+```
 {
 “code”: 0,          // (0->设置成功，1-> 正在设置，2-> 设置失败)
 “msg”: “xx”
 }
-
+```
 
 ### 获取物理连接情况
 
@@ -705,20 +715,27 @@ return
 get 需要登录验证:是
 
 return json 
+
+```
 {
   “time”: 2361632818231,       //路由器时间（单位秒）
   “time_type”: 0|1   (type:number)                 //时间格式，0->12小时制式,1->24小时制式
 }
+```
 
 ### 设置系统时间
 
 *api/system/set_time
+
 post  需要登录验证:是
 
 post data:
+
+```
 {
  “time_type”: 0|1   (type:number)                 //时间格式，0->12小时制式,1->24小时制式
 }
+```
 
 ## 外联设备
 
@@ -729,14 +746,15 @@ post data:
   get
   
 return:
-<pre>
+
+```
 {
   "totalSize": 1,             // 总大小(KB)
   "left": 0.23,               // 剩余空间(KB)
   "name": "disk1",            // 硬盘的名字
   "time": 5677                // 连接时间
 }
-</pre>
+```
 
 ### 卸载硬盘
 
@@ -745,12 +763,13 @@ return:
 get
 
 return
-<pre>
+
+```
 {
   "code": 0,
   "msg": ""
 }
-</pre>
+```
 
 ### 获取内存和闪存信息
 
@@ -759,13 +778,15 @@ return
 method:get
 
 return:
+
+```
 {
   "ddr2_total_size": 64,            //ddr2总大小（KB）
   "ddr2_remain": 28,              // ddr2剩余（KB）
   "flash_total_size": 64,                           // flash总大小（KB）
   "flash_remain": 28,                             // flash剩余（KB）
 }
-
+```
 
 ### 获取有线设备列表
 
@@ -858,6 +879,8 @@ return:
 ### 获得黑名单列表
 
 */api/devices/blacklist
+
+```
 {"devices":[{
             "platform": "phone",                    // 设备类型(phone, pad, unknow)
             "host_name": "android-a078b707872bc9a", // 主机名
@@ -865,10 +888,13 @@ return:
             "mac": "97:32:21:44:55:11:42",          // mac地址
 
 },...],"code":0}
+```
 
 ### 获得白名单列表
 
 */api/devices/whitelist
+
+```
 {"devices":[{
             "platform": "phone",                    // 设备类型(phone, pad, unknow)
             "host_name": "android-a078b707872bc9a", // 主机名
@@ -876,16 +902,20 @@ return:
             "mac": "97:32:21:44:55:11:42",          // mac地址
 
 },...],"code":0}
+```
 
 ### 获得灰名单列表（上网请求设备列表）
 
 */api/devices/graylist
+
+```
 {"devices":[{
             "mac”: "AA:BB:CC:DD:EE:FF",                    // 请求设备的MAC地址
             "ip": "192.168.10.100",                                  // IP地址
             "username": "张三丰",                             // 用户名
 
 },...],"code":0}
+```
 
 ### 把设备添加到黑名单
 
