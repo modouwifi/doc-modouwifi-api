@@ -20,7 +20,7 @@
 
 ## 登录
 
-**不需要登录验证**
+**不需要身份验证**
 
 `POST /api/auth/login`
 
@@ -36,12 +36,10 @@
 
 `GET /api/system/get_version_info`
 
-return
-
 ```
 {
-  "version1": "1.0.5 Build 130608",  // 当前软件版本
-  "version2": "WR841N 10.0"          // 当前硬件版本
+  "version1": "0.5.27_beta2",  // 当前固件版本
+  "version2": "m101a"          // 当前硬件版本
 }
 ```
 
@@ -63,10 +61,7 @@ return
 
 ### 下载新固件
 
-* api/system/download_version_upgrade
-  get
-
-  return
+`GET /api/system/download_version_upgrade`
 
 ```
 {
@@ -77,12 +72,11 @@ return
 
 ### 查看下载进度
 
-* api/system/check_download_progress(jsondata)
+`POST /api/system/check_download_progress`
+
 
   post  jsondata[filename]
   			jsondata[filesize]
-
-  return
 
 ```
 {
@@ -95,11 +89,7 @@ return
 
 ### 取消下载
 
-* api/system/cancel_download
-
-  get
-
-  return
+`GET /api/system/cancel_download`
 
 ```
 {
@@ -108,14 +98,9 @@ return
 }
 ```
 
-
 ### 进行版本升级
 
-* api/system/upgrade_version
-
-  get
-
-  return
+`GET /api/system/upgrade_version`
 
 ```
 {
@@ -126,11 +111,7 @@ return
 
 ### 获取当前升级百分比
   
-* api/system/check_upgrade_progress
-
-  get
-  
-  return
+`GET /api/system/check_upgrade_progress`
 
 ```
 {
@@ -155,11 +136,7 @@ return
 
 ### 正常重启
 
-* api/system/reboot
-
-  get
-
-  return
+`GET /api/system/reboot`
 
 ```
 {
@@ -170,11 +147,7 @@ return
 
 ### 重启进安全模式
 
-* api/system/safe_reboot
-
-  get
-
-  return
+`GET /api/system/safe_reboot`
 
 ```
 {
@@ -183,34 +156,29 @@ return
 }
 ```
 
-  
 ### 恢复出厂设置
 
-*api/system/reset_config
-
-get  需要auth 
-
+`GET /api/system/reset_config`
 
 ## 背光控制 
 
 ### 锁定背光，保持常亮
 
-*api/system/lock_backlight
+`GET /api/system/lock_backlight`
  
 ### 解锁背光，停止保持
 
-*api/system/release_backlight
+`GET /api/system/release_backlight`
 
 ### 唤醒背光
 
-*api/system/wakeup_backlight
+`GET /api/system/wakeup_backlight`
 
 ## 防蹭网
 
-* api/security/get_config
+### 获取防蹭网开启状态
 
-method: get
-return 
+`GET /api/security/get_config`
 
 ```
 {
@@ -219,10 +187,9 @@ return
 }
 ```
 
-* api/security/set_config
+### 设置防蹭网开关
 
-method: post
-post data
+`POST /api/security/set_config`
 
 ```
 {
@@ -230,11 +197,12 @@ post data
 }
 ```
 
-post 需要登录验证：否
+### 请求上网权限
 
-* api/security/request_permission         // 请求上网权限
+**不需要身份验证**
 
-method: post
+`POST /api/security/request_permission`
+
 post data:
 
 ```
@@ -243,10 +211,11 @@ post data:
 }
 ```
 
-post 需要登录验证：否
+### 检查上网权限
 
-* api/security/check_permission      // 检查上网权限
-method: get
+**不需要身份验证**
+
+`GET /api/security/check_permission`
 
 return : 
 
@@ -260,9 +229,7 @@ return :
 
 ### 获取当前 WAN 口设置
 
-* api/wan/get_info
-
- get 需要登录验证：是
+`GET /api/wan/get_info`
 
 ```
 {
@@ -282,10 +249,9 @@ return :
 }
 ```
 
-### 获取客户端 MAC 地址
+### 获取客户端 MAC 地址（用于 MAC 地址克隆）
 
-* /api/wan/clientmacaddr
-   获取client macaddr,专门给mac clone feature 使用 
+`GET /api/wan/clientmacaddr`
 
 ```
 {
@@ -295,9 +261,7 @@ return :
 
 ### 获取dhcp设置
 
-* api/wan/get_info/dhcp
-
- get 需要登录验证：是
+`GET /api/wan/get_info/dhcp`
 
 ```
 {
