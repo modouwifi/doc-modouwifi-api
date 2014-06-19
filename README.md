@@ -35,16 +35,16 @@
 
 * api/system/get_version_info
   
-  get 不需要auth
+get 不需要auth
 
-  return
-  <pre>
-    {
-      "version1": "1.0.5 Build 130608",  // 当前软件版本
-      "version2": "WR841N 10.0"          // 当前硬件版本
-    }
-  </pre>
+return
 
+```
+{
+  "version1": "1.0.5 Build 130608",  // 当前软件版本
+  "version2": "WR841N 10.0"          // 当前硬件版本
+}
+```
 
 ### 检查是否有新版本
 
@@ -53,16 +53,17 @@
   get
 
   return
-  <pre>
-    {
-      "code": 0, // 0->有新版本，3->read json faild, 4->已经是最新版
-      "msg": "",
-      "	": [0-9]*,
-      "filename": ***.bin,
-      "version": ****, 
-      "releasenote": "release note<br>release note<br>release note<br>release note<br>release note<br>release note"
-    }
-  </pre>
+
+```
+{
+  "code": 0, // 0->有新版本，3->read json faild, 4->已经是最新版
+  "msg": "",
+  "	": [0-9]*,
+  "filename": ***.bin,
+  "version": ****, 
+  "releasenote": "release note"
+}
+```
 
 
 ### 下载新固件
@@ -71,12 +72,13 @@
   get
 
   return
-  <pre>
-    {
-      "code": 0,
-      "msg": "",
-    }
-  </pre>
+
+```
+{
+  "code": 0,
+  "msg": "",
+}
+```
 
 ### 查看下载进度
 
@@ -86,14 +88,15 @@
   			jsondata[filesize]
 
   return
-  <pre>
-    {
-      "code": 0|1|2,        // (0 -> success, 1-> running ,2->没有mount /data, 3->读取latestversion失败 4-> 解析json失败 5->存储空间不足 6-> 下载失败 7->md5校验失败 8->link创建失败 9->自动升级正在下载 10->正在升级中不能下载 11->更名失效)
-      "msg": "",
-      "percent": "xx",
-      "stage": 0        // (0->pre check, 1-> download, 2->post check)
-    }
-  </pre>
+
+```
+{
+  "code": 0|1|2,        // (0 -> success, 1-> running ,2->没有mount /data, 3->读取latestversion失败 4-> 解析json失败 5->存储空间不足 6-> 下载失败 7->md5校验失败 8->link创建失败 9->自动升级正在下载 10->正在升级中不能下载 11->更名失效)
+  "msg": "",
+  "percent": "xx",
+  "stage": 0        // (0->pre check, 1-> download, 2->post check)
+}
+```
 
 ### 取消下载
 
@@ -102,12 +105,13 @@
   get
 
   return
-  <pre>
-    {
-      "code": 0|1,
-      "msg": ""
-    }
-  </pre>
+
+```
+{
+  "code": 0|1,
+  "msg": ""
+}
+```
 
 
 ### 进行版本升级
@@ -117,12 +121,13 @@
   get
 
   return
-  <pre>
-    {
-      "code": 0,  // 0|1(0,成功；１,失败)
-      "msg": "" // 
-    }
-  </pre>
+
+```
+{
+  "code": 0,  // 0|1(0,成功；１,失败)
+  "msg": "" // 
+}
+```
 
 ### 获取当前升级百分比
   
@@ -131,24 +136,24 @@
   get
   
   return
-  <pre>
-  {
-  "code": 0|1|2,          //(0-> success,
-                                          2->faild, upgraded nothing, Error
-                                          3->faild, upgraded safe only, Error
-                                          4->faild, upgraded vm only, Error
-                                          5->faild, upgraded sys only, Error
-                                          6->faild, upgraded safe and vm, Error
-                                          7->faild, upgraded safe and sys, Error
-                                          8->faild. 自动下载正在进行
-      9->faild, 数字签名出错
-                                          -1->progress)
-  "percent": 10           // number 表示升级进度10% (0-100)
-  "msg":"xx",
-  "stage": 0               // (0->uboot, 1->check image, 2->safe, 3->vm, 4->sys, 5->sys check, -1->wait)
-}
-  </pre>
 
+```
+{
+"code": 0|1|2,          //(0-> success,
+                                        2->faild, upgraded nothing, Error
+                                        3->faild, upgraded safe only, Error
+                                        4->faild, upgraded vm only, Error
+                                        5->faild, upgraded sys only, Error
+                                        6->faild, upgraded safe and vm, Error
+                                        7->faild, upgraded safe and sys, Error
+                                        8->faild. 自动下载正在进行
+    9->faild, 数字签名出错
+                                        -1->progress)
+"percent": 10           // number 表示升级进度10% (0-100)
+"msg":"xx",
+"stage": 0               // (0->uboot, 1->check image, 2->safe, 3->vm, 4->sys, 5->sys check, -1->wait)
+}
+```
 
 
 ## 重启
@@ -205,36 +210,45 @@ get  需要auth
 ## 防蹭网
 
 * api/security/get_config
+
 method: get
 return 
+
 {
   “code”: 0,
    “enabled”:true             (type: boolean)        // 防蹭网是否开启
 }
 
 * api/security/set_config
+
 method: post
 post data
+
 {
   “enabled”: true            (type:boolean)   // 是否开启防蹭网
 }
 
 post 需要登录验证：否
+
 * api/security/request_permission         // 请求上网权限
+
 method: post
 post data:
+
 {
   “username”: “aaa”    (type:string)    // 用户名字
 }
+
 post 需要登录验证：否
+
 * api/security/check_permission      // 检查上网权限
 method: get
 
 return : 
+
 {
   “code”: 0,                  （type:number）         // 0 -> 允许上网，1->不允许上网,2->等待主人处理 -1 ->系统内部错误
 }
-
 
 
 ## WAN 口设置
@@ -244,6 +258,7 @@ return :
 * api/wan/get_info
 
  get 需要登录验证：是
+
 <pre>
 {
   "type":"STATIC", // 当前连接方式( DHCP, PPPOE, STATIC, wireless-repeater)
@@ -273,6 +288,7 @@ return :
 * api/wan/get_info/dhcp
 
  get 需要登录验证：是
+
 <pre>
 {
   "dns1":"8.8.8.8",
@@ -287,6 +303,7 @@ return :
 * api/wan/get_info/pppoe
 
  get 需要登录验证：是
+
 <pre>
 {
   "account":"account",  
@@ -311,6 +328,7 @@ return :
 * api/wan/get_info/static
 
  get 需要登录验证：是
+
 <pre>
 {
   "ip":"192.168.1.12",
@@ -328,6 +346,7 @@ return :
 * api/wan/set_config
 
   post 需要登录验证：是
+  
   <pre>
 {
   "type":"STATIC", // 当前连接方式( DHCP, PPPOE, STATIC, wireless-repeater)
@@ -358,6 +377,7 @@ return
 * api/wan/is_internet_available
 
  get : 需要登录验证：是
+
 <pre>
 {
   "code":0                // 取得外网是否正常可用(0->网通， 1->（不通）不能解析域名，２->（不通）不能到达网关， -1->等待)
@@ -370,6 +390,7 @@ return
 * api/wan/get_traffics
 
   get : 需要登录验证：是
+
 <pre>
 {
   "up":number,               // 取得自系统启动以来，上行数据的总量(单位字节）
@@ -396,6 +417,7 @@ return
 * api/wifi/get_config 
 
   get 需要登录验证:是
+  
   <pre>
 {
   "2g": {
@@ -443,7 +465,8 @@ return
 * api/wifi/set_config
   
   post 需要登录验证：否
-<pre>
+
+```
 {
   "2g": {
     "enabled":true,                    (true|false)          // 2.4g开关
@@ -527,34 +550,38 @@ return
  “same_as_2g”: true                                       // 使用与2.4g相同的设置（包含：无线名称，加密方式，加密算法，密码，传输功率，Beacon时槽，APSD，AP隔离，Short GI，多媒体优先WMM，无线广播）
   }
 }
-</pre>
+```
 
 * api/wifi/check_set
+
 gett  需要登录验证：是
 return
+
+```
 {
 “code”: 0,          // (0->设置成功，1-> 正在设置，-1 ->已有全局设置锁)
 “msg”: “xx”
 }
+```
 
 ### 无线网络是否已打开
 
 * api/wifi/is_enabled
 
   get  需要登录验证：是
-  <pre>
+
+```
 {
   "is_enabled":bool,              // 是否已经打开了wifi
 }
-</pre>
-
-
+```
 
 * api/wifi/ssid_get_config  (TODO)
   
   get 需要登录验证：是
   return 
- <pre>
+ 
+```
 [
   {
     "enable": true,                                       // 是否启用
@@ -573,7 +600,7 @@ return
     "double_security": false
   }
 ]
-</pre>
+```
 
 * api/wifi/ssid_set_config   (TODO)
   
