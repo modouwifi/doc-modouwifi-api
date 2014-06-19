@@ -237,10 +237,11 @@ return :
 
 
 
-### WAN 口设置
+## WAN 口设置
 
+### 获取当前 WAN 口设置
 
-* api/wan/get_info  (获取当前wan设置)
+* api/wan/get_info
 
  get 需要登录验证：是
 <pre>
@@ -261,11 +262,15 @@ return :
 }
 </pre>
 
+### 获取客户端 MAC 地址
+
 * /api/wan/clientmacaddr
    获取client macaddr,专门给mac clone feature 使用 
    {"macaddr":"40:6C:8F:2D:6C:3A"}
 
-* api/wan/get_info/dhcp  (获取dhcp设置)
+### 获取dhcp设置
+
+* api/wan/get_info/dhcp
 
  get 需要登录验证：是
 <pre>
@@ -277,7 +282,9 @@ return :
 }
 </pre>
 
-* api/wan/get_info/pppoe  (获取pppoe设置)
+### 获取 PPPoE 设置
+
+* api/wan/get_info/pppoe
 
  get 需要登录验证：是
 <pre>
@@ -299,7 +306,9 @@ return :
 }
 </pre>
 
-* api/wan/get_info/static  (获取static设置)
+### 获取静态 IP 设置
+
+* api/wan/get_info/static
 
  get 需要登录验证：是
 <pre>
@@ -314,9 +323,9 @@ return :
 }
 </pre>
 
+### 设置 WAN 口连接方式
 
-
-* api/wan/set_config  (设置wan口)
+* api/wan/set_config
 
   post 需要登录验证：是
   <pre>
@@ -344,6 +353,8 @@ return
 }
 </pre>
 
+### 检测互联网连通状态
+
 * api/wan/is_internet_available
 
  get : 需要登录验证：是
@@ -353,6 +364,8 @@ return
 
 }
 </pre>
+
+### 获取 WAN 口上下行流量信息
 
 * api/wan/get_traffics
 
@@ -376,9 +389,11 @@ return
 </pre>
 
 
-### wifi
+## WiFi 设置
 
-* api/wifi/get_config 取得当前wifi的配置信息
+### 取得 WiFi 的配置信息
+
+* api/wifi/get_config 
 
   get 需要登录验证:是
   <pre>
@@ -423,7 +438,9 @@ return
 }
 </pre>
 
-* api/wifi/set_config                    // 设置wifi 非阻塞
+### 设置 WiFi（非阻塞）
+
+* api/wifi/set_config
   
   post 需要登录验证：否
 <pre>
@@ -581,7 +598,7 @@ return
 ]
 </pre>
 
-### lan口
+## LAN 口
 
 * api/lan/get_lan_config
 
