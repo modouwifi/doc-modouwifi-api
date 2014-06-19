@@ -3,6 +3,7 @@
 ## 基本说明
 
 - 系统操作处于锁的状态下返回 code=－1
+- 身份鉴权基于 cookies
 - 未登录状态下访问需要 auth 的 API 返回 403 状态码
 - 单位：流量的单位（kbps），磁盘容量单位（MB），时间单位（s）
 - 所有 POST 的请求的返回值的格式都为 JSON
@@ -16,20 +17,23 @@
 }
 ```
 
-### 登录页
+## 登录
 
-* api/auth/login                // (done)
+* /api/auth/login
 
  post 需要登录验证：否
-<pre>
+
+```
 {
   "password":string
 }
-</pre>
+```
 
-### 版本升级
+## 版本升级
 
-* api/system/get_version_info  // 获取当前版本信息
+### 获取当前版本信息
+
+* api/system/get_version_info
   
   get 不需要auth
 
@@ -41,7 +45,10 @@
     }
   </pre>
 
-* api/system/check_remote_version_upgrade // 检查是否有新版本
+
+### 检查是否有新版本
+
+* api/system/check_remote_version_upgrade
   
   get
 
@@ -58,7 +65,9 @@
   </pre>
 
 
-* api/system/download_version_upgrade // download 
+### 下载新固件
+
+* api/system/download_version_upgrade
   get
 
   return
@@ -69,7 +78,9 @@
     }
   </pre>
 
-* api/system/check_download_progress(jsondata) // download progress
+### 查看下载进度
+
+* api/system/check_download_progress(jsondata)
 
   post  jsondata[filename]
   			jsondata[filesize]
@@ -84,7 +95,9 @@
     }
   </pre>
 
-* api/system/cancel_download // cancel downlaod
+### 取消下载
+
+* api/system/cancel_download
 
   get
 
@@ -97,22 +110,10 @@
   </pre>
 
 
-* api/system/check_local_version_upgrade // 检查当前是否有可升级版本(auto)
-  
-  get
+### 进行版本升级
 
-  return
-  <pre>
-    {
-      "code": 0,
-      "msg": "",
-      "version": *****,
-      "releasenote": "release note<br>release note<br>release note<br>release note<br>release note<br>release note"
-    }
-  </pre>
+* api/system/upgrade_version
 
-
-* api/system/upgrade_version // 请求版本升级
   get
 
   return
@@ -123,9 +124,9 @@
     }
   </pre>
 
-
+### 获取当前升级百分比
   
-* api/system/check_upgrade_progress // 获取当前升级百分比
+* api/system/check_upgrade_progress
 
   get
   
@@ -150,9 +151,11 @@
 
 
 
-### 重启
+## 重启
 
-* api/system/reboot // 正常重启
+### 正常重启
+
+* api/system/reboot
 
   get
 
@@ -164,7 +167,9 @@
     }
   </pre>
 
-* api/system/safe_reboot // 重启进安全模式
+### 重启进安全模式
+
+* api/system/safe_reboot
 
   get
 
@@ -177,65 +182,28 @@
   </pre>
 
   
-*api/system/reset_config          // 恢复出厂设置
+### 恢复出厂设置
+
+*api/system/reset_config
 get  需要auth 
 
-api/system/get_reset_factory // 获得出厂设置标志
-{“reset_code”:1, “code”:0} // reset_code: 1 or 0
 
-api/system/set_reset_factory // 这只出厂设置标志
-{“reset_code”:1} // reset_code: 1 or 0
+## 背光控制 
 
-背光控制 
-*api/system/lock_backlight //锁定背光，保持常亮
+### 锁定背光，保持常亮
+
+*api/system/lock_backlight
  
-*api/system/release_backlight  //解锁背光，停止保持
+### 解锁背光，停止保持
 
-*api/system/wakeup_backlight  //唤醒背光
-### 双重安全认证
+*api/system/release_backlight
 
-* api/auth/double_security  
+### 唤醒背光
 
-get
-<pre>
-{“code”: 0, “enabled”: true }
-</pre>
+*api/system/wakeup_backlight
 
-* api/auth/double_security
+## 防蹭网
 
-post
-<pre>
-{ “enabled”: true }
-</pre>
-
-
-
-* api/auth/get_auth_question
-
- get 需要登录验证：是
-<pre>
-{
-   "custom": "这是一个自定义问题",   // 用户自定义问题
-   "question": "当前问题",           // 当前认证问题
-   "lan": true,                      // LAN口双重安全认证是否开启
-   "wifi": true                      // wifi双重安全认证是否开启
-}
-</pre>
-
-* api/auth/set_auth_question
-
- post 需要登录验证：是
-<pre>
-{
-   "custom": "这是一个自定义问题",   // 用户自定义问题
-   "question": "当前问题",           // 当前认证问题
-   "answer": "当前答案",             // 当前问题答案
-   "lan": true,                      // LAN口双重安全认证是否开启
-   "wifi": true                      // wifi双重安全认证是否开启
-}
-</pre>
-
-### 防蹭网
 * api/security/get_config
 method: get
 return 
@@ -269,7 +237,7 @@ return :
 
 
 
-### wan
+### WAN 口设置
 
 
 * api/wan/get_info  (获取当前wan设置)
@@ -893,23 +861,7 @@ return:
   </pre>
 
 
-* api/devices/up_limit(上传限速)
-post
-{
-“mac”:”xxx”,            // mac地址
-“up_limit”:100          // (type:number),0表示不限速，单位：kbps
-}
-
-
-* api/devices/down_limit(下载限速)
-post
-{
-“mac”:”xxx”,            // mac地址
-“down_limit”:100          // (type:number),0表示不限速，单位：kbps
-}
-
-
-专家模式相关接口
+## 极客模式相关接口
 
 /api/system/get_expertMode
 需要验证 ：yes
