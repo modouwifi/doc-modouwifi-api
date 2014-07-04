@@ -33,7 +33,7 @@
 ## 版本升级
 
 ### 获取当前版本信息
-
+**不需要身份验证**
 `GET /api/system/get_version_info`
 
 ```
