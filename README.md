@@ -13,8 +13,8 @@
 
 ```js
 {
-  "code":number,         // 返回代码，0为成功，其他失败
-  "msg":string             // 可能存在的出错消息
+  "code"    : 0,                  // 返回代码，类型为数字，0为成功，其他失败
+  "msg"     : "hello"             // 可能存在的出错消息
 }
 ```
 
@@ -26,7 +26,7 @@
 
 ```js
 {
-  "password":string
+  "password" : "your password"
 }
 ```
 
@@ -40,9 +40,9 @@
 
 ```js
 {
-  "track":    "inter",         // 当前版本线，分内部版、开发版和稳定版
-  "version1": "0.5.27_beta2",  // 当前固件版本
-  "version2": "m101a"          // 当前硬件版本
+  "track"     :    "inter",          // 当前版本线，分内部版、开发版和稳定版
+  "version1"  :    "0.5.27_beta2",   // 当前固件版本
+  "version2"  :    "m101a"           // 当前硬件版本
 }
 ```
 
@@ -52,12 +52,12 @@
 
 ```js
 {
-  "code": 0, // 0->有新版本，3->read json faild, 4->已经是最新版
-  "msg": "",
-  "	": [0-9]*,
-  "filename": ***.bin,
-  "version": ****,
-  "releasenote": "release note"
+  "code"        : 0,      // 0->有新版本，3->read json faild, 4->已经是最新版
+  "msg"         : "",
+  "	"           : [0-9]*,
+  "filename"    : "***.bin",
+  "version"     : "****",
+  "releasenote" : "release note"
 }
 ```
 
@@ -68,8 +68,8 @@
 
 ```js
 {
-  "code": 0,
-  "msg": "",
+  "code"        : 0,
+  "msg"         : "",
 }
 ```
 
@@ -77,16 +77,30 @@
 
 `POST /api/system/check_download_progress`
 
+post data:
 
-  post  jsondata[filename]
-  			jsondata[filesize]
+jsondata[filename]
+jsondata[filesize]
+
+return data:
 
 ```js
 {
-  "code": 0|1|2,        // (0 -> success, 1-> running ,2->没有mount /data, 3->读取latestversion失败 4-> 解析json失败 5->存储空间不足 6-> 下载失败 7->md5校验失败 8->link创建失败 9->自动升级正在下载 10->正在升级中不能下载 11->更名失效)
-  "msg": "",
-  "percent": "xx",
-  "stage": 0        // (0->pre check, 1-> download, 2->post check)
+  "code"      : 0,        // 0 -> success,
+                          // 1-> running,
+                          // 2->没有mount /data,
+                          // 3->读取latestversion失败
+                          // 4-> 解析json失败
+                          // 5->存储空间不足
+                          // 6-> 下载失败
+                          // 7->md5校验失败
+                          // 8->link创建失败
+                          // 9->自动升级正在下载
+                          // 10->正在升级中不能下载
+                          // 11->更名失效
+  "msg"       : "",
+  "percent"   : "xx",
+  "stage"     : 0            // (0->pre check, 1-> download, 2->post check)
 }
 ```
 
@@ -187,7 +201,7 @@
 ```js
 {
   "code":      0,
-  "enabled":   true             (type: boolean)        // 防蹭网是否开启
+  "enabled":   true            // 防蹭网是否开启
 }
 ```
 
@@ -197,7 +211,7 @@
 
 ```js
 {
-  "enabled":   true            (type:boolean)         // 是否开启防蹭网
+  "enabled":   true            // 是否开启防蹭网
 }
 ```
 
@@ -211,7 +225,7 @@ post data:
 
 ```js
 {
-  "username": "aaa"    (type:string)    // 用户名字
+  "username": "aaa"            // 用户名字
 }
 ```
 
@@ -225,7 +239,7 @@ return :
 
 ```js
 {
-  "code": 0,                  （type:number）         // 0 -> 允许上网，1->不允许上网,2->等待主人处理 -1 ->系统内部错误
+  "code": 0,                   // 0 -> 允许上网，1->不允许上网,2->等待主人处理 -1 ->系统内部错误
 }
 ```
 
@@ -237,19 +251,19 @@ return :
 
 ```js
 {
-  "type":"STATIC", // 当前连接方式( DHCP, PPPOE, STATIC, wireless-repeater)
-  "ip":"192.168.1.12",
-  "mask":"182.168.1.1",
-  "gateway":"255.255.255.0",
-  "dns1":"8.8.8.8",
-  "dns2":"8.8.4.4",
-  "mtu":2,
-  "stp": true,
-  "account":"account",    // 如果当前是PPPOE
-  "password":"password",   // 如果当前是PPPOE
- "macCloneEnabled":true, //是否开启Macclone
- "macCloneMac":"40:6c:8f:2d:6c:3b" ,//MAC CLONE mac
-"uptime":"22486" 路由器运行时间
+  "type"              : "STATIC",              // 当前连接方式( DHCP, PPPOE, STATIC, wireless-repeater)
+  "ip"                : "192.168.1.12",
+  "mask"              : "182.168.1.1",
+  "gateway"           : "255.255.255.0",
+  "dns1"              : "8.8.8.8",
+  "dns2"              : "8.8.4.4",
+  "mtu"               : 2,
+  "stp"               : true,
+  "account"           : "account",             // 如果当前是PPPOE
+  "password"          : "password",            // 如果当前是PPPOE
+  "macCloneEnabled"   : true,                  // 是否开启Macclone
+  "macCloneMac"       : "40:6c:8f:2d:6c:3b",   // MAC CLONE mac
+  "uptime"            : "22486"                // 路由器运行时间
 }
 ```
 
@@ -259,7 +273,7 @@ return :
 
 ```js
 {
-  "macaddr":"40:6C:8F:2D:6C:3A"
+  "macaddr"   : "40:6C:8F:2D:6C:3A"
 }
 ```
 
@@ -269,10 +283,10 @@ return :
 
 ```js
 {
-  "dns1":"8.8.8.8",
-  "dns2":"8.8.4.4",
-  "mtu":2,
-  "stp": true
+  "dns1"    : "8.8.8.8",
+  "dns2"    : "8.8.4.4",
+  "mtu"     : 2,
+  "stp"     : true
 }
 ```
 
@@ -282,20 +296,20 @@ return :
 
 ```js
 {
-  "account":"account",
-  "password":"password",
-  "pppoe_method": "KeepAlive" // 连接模式(KeepAlive, OnDemand, Manual)
-  "pedial_period": 60         // 连接断开xx秒后尝试重拨,单位(秒) 当前KeepAlive
-  "idle_time": 5              // 无流量时xx分钟后断开,单位(分) 当前OnDemand
-  "status": -1/0/1/2/3/4/5/6/7// -1: PPPoE暂时无状态；
-                              // 0: 连接已成功；
-                              // 1: 用户名／密码错误；
-                              // 2: 连接已断开;
-                              // 3: 不允许本帐户在此时间登录;
-                              // 4: 帐户已禁用;
-                              // 5: 密码已过期;
-                              // 6: 帐户没有远程访问权限;
-                              // 7: 未知错误.
+  "account"         : "account",
+  "password"        : "password",
+  "pppoe_method"    : "KeepAlive",    // 连接模式(KeepAlive, OnDemand, Manual)
+  "pedial_period"   : 60,             // 连接断开xx秒后尝试重拨,单位(秒) 当前KeepAlive
+  "idle_time"       : 5,              // 无流量时xx分钟后断开,单位(分) 当前OnDemand
+  "status"          : 0               // -1: PPPoE暂时无状态；
+                                      // 0: 连接已成功；
+                                      // 1: 用户名／密码错误；
+                                      // 2: 连接已断开;
+                                      // 3: 不允许本帐户在此时间登录;
+                                      // 4: 帐户已禁用;
+                                      // 5: 密码已过期;
+                                      // 6: 帐户没有远程访问权限;
+                                      // 7: 未知错误.
 }
 ```
 
