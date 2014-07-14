@@ -110,8 +110,8 @@ return data:
 
 ```js
 {
-  "code": 0|1,
-  "msg": ""
+  "code"        : 0|1,
+  "msg"         : ""
 }
 ```
 
@@ -121,8 +121,8 @@ return data:
 
 ```js
 {
-  "code": 0,  // 0|1(0,成功；１,失败)
-  "msg": "" //
+  "code"        : 0,  // 0|1(0,成功；１,失败)
+  "msg"         : "" //
 }
 ```
 
@@ -158,8 +158,8 @@ return data:
 
 ```js
 {
-  "code": 0,
-  "msg": ""
+  "code"          : 0,
+  "msg"           : ""
 }
 ```
 
@@ -169,8 +169,8 @@ return data:
 
 ```js
 {
-  "code": 0,
-  "msg": ""
+  "code"          : 0,
+  "msg"           : ""
 }
 ```
 
@@ -200,8 +200,8 @@ return data:
 
 ```js
 {
-  "code":      0,
-  "enabled":   true            // 防蹭网是否开启
+  "code"        : 0,
+  "enabled"     : true            // 防蹭网是否开启
 }
 ```
 
@@ -211,7 +211,7 @@ return data:
 
 ```js
 {
-  "enabled":   true            // 是否开启防蹭网
+  "enabled"     : true            // 是否开启防蹭网
 }
 ```
 
@@ -225,7 +225,7 @@ post data:
 
 ```js
 {
-  "username": "aaa"            // 用户名字
+  "username"    : "aaa"            // 用户名字
 }
 ```
 
@@ -239,7 +239,7 @@ return :
 
 ```js
 {
-  "code": 0,                   // 0 -> 允许上网，1->不允许上网,2->等待主人处理 -1 ->系统内部错误
+  "code"        : 0,                   // 0 -> 允许上网，1->不允许上网,2->等待主人处理 -1 ->系统内部错误
 }
 ```
 
@@ -319,13 +319,13 @@ return :
 
 ```js
 {
-  "ip":"192.168.1.12",
-  "mask":"182.168.1.1",
-  "gateway":"255.255.255.0",
-  "dns1":"8.8.8.8",
-  "dns2":"8.8.4.4",
-  "mtu":2,
-  "stp": true
+  "ip"              : "192.168.1.12",
+  "mask"            : "182.168.1.1",
+  "gateway"         : "255.255.255.0",
+  "dns1"            : "8.8.8.8",
+  "dns2"            : "8.8.4.4",
+  "mtu"             : 2,
+  "stp"             : true
 }
 ```
 
@@ -337,21 +337,21 @@ post data:
 
 ```js
 {
-  "type":"STATIC", // 当前连接方式( DHCP, PPPOE, STATIC, wireless-repeater)
-  "ip":"192.168.1.12",
-  "mask":"255.255.255.0",
-  "gateway":"192.168.1.1",
-  "dns1":"8.8.8.8",
-  "dns2":"8.8.4.4",
-  "mtu":2,
-  "stp": true,
-  "account":"account",    // 如果当前是PPPOE
-  "password":"password"   // 如果当前是PPPOE
-  "pppoe_method": "KeepAlive" // 连接模式(KeepAlive, OnDemand, Manual)
-  "pedial_period": 60         // 连接断开xx秒后尝试重拨,单位(秒) 当前KeepAlive
-  "idle_time": 5              // 无流量时xx分钟后断开,单位(分) 当前OnDemand
-  "macCloneEnabled":true, //是否开启Macclone
-  "macCloneMac":"40:6c:8f:2d:6c:3b" //MAC CLONE mac
+  "type"                  : "STATIC",             // 当前连接方式( DHCP, PPPOE, STATIC, wireless-repeater)
+  "ip"                    : "192.168.1.12",
+  "mask"                  : "255.255.255.0",
+  "gateway"               : "192.168.1.1",
+  "dns1"                  : "8.8.8.8",
+  "dns2"                  : "8.8.4.4",
+  "mtu"                   : 2,
+  "stp"                   : true,
+  "account"               : "account",            // 如果当前是PPPOE
+  "password"              : "password",           // 如果当前是PPPOE
+  "pppoe_method"          : "KeepAlive",          // 连接模式(KeepAlive, OnDemand, Manual)
+  "pedial_period"         : 60,                   // 连接断开xx秒后尝试重拨,单位(秒) 当前KeepAlive
+  "idle_time"             : 5,                    // 无流量时xx分钟后断开,单位(分) 当前OnDemand
+  "macCloneEnabled"       : true,                 // 是否开启 Macclone
+  "macCloneMac"           : "40:6c:8f:2d:6c:3b"   // MAC CLONE mac
 }
 ```
 
@@ -370,7 +370,7 @@ return data:
 
 ```js
 {
-  "code":0              // 取得外网是否正常可用(0->网通， 1->（不通）不能解析域名，２->（不通）不能到达网关， -1->等待)
+  "code"    : 0    // 取得外网是否正常可用(0->网通， 1->（不通）不能解析域名，２->（不通）不能到达网关， -1->等待)
 }
 ```
 
@@ -380,18 +380,17 @@ return data:
 
 ```js
 {
-  "up":number,               // 取得自系统启动以来，上行数据的总量(单位字节）
-  "up_str":"number",             // up 值的字符串形式 例如: "12345678"
-  "down":number              // 取得自系统启动依赖，下行数据的总量（单位字节）
-  "down_str":"number"              //  down 值的字符串形式 例如: "12345678"
-  "code":0, 成功
-  "tx_rate":0, 发丢包率
-  "rx_dropped":0, 收丢包
-
-  "rx_packets":270649, 收包
-  "tx_packets":282499, 发包
-  "rx_rate":0, 收丢包率
-  "tx_dropped":0 发丢包
+  "up"          : number,               // 取得自系统启动以来，上行数据的总量(单位字节）
+  "up_str"      : "number",             // up 值的字符串形式 例如: "12345678"
+  "down"        : number                // 取得自系统启动依赖，下行数据的总量（单位字节）
+  "down_str"    : "number"              // down 值的字符串形式 例如: "12345678"
+  "code"        : 0,                    // 成功
+  "tx_rate"     : 0,                    // 发丢包率
+  "rx_dropped"  : 0,                    // 收丢包
+  "rx_packets"  : 270649,               // 收包
+  "tx_packets"  : 282499,               // 发包
+  "rx_rate"     : 0,                    // 收丢包率
+  "tx_dropped"  : 0                     // 发丢包
 }
 ```
 
@@ -403,43 +402,48 @@ return data:
 
 ```js
 {
-  "2g": {
-    "enabled":true,                                     // 2.4g开关    RadioOff
-    "ssid": "ssid1",                                    // 名称 SSID1(长度1-32字符)
-    “broadcastssid”:true,                                    // 是否广播SSID
-    "security_mode": "WPAPSKWPA2PSK"      // Security Mode
-     "encrypt": "TKIP",                          // WPA Algorithms(TKIP,AES ,TKIPAES)  EncrypType
-    "password": "123456kskdajksdasdasdasdasdasdasda",   // 密码   AuthMode（长度8-64字符）
-    "power": 20,                                        // 无线信号功率	TXPower
-    "channel": 6,                                       // 信道                         Channel
-    "net_type": 9,       (0,1,4,6,9,)                          // 网络模式              WirelessMode
-    "band_width_mode":1,           (0|1)// 频道带宽         HT_BW
-    "mac":"28-2c-b2-97-82-39",                          // mac地址        命令行ifconfig
-    "beacon": 40,                    (20~1024)                    // Beacon时槽       BeaconPeriod
-    "apsd_enabled": true,                                       // APSD开关	      APSDCapable
-    "ap_enabled":true,                                          // AP隔离开关	      NoForwarding
-    "shortgi_enabled": true,                                    // short GI开关    HT_GI
-    "wmm_enabled": true                                         // 多媒体优先WMM开关            WmmCapable
-  },
-  "5g": {
-    "enabled":true,                                     // 5g开关
-    "ssid": "ssid1",                                    // 名称
-    “broadcastssid”:true,                                    // 是否广播SSID
-    "security_mode": "WPAPSKWPA2PSK"                    // Security Mode
-     "encrypt": "TKIP",                                 // WPA Algorithms(TKIP,AES ,TKIPAES)					EncrypType
-    "password": "123456kskdajksdasdasdasdasdasdasda",   // 密码
-    "power": 20,                                        // 无线信号功率
-    "channel": 14,                                      // 信道
-    "net_type": 14           (2,8,14,15)                     // 网络模式
-    "band_width_mode":1       (0|1)            // 频道带宽
-    "mac":"28-2c-b2-97-82-39",                          // mac地址
-    "beacon": 40,                                       // Beacon时槽
-    "apsd_enabled": true,                                       // APSD开关
-    "ap_enabled":true,                                          // AP隔离开关
-    "shortgi_enabled": true,                                    // short GI开关
-    "wmm_enabled": true                                         // 多媒体优先WMM开关
-    “same_as_2g”: true                                       // 使用与2.4g相同的设置（包含：无线名称，加密方式，加密算法，密码，传输功率，Beacon时槽，APSD，AP隔离，Short GI，多媒体优先WMM，无线广播）
-  }
+  "2g": 
+    {
+      "enabled"           : true,                   // 2.4g开关    RadioOff
+      "ssid"              : "ssid1",                // 名称 SSID1(长度1-32字符)
+      "broadcastssid"     : true,                   // 是否广播SSID
+      "security_mode"     : "WPAPSKWPA2PSK",        // Security Mode
+      "encrypt"           : "TKIP",                 // WPA Algorithms(TKIP,AES ,TKIPAES)  EncrypType
+      "password"          : "12345678",             // 密码 AuthMode（长度8-64字符）
+      "power"             : 20,                     // 无线信号功率	TXPower
+      "channel"           : 6,                      // 信道 Channel
+      "net_type"          : 9,                      // 网络模式 WirelessMode (0,1,4,6,9,)
+      "band_width_mode"   : 1,                      // 频道带宽 HT_BW (0|1)
+      "mac"               : "28-2c-b2-97-82-39",    // mac地址 命令行ifconfig
+      "beacon"            : 40,                     // Beacon时槽 BeaconPeriod (20~1024)
+      "apsd_enabled"      : true,                   // APSD开关 APSDCapable
+      "ap_enabled"        : true,                   // AP隔离开关 NoForwarding
+      "shortgi_enabled"   : true,                   // short GI开关 HT_GI
+      "wmm_enabled"       : true                    // 多媒体优先WMM开关 WmmCapable
+    },
+  "5g": 
+    {
+      "enabled"           : true,                   // 5g开关
+      "ssid"              : "ssid1",                // 名称
+      "broadcastssid"     : true,                   // 是否广播SSID
+      "security_mode"     : "WPAPSKWPA2PSK"         // Security Mode
+      "encrypt"           : "TKIP",                 // WPA Algorithms(TKIP,AES ,TKIPAES) EncrypType
+      "password"          : "12345678",             // 密码
+      "power"             : 20,                     // 无线信号功率
+      "channel"           : 14,                     // 信道
+      "net_type"          : 14,                     // 网络模式 (2,8,14,15)
+      "band_width_mode"   : 1,                      // 频道带宽 (0|1)
+      "mac"               : "28-2c-b2-97-82-39",    // MAC 地址
+      "beacon"            : 40,                     // Beacon 时槽
+      "apsd_enabled"      : true,                   // APSD 开关
+      "ap_enabled"        : true,                   // AP隔离开关
+      "shortgi_enabled"   : true,                   // short GI 开关
+      "wmm_enabled"       : true,                   // 多媒体优先WMM开关
+      "same_as_2g"        : true                    // 使用与2.4g相同的设置
+                                                    //（包含：无线名称，加密方式，加密算法，密码，传输功率，
+                                                    // Beacon时槽，APSD，AP隔离，Short GI
+                                                    // 多媒体优先WMM，无线广播）
+    }
 }
 ```
 
@@ -449,87 +453,93 @@ return data:
 
 ```js
 {
-  "2g": {
-    "enabled":true,                    (true|false)          // 2.4g开关
-    "ssid": "ssid1",                    (any string)        // 名称(长度1-32字符)
-    “broadcastssid”:true,                                    // 是否广播SSID
-    "security_mode": "Disable" (Disable,WPAPSK,WPA2PSK,WPAPSKWPA2PSK) //Security Mode
-     "encrypt": "TKIP",   (NONE<>Disable,   TKIP<>WPA(2)PSK,    AES<>WPA(2)PSK ,   TKIPAES<>WPA(2)PSK  )  // WPA Algorithms EncrypType
-    "password": "123456kskdajksdasdasdasdasdasdasda",  (any string)   // 密码(长度8-64字符)
-    "power": 20,           (100,90,60,30,15,0)            // 无线信号功率
-   "channel": 0,           (0)            // 哪个信道
-      //
-                {'name': '自动选择', 'value': 0},
-    {'name': '2412MHz (Channel 1)', 'value': 1},
-    {'name': '2417MHz (Channel 2)', 'value': 2},
-    {'name': '2422MHz (Channel 3)', 'value': 3},
-    {'name': '2427MHz (Channel 4)', 'value': 4},
-    {'name': '2432MHz (Channel 5)', 'value': 5},
-    {'name': '2437MHz (Channel 6)', 'value': 6},
-    {'name': '2442MHz (Channel 7)', 'value': 7},
-    {'name': '2447MHz (Channel 8)', 'value': 8},
-    {'name': '2452MHz (Channel 9)', 'value': 9},
-    {'name': '2457MHz (Channel 10)', 'value': 10},
-    {'name': '2462MHz (Channel 11)', 'value': 11},
-    {'name': '2467MHz (Channel 12)', 'value': 12},
-    {'name': '2472MHz (Channel 13)', 'value': 13}
+  "2g": 
+    {
+      "enabled"           : true,         // 2.4g开关 (true|false) 
+      "ssid"              : "ssid1",      // 名称(长度1-32字符) (any string)
+      "broadcastssid"     : true,         // 是否广播SSID
+      "security_mode"     : "Disable",    // Security Mode (Disable,WPAPSK,WPA2PSK,WPAPSKWPA2PSK)
+      "encrypt"           : "TKIP",       // WPA Algorithms EncrypType
+                                          // (NONE<>Disable,   TKIP<>WPA(2)PSK,   
+                                          // AES<>WPA(2)PSK ,   TKIPAES<>WPA(2)PSK)
+      "password"          : "12345678",   // 密码(长度8-64字符) (any string)
+      "power"             : 20,           // 无线信号功率 (100,90,60,30,15,0)
+      "channel"           : 0,            // 哪个信道 (0)
+                                          // {'name': '自动选择', 'value': 0},
+                                          // {'name': '2412MHz (Channel 1)', 'value': 1},
+                                          // {'name': '2417MHz (Channel 2)', 'value': 2},
+                                          // {'name': '2422MHz (Channel 3)', 'value': 3},
+                                          // {'name': '2427MHz (Channel 4)', 'value': 4},
+                                          // {'name': '2432MHz (Channel 5)', 'value': 5},
+                                          // {'name': '2437MHz (Channel 6)', 'value': 6},
+                                          // {'name': '2442MHz (Channel 7)', 'value': 7},
+                                          // {'name': '2447MHz (Channel 8)', 'value': 8},
+                                          // {'name': '2452MHz (Channel 9)', 'value': 9},
+                                          // {'name': '2457MHz (Channel 10)', 'value': 10},
+                                          // {'name': '2462MHz (Channel 11)', 'value': 11},
+                                          // {'name': '2467MHz (Channel 12)', 'value': 12},
+                                          // {'name': '2472MHz (Channel 13)', 'value': 13}
 
-  "net_type": 9,        (0,1,4,6,9,)                     // 网络模式
-2G: 9
-0: legacy 11b/g mixed
-1: legacy 11B only
-4: legacy 11G only
-6: 11N only
-9: 11BGN mixed
+      "net_type"          : 9,            // 网络模式 (0,1,4,6,9,)
+                                          // 2G: 9
+                                          // 0: legacy 11b/g mixed
+                                          // 1: legacy 11B only
+                                          // 4: legacy 11G only
+                                          // 6: 11N only
+                                          // 9: 11BGN mixed
 
-    "band_width_mode":1,      (0|1|2)                 // 频道带宽(20Mhz->0, 20Mhz/40Mhz->1,强制40Mhz->2)
-    "beacon": 40,                       (20~1024)        // Beacon时槽
-    "apsd_enabled": true,                         (true|flase)      // APSD开关
-    "ap_enabled":true,                              (true|flase)     // AP隔离开关
-    "shortgi_enabled": true,                       (true|flase)      // short GI开关
-    "wmm_enabled": true                          (true|flase)        // 多媒体优先WMM开关
-  },
-  "5g": {
-    "enabled":true,                              // 5g开关
-    "ssid": "ssid1",                              // 名称(长度1-32字符)
-    “broadcastssid”:true,                    // 是否广播SSID
-    "security_mode": "Disable"    // Security Mode(Disable,WPAPSK,WPA2PSK,WPAPSKWPA2PSK)
-     "encrypt": "TKIP",    (NONE<>Disable,   TKIP<>WPA(2)PSK,    AES<>WPA(2)PSK ,   TKIPAES<>WPA(2)PSK  )   // WPA Algorithms(TKIP,AES ,TKIPAES)
-    "password": "123456kskdajksdasdasdasdasdasdasda",    // 密码(长度8-64字符)
-    "power": 20,      (100,90,60,30,15,0)        // 无线信号功率
-    "channel": 0,                          // 哪个信道
- //
-      {'name': '自动选择', 'value': 0},
-    {'name': '5180MHz (Channel 36)', 'value': 36},
-    {'name': '5200MHz (Channel 40)', 'value': 40},
-    {'name': '5220MHz (Channel 44)', 'value': 44},
-    {'name': '5240MHz (Channel 48)', 'value': 48},
-    {'name': '5260MHz (Channel 52)', 'value': 52},
-    {'name': '5280MHz (Channel 56)', 'value': 56},
-    {'name': '5300MHz (Channel 60)', 'value': 60},
-    {'name': '5320MHz (Channel 64)', 'value': 64},
-    {'name': '5745MHz (Channel 149)', 'value': 149},
-    {'name': '5765MHz (Channel 153)', 'value': 153},
-    {'name': '5785MHz (Channel 157)', 'value': 157},
-    {'name': '5805MHz (Channel 161)', 'value': 161},
-    {'name': '5825MHz (Channel 165)', 'value': 165}
+      "band_width_mode"   : 1,            // 频道带宽(20Mhz->0, 20Mhz/40Mhz->1,强制40Mhz->2)
+      "beacon"            : 40,           // Beacon时槽 (20~1024)
+      "apsd_enabled"      : true,         // APSD开关 (true|false)
+      "ap_enabled"        : true,         // AP隔离开关 (true|false)
+      "shortgi_enabled"   : true,         // short GI开关 (true|false)
+      "wmm_enabled"       : true          // 多媒体优先WMM开关 (true|fales)
+    },
+  "5g": 
+    {
+      "enabled"           : true,         // 5g开关
+      "ssid"              : "ssid1",      // 名称(长度1-32字符)
+      "broadcastssid"     : true,         // 是否广播SSID
+      "security_mode"     : "Disable",    // Security Mode(Disable,WPAPSK,WPA2PSK,WPAPSKWPA2PSK)
+      "encrypt"           : "TKIP",       // WPA Algorithms(TKIP,AES ,TKIPAES)
+                                          // (NONE<>Disable, TKIP<>WPA(2)PSK,
+                                          // AES<>WPA(2)PSK, TKIPAES<>WPA(2)PSK)
+      "password"          : "12345678",   // 密码(长度8-64字符)
+      "power"             : 20,           // 无线信号功率 (100,90,60,30,15,0)
+      "channel"           : 0,            // 哪个信道
+                                          // {'name': '自动选择', 'value': 0},
+                                          // {'name': '5180MHz (Channel 36)', 'value': 36},
+                                          // {'name': '5200MHz (Channel 40)', 'value': 40},
+                                          // {'name': '5220MHz (Channel 44)', 'value': 44},
+                                          // {'name': '5240MHz (Channel 48)', 'value': 48},
+                                          // {'name': '5260MHz (Channel 52)', 'value': 52},
+                                          // {'name': '5280MHz (Channel 56)', 'value': 56},
+                                          // {'name': '5300MHz (Channel 60)', 'value': 60},
+                                          // {'name': '5320MHz (Channel 64)', 'value': 64},
+                                          // {'name': '5745MHz (Channel 149)', 'value': 149},
+                                          // {'name': '5765MHz (Channel 153)', 'value': 153},
+                                          // {'name': '5785MHz (Channel 157)', 'value': 157},
+                                          // {'name': '5805MHz (Channel 161)', 'value': 161},
+                                          // {'name': '5825MHz (Channel 165)', 'value': 165}
 
 
-    "net_type": 14,                (2,8,14,15)         // 网络模式
-5G 14
-2: legacy 11A only
-8: 11AN mixed
-14: 11A/AN/AC mixed 5G band only
-15: 11 AN/AC mixed 5G band only
+      "net_type"          : 14,           // 网络模式 (2,8,14,15)
+                                          // 5G 14
+                                          // 2: legacy 11A only
+                                          // 8: 11AN mixed
+                                          // 14: 11A/AN/AC mixed 5G band only
+                                          // 15: 11 AN/AC mixed 5G band only
 
-    "band_width_mode":1       (0|1) ,                   // 频道带宽
-    "beacon": 40,                               // Beacon时槽
-    "apsd_enabled": true,                               // APSD开关
-    "ap_enabled":true,                                  // AP隔离开关
-    "shortgi_enabled": true,                            // short GI开关
-    "wmm_enabled": true                                 // 多媒体优先WMM开关
- “same_as_2g”: true                                       // 使用与2.4g相同的设置（包含：无线名称，加密方式，加密算法，密码，传输功率，Beacon时槽，APSD，AP隔离，Short GI，多媒体优先WMM，无线广播）
-  }
+      "band_width_mode"   : 1,            // 频道带宽 (0|1)
+      "beacon"            : 40,           // Beacon时槽
+      "apsd_enabled"      : true,         // APSD开关
+      "ap_enabled"        : true,         // AP隔离开关
+      "shortgi_enabled"   : true,         // short GI开关
+      "wmm_enabled"       : true,         // 多媒体优先WMM开关
+      "same_as_2g"        : true          // 使用与2.4g相同的设置（包含：无线名称，加密方式，
+                                          // 加密算法，密码，传输功率，Beacon时槽，APSD，AP隔离，
+                                          // Short GI，多媒体优先WMM，无线广播）
+    }
 }
 ```
 
@@ -537,8 +547,8 @@ return data:
 
 ```js
 {
-“code”: 0,          // (0->设置成功，1-> 正在设置，-1 ->已有全局设置锁)
-“msg”: “xx”
+  "code"                  : 0,            // (0->设置成功，1-> 正在设置，-1 ->已有全局设置锁)
+  "msg"                   : "xx"
 }
 ```
 
@@ -548,7 +558,7 @@ return data:
 
 ```js
 {
-  "is_enabled":bool,              // 是否已经打开了wifi
+  "is_enabled"            : bool,         // 是否已经打开了wifi
 }
 ```
 
@@ -560,19 +570,19 @@ return data:
 
 ```js
 {
-  "ip": "192.168.1.2",                        // ip
-  "net_mask": "255.255.255.0",                // 子网掩码
-  "dhcp_enabled": true,                       // dhcp开关
-  "ipaddr_start": "4.4.4.4",                  // IP地址开始段
-  "ipaddr_end": "4.4.4.4",                    // IP地址结束段
-  "gateway": "192.168.1.0",                   // 网关
-  "dhcp_net_mask": "255.255.255.0",           // dhcp子网掩码
-  "dns1Method": "手动",                       // dns1设置方式（手动，自动）
-  "dns2Method": "自动",                        // dns2设置方式（手动，自动）
-  "dns1": "8.8.8.8",                          // 首选dns
-  "dns2": "",                                 // 备用dns
-  "time": 381,                                // 地址租期
-  "mac":"28-2c-b2-97-82-39"                   // mac地址
+  "ip"                    : "192.168.1.2",                  // ip
+  "net_mask"              : "255.255.255.0",                // 子网掩码
+  "dhcp_enabled"          : true,                           // dhcp开关
+  "ipaddr_start"          : "4.4.4.4",                      // IP地址开始段
+  "ipaddr_end"            : "4.4.4.4",                      // IP地址结束段
+  "gateway"               : "192.168.1.0",                  // 网关
+  "dhcp_net_mask"         : "255.255.255.0",                // dhcp子网掩码
+  "dns1Method"            : "手动",                          // dns1设置方式（手动，自动）
+  "dns2Method"            : "自动",                          // dns2设置方式（手动，自动）
+  "dns1"                  : "8.8.8.8",                      // 首选dns
+  "dns2"                  : "",                             // 备用dns
+  "time"                  : 381,                            // 地址租期
+  "mac"                   : "28-2c-b2-97-82-39"             // mac地址
 }
 ```
 
@@ -582,19 +592,19 @@ return data:
 
 ```js
 {
-  "ip": "192.168.1.2",                        // ip
-  "net_mask": "255.255.255.0",                // 子网掩码
-  "dhcp_enabled": true,                       // dhcp开关
-  "ipaddr_start": "4.4.4.4",                  // IP地址开始段
-  "ipaddr_end": "4.4.4.4",                    // IP地址结束段
-  "gateway": "192.168.1.0",                   // 网关
-  "dhcp_net_mask": "255.255.255.0",           // dhcp子网掩码
-  "dns1Method": "手动",                       // dns1设置方式（手动，自动）
-  "dns2Method": "自动",                       // dns2设置方式（手动，自动）
-  "dns1": "8.8.8.8",                          // 首选dns
-  "dns2": "",                                 // 备用dns
-  "time": 381,                                // 地址租期
-  "mac":"28-2c-b2-97-82-39"                   // mac地址
+  "ip"                    : "192.168.1.2",                  // ip
+  "net_mask"              : "255.255.255.0",                // 子网掩码
+  "dhcp_enabled"          : true,                           // dhcp开关
+  "ipaddr_start"          : "4.4.4.4",                      // IP地址开始段
+  "ipaddr_end"            : "4.4.4.4",                      // IP地址结束段
+  "gateway"               : "192.168.1.0",                  // 网关
+  "dhcp_net_mask"         : "255.255.255.0",                // dhcp子网掩码
+  "dns1Method"            : "手动",                          // dns1设置方式（手动，自动）
+  "dns2Method"            : "自动",                          // dns2设置方式（手动，自动）
+  "dns1"                  : "8.8.8.8",                      // 首选dns
+  "dns2"                  : "",                             // 备用dns
+  "time"                  : 381,                            // 地址租期
+  "mac"                   : "28-2c-b2-97-82-39"             // mac地址
 }
 ```
 
@@ -602,8 +612,8 @@ return data:
 
 ```js
 {
-“code”: 0,          // (0->设置成功，1-> 正在设置，2-> 设置失败)
-“msg”: “xx”
+  "code"                  : 0,          // (0->设置成功，1-> 正在设置，2-> 设置失败)
+  "msg"                   : "xx"
 }
 ```
 
@@ -613,10 +623,10 @@ return data:
 
 ```js
 {
-  "wan":true   // wan口是否有物理连接
-  "lan1":true   // wan口是否有物理连接
-  “lan2":true   // wan口是否有物理连接
-  “usb”:true   // usb是否有连接
+  "wan"                   : true,             // wan口是否有物理连接
+  "lan1"                  : true,             // wan口是否有物理连接
+  "lan2"                  : true,             // wan口是否有物理连接
+  "usb"                   : true              // usb是否有连接
 }
 ```
 
@@ -626,8 +636,8 @@ return data:
 
 ```js
 {
-  “time”: 2361632818231,       //路由器时间（单位秒）
-  “time_type”: 0|1   (type:number)                 //时间格式，0->12小时制式,1->24小时制式
+  "time"                  : 2361632818231,    // 路由器时间（单位秒）
+  "time_type"             : 0|1               // 时间格式，0->12小时制式,1->24小时制式 (type:number)
 }
 ```
 
@@ -639,7 +649,7 @@ post data:
 
 ```js
 {
- “time_type”: 0|1   (type:number)                 //时间格式，0->12小时制式,1->24小时制式
+  "time_type"             : 0|1               // 时间格式，0->12小时制式,1->24小时制式 (type:number)
 }
 ```
 
