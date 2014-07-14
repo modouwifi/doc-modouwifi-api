@@ -11,7 +11,7 @@
 
 基础返回格式：
 
-```
+```js
 {
   "code":number,         // 返回代码，0为成功，其他失败
   "msg":string             // 可能存在的出错消息
@@ -24,7 +24,7 @@
 
 `POST /api/auth/login`
 
-```
+```js
 {
   "password":string
 }
@@ -38,7 +38,7 @@
 
 `GET /api/system/get_version_info`
 
-```
+```js
 {
   "track":    "inter",         // 当前版本线，分内部版、开发版和稳定版
   "version1": "0.5.27_beta2",  // 当前固件版本
@@ -50,13 +50,13 @@
 
 `GET /api/system/check_remote_version_upgrade`
 
-```
+```js
 {
   "code": 0, // 0->有新版本，3->read json faild, 4->已经是最新版
   "msg": "",
   "	": [0-9]*,
   "filename": ***.bin,
-  "version": ****, 
+  "version": ****,
   "releasenote": "release note"
 }
 ```
@@ -66,7 +66,7 @@
 
 `GET /api/system/download_version_upgrade`
 
-```
+```js
 {
   "code": 0,
   "msg": "",
@@ -81,7 +81,7 @@
   post  jsondata[filename]
   			jsondata[filesize]
 
-```
+```js
 {
   "code": 0|1|2,        // (0 -> success, 1-> running ,2->没有mount /data, 3->读取latestversion失败 4-> 解析json失败 5->存储空间不足 6-> 下载失败 7->md5校验失败 8->link创建失败 9->自动升级正在下载 10->正在升级中不能下载 11->更名失效)
   "msg": "",
@@ -94,7 +94,7 @@
 
 `GET /api/system/cancel_download`
 
-```
+```js
 {
   "code": 0|1,
   "msg": ""
@@ -105,32 +105,33 @@
 
 `GET /api/system/upgrade_version`
 
-```
+```js
 {
   "code": 0,  // 0|1(0,成功；１,失败)
-  "msg": "" // 
+  "msg": "" //
 }
 ```
 
 ### 获取当前升级百分比
-  
+
 `GET /api/system/check_upgrade_progress`
 
-```
+```js
 {
-"code": 0|1|2,          //(0-> success,
-                                        2->faild, upgraded nothing, Error
-                                        3->faild, upgraded safe only, Error
-                                        4->faild, upgraded vm only, Error
-                                        5->faild, upgraded sys only, Error
-                                        6->faild, upgraded safe and vm, Error
-                                        7->faild, upgraded safe and sys, Error
-                                        8->faild. 自动下载正在进行
-    9->faild, 数字签名出错
-                                        -1->progress)
-"percent": 10           // number 表示升级进度10% (0-100)
-"msg":"xx",
-"stage": 0               // (0->uboot, 1->check image, 2->safe, 3->vm, 4->sys, 5->sys check, -1->wait)
+  "code"     : 0|1|2,       //              0-> success,
+                            //              2->faild, upgraded nothing, Error
+                            //              3->faild, upgraded safe only, Error
+                            //              4->faild, upgraded vm only, Error
+                            //              5->faild, upgraded sys only, Error
+                            //              6->faild, upgraded safe and vm, Error
+                            //              7->faild, upgraded safe and sys, Error
+                            //              8->faild. 自动下载正在进行
+                            //              9->faild, 数字签名出错
+                            //              -1->progress
+
+  "percent"  : 10           // number 表示升级进度10% (0-100)
+  "msg"      : "xx",
+  "stage"    : 0            // (0->uboot, 1->check image, 2->safe, 3->vm, 4->sys, 5->sys check, -1->wait)
 }
 ```
 
@@ -141,7 +142,7 @@
 
 `GET /api/system/reboot`
 
-```
+```js
 {
   "code": 0,
   "msg": ""
@@ -152,7 +153,7 @@
 
 `GET /api/system/safe_reboot`
 
-```
+```js
 {
   "code": 0,
   "msg": ""
@@ -163,12 +164,12 @@
 
 `GET /api/system/reset_config`
 
-## 背光控制 
+## 背光控制
 
 ### 锁定背光，保持常亮
 
 `GET /api/system/lock_backlight`
- 
+
 ### 解锁背光，停止保持
 
 `GET /api/system/release_backlight`
@@ -183,10 +184,10 @@
 
 `GET /api/security/get_config`
 
-```
+```js
 {
-  “code”: 0,
-   “enabled”:true             (type: boolean)        // 防蹭网是否开启
+  "code":      0,
+  "enabled":   true             (type: boolean)        // 防蹭网是否开启
 }
 ```
 
@@ -194,9 +195,9 @@
 
 `POST /api/security/set_config`
 
-```
+```js
 {
-  “enabled”: true            (type:boolean)   // 是否开启防蹭网
+  "enabled":   true            (type:boolean)         // 是否开启防蹭网
 }
 ```
 
@@ -208,9 +209,9 @@
 
 post data:
 
-```
+```js
 {
-  “username”: “aaa”    (type:string)    // 用户名字
+  "username": "aaa"    (type:string)    // 用户名字
 }
 ```
 
@@ -220,11 +221,11 @@ post data:
 
 `GET /api/security/check_permission`
 
-return : 
+return :
 
-```
+```js
 {
-  “code”: 0,                  （type:number）         // 0 -> 允许上网，1->不允许上网,2->等待主人处理 -1 ->系统内部错误
+  "code": 0,                  （type:number）         // 0 -> 允许上网，1->不允许上网,2->等待主人处理 -1 ->系统内部错误
 }
 ```
 
@@ -234,7 +235,7 @@ return :
 
 `GET /api/wan/get_info`
 
-```
+```js
 {
   "type":"STATIC", // 当前连接方式( DHCP, PPPOE, STATIC, wireless-repeater)
   "ip":"192.168.1.12",
@@ -256,7 +257,7 @@ return :
 
 `GET /api/wan/clientmacaddr`
 
-```
+```js
 {
   "macaddr":"40:6C:8F:2D:6C:3A"
 }
@@ -266,7 +267,7 @@ return :
 
 `GET /api/wan/get_info/dhcp`
 
-```
+```js
 {
   "dns1":"8.8.8.8",
   "dns2":"8.8.4.4",
@@ -279,9 +280,9 @@ return :
 
 `GET /api/wan/get_info/pppoe`
 
-```
+```js
 {
-  "account":"account",  
+  "account":"account",
   "password":"password",
   "pppoe_method": "KeepAlive" // 连接模式(KeepAlive, OnDemand, Manual)
   "pedial_period": 60         // 连接断开xx秒后尝试重拨,单位(秒) 当前KeepAlive
@@ -289,8 +290,8 @@ return :
   "status": -1/0/1/2/3/4/5/6/7// -1: PPPoE暂时无状态；
                               // 0: 连接已成功；
                               // 1: 用户名／密码错误；
-                              // 2: 连接已断开; 
-                              // 3: 不允许本帐户在此时间登录; 
+                              // 2: 连接已断开;
+                              // 3: 不允许本帐户在此时间登录;
                               // 4: 帐户已禁用;
                               // 5: 密码已过期;
                               // 6: 帐户没有远程访问权限;
@@ -302,7 +303,7 @@ return :
 
 `GET /api/wan/get_info/static`
 
-```
+```js
 {
   "ip":"192.168.1.12",
   "mask":"182.168.1.1",
@@ -317,8 +318,10 @@ return :
 ### 设置 WAN 口连接方式
 
 `POST /api/wan/set_config`
-  
-```
+
+post data:
+
+```js
 {
   "type":"STATIC", // 当前连接方式( DHCP, PPPOE, STATIC, wireless-repeater)
   "ip":"192.168.1.12",
@@ -333,13 +336,17 @@ return :
   "pppoe_method": "KeepAlive" // 连接模式(KeepAlive, OnDemand, Manual)
   "pedial_period": 60         // 连接断开xx秒后尝试重拨,单位(秒) 当前KeepAlive
   "idle_time": 5              // 无流量时xx分钟后断开,单位(分) 当前OnDemand
- "macCloneEnabled":true, //是否开启Macclone
+  "macCloneEnabled":true, //是否开启Macclone
   "macCloneMac":"40:6c:8f:2d:6c:3b" //MAC CLONE mac
 }
-return
+```
+
+return data:
+
+```js
 {
-“code”: 0,          // (0->设置成功，1-> 正在设置，-1 ->已有全局设置锁)
-“msg”: “xx”
+  "code"  : 0,          // (0->设置成功，1-> 正在设置，-1 ->已有全局设置锁)
+  "msg"   : "xx"
 }
 ```
 
@@ -347,10 +354,9 @@ return
 
 `GET /api/wan/is_internet_available`
 
-```
+```js
 {
-  "code":0                // 取得外网是否正常可用(0->网通， 1->（不通）不能解析域名，２->（不通）不能到达网关， -1->等待)
-
+  "code":0              // 取得外网是否正常可用(0->网通， 1->（不通）不能解析域名，２->（不通）不能到达网关， -1->等待)
 }
 ```
 
@@ -358,7 +364,7 @@ return
 
 `GET /api/wan/get_traffics`
 
-```
+```js
 {
   "up":number,               // 取得自系统启动以来，上行数据的总量(单位字节）
   "up_str":"number",             // up 值的字符串形式 例如: "12345678"
@@ -372,7 +378,6 @@ return
   "tx_packets":282499, 发包
   "rx_rate":0, 收丢包率
   "tx_dropped":0 发丢包
-
 }
 ```
 
@@ -381,8 +386,8 @@ return
 ### 取得 WiFi 的配置信息
 
 `GET /api/wifi/get_config`
-  
-```
+
+```js
 {
   "2g": {
     "enabled":true,                                     // 2.4g开关    RadioOff
@@ -428,7 +433,7 @@ return
 
 `POST /api/wifi/set_config`
 
-```
+```js
 {
   "2g": {
     "enabled":true,                    (true|false)          // 2.4g开关
@@ -454,7 +459,7 @@ return
     {'name': '2462MHz (Channel 11)', 'value': 11},
     {'name': '2467MHz (Channel 12)', 'value': 12},
     {'name': '2472MHz (Channel 13)', 'value': 13}
- 
+
   "net_type": 9,        (0,1,4,6,9,)                     // 网络模式
 2G: 9
 0: legacy 11b/g mixed
@@ -494,7 +499,7 @@ return
     {'name': '5785MHz (Channel 157)', 'value': 157},
     {'name': '5805MHz (Channel 161)', 'value': 161},
     {'name': '5825MHz (Channel 165)', 'value': 165}
-    
+
 
     "net_type": 14,                (2,8,14,15)         // 网络模式
 5G 14
@@ -516,7 +521,7 @@ return
 
 `GET /api/wifi/check_set`
 
-```
+```js
 {
 “code”: 0,          // (0->设置成功，1-> 正在设置，-1 ->已有全局设置锁)
 “msg”: “xx”
@@ -527,7 +532,7 @@ return
 
 `GET /api/wifi/is_enabled`
 
-```
+```js
 {
   "is_enabled":bool,              // 是否已经打开了wifi
 }
@@ -539,7 +544,7 @@ return
 
 `GET /api/lan/get_lan_config`
 
-```
+```js
 {
   "ip": "192.168.1.2",                        // ip
   "net_mask": "255.255.255.0",                // 子网掩码
@@ -561,7 +566,7 @@ return
 
 `POST /api/lan/set_lan_config`
 
-```
+```js
 {
   "ip": "192.168.1.2",                        // ip
   "net_mask": "255.255.255.0",                // 子网掩码
@@ -581,7 +586,7 @@ return
 
 `GET /api/lan/check_set`
 
-```
+```js
 {
 “code”: 0,          // (0->设置成功，1-> 正在设置，2-> 设置失败)
 “msg”: “xx”
@@ -592,7 +597,7 @@ return
 
 `GET /api/system/get_cable_connection`
 
-```
+```js
 {
   "wan":true   // wan口是否有物理连接
   "lan1":true   // wan口是否有物理连接
@@ -605,7 +610,7 @@ return
 
 `GET /api/system/get_time`
 
-```
+```js
 {
   “time”: 2361632818231,       //路由器时间（单位秒）
   “time_type”: 0|1   (type:number)                 //时间格式，0->12小时制式,1->24小时制式
@@ -618,7 +623,7 @@ return
 
 post data:
 
-```
+```js
 {
  “time_type”: 0|1   (type:number)                 //时间格式，0->12小时制式,1->24小时制式
 }
@@ -630,7 +635,7 @@ post data:
 
 `GET /api/devices/disk`
 
-```
+```js
 {
   "totalSize": 1,             // 总大小(KB)
   "left": 0.23,               // 剩余空间(KB)
@@ -643,7 +648,7 @@ post data:
 
 `GET /api/devices/disk_uninstall`
 
-```
+```js
 {
   "code": 0,
   "msg": ""
@@ -654,7 +659,7 @@ post data:
 
 `GET /api/devices/ddr2_flash`
 
-```
+```js
 {
   "ddr2_total_size": 64,            //ddr2总大小（KB）
   "ddr2_remain": 28,              // ddr2剩余（KB）
@@ -667,7 +672,7 @@ post data:
 
 `GET /api/devices/cables`
 
-```
+```js
 {
   "code": 0,
   "devices": [
@@ -680,7 +685,7 @@ post data:
           "connectType": "WIFI5G",                // 连接类型c
           "up": "10MB",                           // 总上传
           "down": "10GB",                         // 总下载
-          "type": 1,                         // 设备连接方式(1->cable, 2->wifi2.4g,3->wifi5g)
+          "type": 1,                              // 设备连接方式(1->cable, 2->wifi2.4g,3->wifi5g)
           "ip": "192.168.1.11",                   // ip地址
           "mac": "97:32:21:44:55:11:42",          // mac地址
           "leftTime": 31223,                      // 租约剩余时间单位(s)
@@ -689,7 +694,7 @@ post data:
           "up_limit": 400,                        // 上传限速
           "down_limit": 600                       // 下载限速
 “local”,0 or 1 // web使用,是否是当前主机
-      },...  
+      },...
   ]
 }
 ```
@@ -698,7 +703,7 @@ post data:
 
 `GET /api/devices/wifis`
 
-```
+```js
 {
   "code": 0,
   "devices": [
@@ -733,7 +738,7 @@ post data:
 
 `POST /api/devices/edit_hostname`
 
-```
+```js
 {
   "mac": "97:32:21:44:55:11:42",
   "host_name": "android-a078b"
@@ -744,7 +749,7 @@ post data:
 
 `GET /api/devices/blacklist`
 
-```
+```js
 {
   "devices":
     [
@@ -763,7 +768,7 @@ post data:
 
 `GET /api/devices/whitelist`
 
-```
+```js
 {
   "devices":
     [
@@ -782,7 +787,7 @@ post data:
 
 `GET /api/devices/graylist`
 
-```
+```js
 {
   "devices":
     [
@@ -800,7 +805,7 @@ post data:
 
 `POST /api/devices/blacklist_add`
 
-```
+```js
 {
   "mac": "32:21:44:55:11:42"
 }
@@ -810,27 +815,27 @@ post data:
 
 `POST /api/devices/blacklist_remove`
 
-```
+```js
 {
   "mac": "32:21:44:55:11:42"
 }
 ```
-  
+
 ### 添加到白名单
-  
+
 `POST /api/devices/whitelist_add`
-  
-```
+
+```js
 {
   "mac": "32:21:44:55:11:42"
 }
 ```
-  
+
 ### 从白名单移除
 
 `POST /api/devices/whitelist_remove`
-  
-```
+
+```js
 {
   "mac": "32:21:44:55:11:42"
 }
@@ -840,7 +845,7 @@ post data:
 
 `POST /api/devices/apply_rule`
 
-```
+```js
 {
   "mac": "32:21:44:55:11:42"
 }
@@ -850,7 +855,7 @@ post data:
 
 `GET /api/system/get_expertMode`
 
-```
+```js
 {
   "enabled": true/false
 }
@@ -860,7 +865,7 @@ post data:
 
 post data：
 
-```
+```js
 {
   "enabled": true/false
 }
@@ -868,10 +873,241 @@ post data：
 
 return data：
 
-```
+```js
 {
   “code”: 0,
   “msg”: “error message when failed” (optional, when error happens)
   “password”: “XXXXXXX”    (optional, when expert mode is enabled)
+}
+```
+
+## 插件管理
+
+### 获取已安装插件的列表
+
+`GET /api/plugin/installed_plugins`
+
+return data:
+
+```js
+{
+  "code":0,                                       // 返回码, 0 成功，非0失败
+  "plugins": [                                    // 插件列表
+    {
+      "id"            : "0000001",                // 插件的ID
+      "name"          : "Hello,World",            // 插件的名字
+      "author"        : "魔锤网络科技",             // 插件的作者
+      "icon"          : "http://xxxxxx.png",      // 插件图标的链接
+      "source"        : "http://xxxxx.tar.gz",    // 插件的安装包连接
+      "version"       : "0.0.1",                  // 插件的最新版本
+      "size"          : 12432,                    // 插件包的大小
+      "chksum"        : "addeae87343573223",      // 插件包的校验码
+      "releaseDate"   : "2014.06.20",             // 插件的发布日期
+      "installDate"   : "2014.06.21",             // 插件的安装日期
+      "description"   : "第一个Demo插件",           // 插件的说明
+      "instruction"   : "1,xxx; 2,xxx"            // 插件的安装、使用说明
+    }, ...
+  ]
+}
+```
+
+### 获取某插件的最新信息
+
+` GET /api/plugin/plugin_latest_info?&id=0000001`
+
+return data:
+
+```js
+{
+  "code" : 0,                                   // 返回码, 0 成功，非0失败
+  "info" :
+    {
+      "id"            : "0000001",              // 插件的ID
+      "name"          : "Hello,World",          // 插件的名字
+      "author"        : "魔锤网络科技",           // 插件的作者
+      "icon"          : "http://xxxxxx.png",    // 插件图标的链接
+      "source"        : "http://xxxxx.tar.gz",  // 插件的安装包连接
+      "version"       : "0.0.1",                // 插件的最新版本
+      "size"          : 12432,                  // 插件包的大小
+      "chksum"        : "addeae87343573223",    // 插件包的校验码
+      "releaseDate"   : "2014.06.20",           // 插件的发布日期
+      "description"   : "第一个Demo插件",         // 插件的说明
+      "instruction"   : "1,xxx; 2,xxx"          // 插件的安装、使用说明
+    }
+}
+```
+
+### 安装插件
+
+`POST /api/plugin/install_plugin`
+
+post data:
+
+```js
+{
+  "id"        : "0000001"                     // 插件的ID
+}
+```
+
+return data:
+
+```js
+{
+    "code"    : 0,                                // 返回码, 0 成功，非0失败
+    "msg"     : ""                                // 错误消息
+}
+```
+
+### 删除插件
+
+`POST /api/plugin/uninstall_plugin`
+
+post data:
+
+```js
+{
+  "id"    : "0000001"                     // 插件的ID
+}
+```
+
+return data:
+
+```js
+{
+  "code"  : 0,                                // 返回码, 0 成功，非0失败
+  "msg"   : ""                                // 错误消息
+}
+```
+
+### 启动插件
+
+`POST /api/plugin/start_plugin`
+
+post data:
+
+```js
+{
+  "id"        : "0000001"                     // 插件的ID
+}
+```
+
+return data:
+
+```js
+{
+  "code"  : 0,                                // 返回码, 0 成功，非0失败
+  "msg"   : ""                                // 错误消息
+}
+```
+
+### 停止插件
+
+`POST /api/plugin/stop_plugin`
+
+post data:
+
+```js
+{
+  "id"        : "0000001"                     // 插件的ID
+}
+```
+
+return data:
+
+```js
+{
+  "code"      : 0,                                // 返回码, 0 成功，非0失败
+  "msg"       : ""                                // 错误消息
+}
+```
+
+### 查询插件状态
+
+`GET /api/plugin/plugin_status?id=0000001`
+
+```js
+{
+  "code"      : 0,                            // 返回码, 0 成功，非0失败
+  "msg"       : "",                           // 错误消息
+  "id"        : "0000001",                    // 插件的ID
+  "isRunning" : true,                         // 是否正在运行
+  "status"    : "xxxxxxxxxxx"                 // 附件状态信息
+}
+```
+
+### 查询插件的安装状态
+
+`GET /api/plugin/plugin_install_status?id=0000001`
+
+```js
+{
+  "code"      : 0,                            // 返回码, 0 成功，非0失败
+  "msg"       : ""                            // 错误消息
+}
+```
+| 状态码  | 消息                                                 |      意义           |
+| ------ | --------------------------------------------------  | ------------------- |
+| -1     | "plugin ID missing"                                 |  缺少插件ID          |
+| -2     | "It's not installing plugin:&lt;PLUGIN_ID&gt;"      | 当前不在安装插件      |
+| 1      | "downloading plugin config file"                    | 正在下载插件配置文件   |
+| 2      | "parsing plugin config file"                        | 正在解析插件配置文件   |
+| 3      | "downloading the install package of plugin"         | 正在下载安装包        |
+| 4      | "checking md5 checksum of install package"          | 正在校验安装包        |
+| 5      | "installing plugin"                                 | 正在安装             |
+| 6      | "updating installed plugin list"                    | 更新已安装插件列表    |
+| 7      | "plugin installed"                                  | 插件安装成功         |
+| 101    | "failed to open status file:&lt;FILENAME&gt;"       | 读取状态失败         |
+| 901    | "failed to download the plugin config file"         | 下载配置文件失败      |
+| 902    | "failed to read plugin config file : &lt;CODE&gt;"  | 读取配置文件失败      |
+| 903    | "field missing in plugin config file"               | 配置文件错误         |
+| 904    | "failed to download plugin install package"         | 下载安装包失败        |
+| 905    | "MD5 check sum doesn't match with config"           | MD5校验失败          |
+| 906    | "extract the install package failed"                | 解压安装包失败        |
+
+
+### 对插件进行配置
+
+`POST /api/plugin/config`
+
+post data:
+
+```js
+{
+  "id"        : "0000001",                    // 插件的ID
+  "filename"  : "test.conf",                  // 配置文件名
+  "content"   : "xxxxcvvadfafad"              // 配置文件的内容, base64编码
+}
+```
+
+return data:
+
+```js
+{
+  "code"      : 0,                            // 返回码, 0 成功，非0失败
+  "msg"       : ""                            // 错误消息
+}
+```
+
+### 安装非认证插件
+
+`POST /api/plugin/install_custom`
+
+post data:
+
+```js
+{
+  "name"      : "mypluginname",               // 插件的名字
+  "file"      : "xxxxcvvadfafad",             // 安装包的内容
+  "size"      :  10240                        // 文件的大小
+}
+```
+
+return data:
+
+```js
+{
+  "code"      : 0,                            // 返回码, 0 成功，非0失败
+  "id"        : "mypluginId",                 // 生成的pluginId
+  "msg"       : ""                            // 错误消息
 }
 ```
