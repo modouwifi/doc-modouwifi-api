@@ -402,7 +402,7 @@ return data:
 
 ```js
 {
-  "2g": 
+  "2g":
     {
       "enabled"           : true,                   // 2.4g开关    RadioOff
       "ssid"              : "ssid1",                // 名称 SSID1(长度1-32字符)
@@ -421,7 +421,7 @@ return data:
       "shortgi_enabled"   : true,                   // short GI开关 HT_GI
       "wmm_enabled"       : true                    // 多媒体优先WMM开关 WmmCapable
     },
-  "5g": 
+  "5g":
     {
       "enabled"           : true,                   // 5g开关
       "ssid"              : "ssid1",                // 名称
@@ -453,14 +453,14 @@ return data:
 
 ```js
 {
-  "2g": 
+  "2g":
     {
-      "enabled"           : true,         // 2.4g开关 (true|false) 
+      "enabled"           : true,         // 2.4g开关 (true|false)
       "ssid"              : "ssid1",      // 名称(长度1-32字符) (any string)
       "broadcastssid"     : true,         // 是否广播SSID
       "security_mode"     : "Disable",    // Security Mode (Disable,WPAPSK,WPA2PSK,WPAPSKWPA2PSK)
       "encrypt"           : "TKIP",       // WPA Algorithms EncrypType
-                                          // (NONE<>Disable,   TKIP<>WPA(2)PSK,   
+                                          // (NONE<>Disable,   TKIP<>WPA(2)PSK,
                                           // AES<>WPA(2)PSK ,   TKIPAES<>WPA(2)PSK)
       "password"          : "12345678",   // 密码(长度8-64字符) (any string)
       "power"             : 20,           // 无线信号功率 (100,90,60,30,15,0)
@@ -495,7 +495,7 @@ return data:
       "shortgi_enabled"   : true,         // short GI开关 (true|false)
       "wmm_enabled"       : true          // 多媒体优先WMM开关 (true|fales)
     },
-  "5g": 
+  "5g":
     {
       "enabled"           : true,         // 5g开关
       "ssid"              : "ssid1",      // 名称(长度1-32字符)
