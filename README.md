@@ -661,10 +661,10 @@ post data:
 
 ```js
 {
-  "totalSize": 1,             // 总大小(KB)
-  "left": 0.23,               // 剩余空间(KB)
-  "name": "disk1",            // 硬盘的名字
-  "time": 5677                // 连接时间
+  "totalSize"         : 1,                  // 总大小(KB)
+  "left"              : 0.23,               // 剩余空间(KB)
+  "name"              : "disk1",            // 硬盘的名字
+  "time"              : 5677                // 连接时间
 }
 ```
 
@@ -674,8 +674,8 @@ post data:
 
 ```js
 {
-  "code": 0,
-  "msg": ""
+  "code"              : 0,
+  "msg"               : ""
 }
 ```
 
@@ -685,10 +685,10 @@ post data:
 
 ```js
 {
-  "ddr2_total_size": 64,            //ddr2总大小（KB）
-  "ddr2_remain": 28,              // ddr2剩余（KB）
-  "flash_total_size": 64,                           // flash总大小（KB）
-  "flash_remain": 28,                             // flash剩余（KB）
+  "ddr2_total_size"     : 64,            // ddr2总大小（KB）
+  "ddr2_remain"         : 28,            // ddr2剩余（KB）
+  "flash_total_size"    : 64,            // flash总大小（KB）
+  "flash_remain"        : 28,            // flash剩余（KB）
 }
 ```
 
@@ -700,25 +700,25 @@ post data:
 {
   "code": 0,
   "devices": [
-      {
-          "platform": "phone",                    // 设备类型(phone, pad, unknow)
-          "total_speed": 200,                     // 总速率
-          "down_speed": 100,                      // 下载速度
-          "up_speed": 100,                        // 上传速度
-          "host_name": "android-a078b707872bc9a", // 主机名
-          "connectType": "WIFI5G",                // 连接类型c
-          "up": "10MB",                           // 总上传
-          "down": "10GB",                         // 总下载
-          "type": 1,                              // 设备连接方式(1->cable, 2->wifi2.4g,3->wifi5g)
-          "ip": "192.168.1.11",                   // ip地址
-          "mac": "97:32:21:44:55:11:42",          // mac地址
-          "leftTime": 31223,                      // 租约剩余时间单位(s)
-          "time": 31223,                          // 连接时间单位(s)
-          "tag": "white"                          // 白名单，黑名单，或没有(white, black, "")
-          "up_limit": 400,                        // 上传限速
-          "down_limit": 600                       // 下载限速
-“local”,0 or 1 // web使用,是否是当前主机
-      },...
+    {
+      "platform"        : "phone",                     // 设备类型(phone, pad, unknow)
+      "total_speed"     : 200,                         // 总速率
+      "down_speed"      : 100,                         // 下载速度
+      "up_speed"        : 100,                         // 上传速度
+      "host_name"       : "android-a078b707872bc9a",   // 主机名
+      "connectType"     : "WIFI5G",                    // 连接类型c
+      "up"              : "10MB",                      // 总上传
+      "down"            : "10GB",                      // 总下载
+      "type"            : 1,                           // 设备连接方式(1->cable, 2->wifi2.4g,3->wifi5g)
+      "ip"              : "192.168.1.11",              // ip地址
+      "mac"             : "97:32:21:44:55:11:42",      // mac地址
+      "leftTime"        : 31223,                       // 租约剩余时间单位(s)
+      "time"            : 31223,                       // 连接时间单位(s)
+      "tag"             : "white"                      // 白名单，黑名单，或没有(white, black, "")
+      "up_limit"        : 400,                         // 上传限速
+      "down_limit"      : 600,                         // 下载限速
+      "local"           : 0                            // 0 or 1, web使用, 是否是当前主机
+    },...
   ]
 }
 ```
@@ -731,29 +731,29 @@ post data:
 {
   "code": 0,
   "devices": [
-      {
-        "platform": "phone",                    // 设备类型(phone, pad, unknow)
-        "total_speed": 200,                     // 总速率
-        "down_speed": 100,                      // 下载速度
-        "up_speed": 100,                        // 上传速度
-        "host_name": "android-a078b707872bc9a", // 主机名
-        "connectType": "WIFI5G",                // 连接类型
-        "up": "10MB",                           // 总上传
-        "down": "10GB",                         // 总下载
-        "type": 1,                              // 设备连接方式(1->cable, 2->wifi2.4g,3->wifi5g)
-        "ip": "192.168.1.11",                   // ip地址
-        "mac": "97:32:21:44:55:11:42",          // mac地址
-        "leftTime": 31223,                      // 租约剩余时间单位(s)
-        "time": 31223,                          // 连接时间单位(s)
-        "tag": "white",                         // 白名单，黑名单，或没有(white, black, "")
-        "up_limit": 400,                        // 上传限速
-        "down_limit": 600,                      // 下载限速
-        "single": 100,                          // 信号强度
-        "local": 0,                             // or 1, web使用, 是否是当前主机
-        "rssi0": -30,                           // 信号强度
-        "rssi1": 0,                             // 信号强度
-        "rssi2": -50                            // 信号强度
-      },...
+    {
+      "platform"      : "phone",                        // 设备类型(phone, pad, unknow)
+      "total_speed"   : 200,                            // 总速率
+      "down_speed"    : 100,                            // 下载速度
+      "up_speed"      : 100,                            // 上传速度
+      "host_name"     : "android-a078b707872bc9a",      // 主机名
+      "connectType"   : "WIFI5G",                       // 连接类型
+      "up"            : "10MB",                         // 总上传
+      "down"          : "10GB",                         // 总下载
+      "type"          : 1,                              // 设备连接方式(1->cable, 2->wifi2.4g,3->wifi5g)
+      "ip"            : "192.168.1.11",                 // ip地址
+      "mac"           : "97:32:21:44:55:11:42",         // mac地址
+      "leftTime"      : 31223,                          // 租约剩余时间单位(s)
+      "time"          : 31223,                          // 连接时间单位(s)
+      "tag"           : "white",                        // 白名单，黑名单，或没有(white, black, "")
+      "up_limit"      : 400,                            // 上传限速
+      "down_limit"    : 600,                            // 下载限速
+      "single"        : 100,                            // 信号强度
+      "local"         : 0,                              // or 1, web使用, 是否是当前主机
+      "rssi0"         : -30,                            // 信号强度
+      "rssi1"         : 0,                              // 信号强度
+      "rssi2"         : -50                             // 信号强度
+    },...
   ]
 }
 ```
@@ -764,8 +764,8 @@ post data:
 
 ```js
 {
-  "mac": "97:32:21:44:55:11:42",
-  "host_name": "android-a078b"
+  "mac"               : "97:32:21:44:55:11:42",
+  "host_name"         : "android-a078b"
 }
 ```
 
@@ -778,10 +778,10 @@ post data:
   "devices":
     [
       {
-        "platform": "phone",                    // 设备类型(phone, pad, unknow)
-        "host_name": "android-a078b707872bc9a", // 主机名
-        "type": 1,                              // 设备连接方式(1->cable, 2->wifi2.4g,3->wifi5g)
-        "mac": "97:32:21:44:55:11:42",          // mac地址
+        "platform"    : "phone",                        // 设备类型(phone, pad, unknow)
+        "host_name"   : "android-a078b707872bc9a",      // 主机名
+        "type"        : 1,                              // 设备连接方式(1->cable, 2->wifi2.4g,3->wifi5g)
+        "mac"         : "97:32:21:44:55:11:42",         // mac地址
       },...
     ],
   "code": 0
@@ -797,10 +797,10 @@ post data:
   "devices":
     [
       {
-        "platform": "phone",                    // 设备类型(phone, pad, unknow)
-        "host_name": "android-a078b707872bc9a", // 主机名
-        "type": 1,                              // 设备连接方式(1->cable, 2->wifi2.4g,3->wifi5g)
-        "mac": "97:32:21:44:55:11:42",          // mac地址
+        "platform"    : "phone",                        // 设备类型(phone, pad, unknow)
+        "host_name"   : "android-a078b707872bc9a",      // 主机名
+        "type"        : 1,                              // 设备连接方式(1->cable, 2->wifi2.4g,3->wifi5g)
+        "mac"         : "97:32:21:44:55:11:42",         // mac地址
       },...
     ],
   "code":0
@@ -816,9 +816,9 @@ post data:
   "devices":
     [
       {
-        "mac”: "AA:BB:CC:DD:EE:FF",                    // 请求设备的MAC地址
-        "ip": "192.168.10.100",                                  // IP地址
-        "username": "张三丰",                             // 用户名
+        "mac"         : "AA:BB:CC:DD:EE:FF",                 // 请求设备的MAC地址
+        "ip"          : "192.168.10.100",                    // IP地址
+        "username"    : "张三丰",                             // 用户名
       },...
     ],
   "code": 0
@@ -899,9 +899,9 @@ return data：
 
 ```js
 {
-  “code”: 0,
-  “msg”: “error message when failed” (optional, when error happens)
-  “password”: “XXXXXXX”    (optional, when expert mode is enabled)
+  "code"          : 0,
+  "msg"           : "error message when failed",    // (optional, when error happens)
+  "password"      : "XXXXXXX"                       // (optional, when expert mode is enabled)
 }
 ```
 
