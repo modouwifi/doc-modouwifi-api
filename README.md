@@ -937,7 +937,7 @@ return data:
 
 ### 获取某插件的最新信息
 
-` GET /api/plugin/plugin_latest_info?&id=0000001`
+` GET /api/plugin/plugin_latest_info?id=0000001`
 
 return data:
 
