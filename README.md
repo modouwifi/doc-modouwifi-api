@@ -1,4 +1,4 @@
-# 魔豆路由器 Web Services API 规格文档
+# 魔豆路由器 HTTP API 规格文档
 
 ## 基本说明
 
@@ -17,6 +17,13 @@
   "msg"     : "hello"             // 可能存在的出错消息
 }
 ```
+
+## 使用此 API 的产品、服务和工具列表
+
+- [魔豆路由器极客模式](http://www.modouwifi.com/router.html)
+- [魔豆路由宝](http://www.modouwifi.com/router.html)
+- [魔豆路由器命令行客户端 Go 版](https://github.com/modouwifi/md)
+- [魔豆路由器命令行客户端 Ruby 版](https://github.com/modouwifi/modou-gem)
 
 ## 登录
 
