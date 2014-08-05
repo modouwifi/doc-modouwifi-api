@@ -1167,14 +1167,15 @@ return data:
 
 POST data:
 
-```
+```json
 {
   "cmd": "echo 'hello modou'"
 }
 ```
 
 return data:
-```
+
+```json
 {
   "code"      : 0                             // 返回码, 0 成功，非0失败
   "output"    : ""                            // shell 执行的结果
@@ -1186,7 +1187,8 @@ return data:
 `GET /api/commands/history`
 
 return data:
-```
+
+```json
 {
   "code"      : 0                             // 返回码, 0 成功，非0失败
                                               // 执行的 shell 历史
