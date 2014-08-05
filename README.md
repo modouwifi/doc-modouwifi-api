@@ -1167,7 +1167,7 @@ return data:
 
 POST data:
 
-```json
+```js
 {
   "cmd": "echo 'hello modou'"
 }
@@ -1175,7 +1175,7 @@ POST data:
 
 return data:
 
-```json
+```js
 {
   "code"      : 0                             // 返回码, 0 成功，非0失败
   "output"    : ""                            // shell 执行的结果
@@ -1188,7 +1188,7 @@ return data:
 
 return data:
 
-```json
+```js
 {
   "code"      : 0                             // 返回码, 0 成功，非0失败
                                               // 执行的 shell 历史
