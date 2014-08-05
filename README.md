@@ -1157,3 +1157,46 @@ return data:
   "code"      : 0                             // 返回码, 0 成功，非0失败
 }
 ```
+
+
+## Commands 命令，可以执行 shell 命令
+
+### 执行 shell 命令
+
+`POST /api/commands/run`
+
+POST data:
+
+```
+{
+  "cmd": "echo 'hello modou'"
+}
+```
+
+return data:
+```
+{
+  "code"      : 0                             // 返回码, 0 成功，非0失败
+  "output"    : ""                            // shell 执行的结果
+}
+```
+
+### 获取执行 shell 命令历史
+
+`GET /api/commands/history`
+
+return data:
+```
+{
+  "code"      : 0                             // 返回码, 0 成功，非0失败
+                                              // shell 执行的结果
+  "cmds"      : [
+    {
+      "id"    : "12345678",
+      "cmd"   : "echo modou"
+    },
+    ...
+  ]
+}
+```
+
