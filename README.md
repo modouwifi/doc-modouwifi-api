@@ -1142,3 +1142,18 @@ return data:
   "msg"       : ""                            // 错误消息
 }
 ```
+
+
+## 日志
+
+### 上传日志
+
+`GET /api/logs/report`
+
+return data:
+
+```js
+{
+  "code"      : 0                             // 返回码, 0 成功，非0失败
+}
+```
