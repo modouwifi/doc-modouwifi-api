@@ -1148,7 +1148,7 @@ return data:
 
 ### 上传日志
 
-`GET /api/logs/report`
+`GET /api/logs/report` 给路由器发送命令，上传日志
 
 return data:
 
