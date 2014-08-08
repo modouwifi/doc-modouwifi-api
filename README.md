@@ -199,6 +199,16 @@ return data:
 
 `GET /api/system/wakeup_backlight`
 
+### 获取设备识别码
+
+`GET /api/system/get_ucode`
+
+```js
+{
+  "ucode"     :    "0007B7"
+}
+```
+
 ## 防蹭网
 
 ### 获取防蹭网开启状态
