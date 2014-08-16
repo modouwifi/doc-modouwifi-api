@@ -5,7 +5,7 @@
 - 系统操作处于锁的状态下返回 code=－1
 - 身份鉴权基于 cookies
 - 除非明确标出，所有 API 都需要进行身份鉴权
-- 未登录状态下访问需要 auth 的 API 返回 403 状态码
+- 在未登录状态下访问需要 auth 的 API 会返回 403 状态码
 - 单位：流量的单位（kbps），磁盘容量单位（MB），时间单位（s）
 - 所有 POST 的请求的返回值的格式都为 JSON
 
@@ -275,6 +275,7 @@ return :
   "dns1"              : "8.8.8.8",
   "dns2"              : "8.8.4.4",
   "mtu"               : 2,
+  "mtu_negotiable"    : 0,                     // 如果当前是PPPOE，默认为协商模式: 0
   "stp"               : true,
   "account"           : "account",             // 如果当前是PPPOE
   "password"          : "password",            // 如果当前是PPPOE
