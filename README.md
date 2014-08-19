@@ -22,6 +22,7 @@
 
 - [魔豆路由器极客模式](http://www.modouwifi.com/router.html)
 - [魔豆路由宝](http://www.modouwifi.com/router.html)
+- [魔豆路由器命令行客户端 Node.js 版](https://github.com/leftstick/modou-terminal-controller)
 - [魔豆路由器命令行客户端 Go 版](https://github.com/modouwifi/md)
 - [魔豆路由器命令行客户端 Ruby 版](https://github.com/modouwifi/modou-gem)
 
