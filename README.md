@@ -596,8 +596,8 @@ return data:
   "ipaddr_end"            : "4.4.4.4",                      // IP地址结束段
   "gateway"               : "192.168.1.0",                  // 网关
   "dhcp_net_mask"         : "255.255.255.0",                // dhcp子网掩码
-  "dns1Method"            : "手动",                          // dns1设置方式（手动，自动）
-  "dns2Method"            : "自动",                          // dns2设置方式（手动，自动）
+  "dns1Method"            : "手动",                         // dns1设置方式（手动，自动）
+  "dns2Method"            : "自动",                         // dns2设置方式（手动，自动）
   "dns1"                  : "8.8.8.8",                      // 首选dns
   "dns2"                  : "",                             // 备用dns
   "time"                  : 381,                            // 地址租期
@@ -618,8 +618,8 @@ return data:
   "ipaddr_end"            : "4.4.4.4",                      // IP地址结束段
   "gateway"               : "192.168.1.0",                  // 网关
   "dhcp_net_mask"         : "255.255.255.0",                // dhcp子网掩码
-  "dns1Method"            : "手动",                          // dns1设置方式（手动，自动）
-  "dns2Method"            : "自动",                          // dns2设置方式（手动，自动）
+  "dns1Method"            : "手动",                         // dns1设置方式（手动，自动）
+  "dns2Method"            : "自动",                         // dns2设置方式（手动，自动）
   "dns1"                  : "8.8.8.8",                      // 首选dns
   "dns2"                  : "",                             // 备用dns
   "time"                  : 381,                            // 地址租期
@@ -837,7 +837,7 @@ post data:
       {
         "mac"         : "AA:BB:CC:DD:EE:FF",                 // 请求设备的MAC地址
         "ip"          : "192.168.10.100",                    // IP地址
-        "username"    : "张三丰",                             // 用户名
+        "username"    : "张三丰",                            // 用户名
       },...
     ],
   "code": 0
@@ -924,9 +924,9 @@ return data：
 }
 ```
 
-## 插件管理
+## 应用管理
 
-### 获取已安装插件的列表
+### 获取已安装应用的列表
 
 `GET /api/plugin/installed_plugins`
 
@@ -935,26 +935,26 @@ return data:
 ```js
 {
   "code":0,                                       // 返回码, 0 成功，非0失败
-  "plugins": [                                    // 插件列表
+  "plugins": [                                    // 应用列表
     {
-      "id"            : "0000001",                // 插件的ID
-      "name"          : "Hello,World",            // 插件的名字
-      "author"        : "魔锤网络科技",             // 插件的作者
-      "icon"          : "http://xxxxxx.png",      // 插件图标的链接
-      "source"        : "http://xxxxx.tar.gz",    // 插件的安装包连接
-      "version"       : "0.0.1",                  // 插件的最新版本
-      "size"          : 12432,                    // 插件包的大小
-      "chksum"        : "addeae87343573223",      // 插件包的校验码
-      "releaseDate"   : "2014.06.20",             // 插件的发布日期
-      "installDate"   : "2014.06.21",             // 插件的安装日期
-      "description"   : "第一个Demo插件",           // 插件的说明
-      "instruction"   : "1,xxx; 2,xxx"            // 插件的安装、使用说明
+      "id"            : "0000001",                // 应用的ID
+      "name"          : "Hello,World",            // 应用的名字
+      "author"        : "魔锤网络科技",           // 应用的作者
+      "icon"          : "http://xxxxxx.png",      // 应用图标的链接
+      "source"        : "http://xxxxx.tar.gz",    // 应用的安装包连接
+      "version"       : "0.0.1",                  // 应用的最新版本
+      "size"          : 12432,                    // 应用包的大小
+      "chksum"        : "addeae87343573223",      // 应用包的校验码
+      "releaseDate"   : "2014.06.20",             // 应用的发布日期
+      "installDate"   : "2014.06.21",             // 应用的安装日期
+      "description"   : "第一个Demo插件",         // 应用的说明
+      "instruction"   : "1,xxx; 2,xxx"            // 应用的安装、使用说明
     }, ...
   ]
 }
 ```
 
-### 获取某插件的最新信息
+### 获取某应用的最新信息
 
 ` GET /api/plugin/plugin_latest_info?id=0000001`
 
@@ -962,25 +962,25 @@ return data:
 
 ```js
 {
-  "code" : 0,                                   // 返回码, 0 成功，非0失败
+  "code" : 0,                                     // 返回码, 0 成功，非0失败
   "info" :
     {
-      "id"            : "0000001",              // 插件的ID
-      "name"          : "Hello,World",          // 插件的名字
-      "author"        : "魔锤网络科技",           // 插件的作者
-      "icon"          : "http://xxxxxx.png",    // 插件图标的链接
-      "source"        : "http://xxxxx.tar.gz",  // 插件的安装包连接
-      "version"       : "0.0.1",                // 插件的最新版本
-      "size"          : 12432,                  // 插件包的大小
-      "chksum"        : "addeae87343573223",    // 插件包的校验码
-      "releaseDate"   : "2014.06.20",           // 插件的发布日期
-      "description"   : "第一个Demo插件",         // 插件的说明
-      "instruction"   : "1,xxx; 2,xxx"          // 插件的安装、使用说明
+      "id"            : "0000001",                // 应用的ID
+      "name"          : "Hello,World",            // 应用的名字
+      "author"        : "魔锤网络科技",           // 应用的作者
+      "icon"          : "http://xxxxxx.png",      // 应用图标的链接
+      "source"        : "http://xxxxx.tar.gz",    // 应用的安装包连接
+      "version"       : "0.0.1",                  // 应用的最新版本
+      "size"          : 12432,                    // 应用包的大小
+      "chksum"        : "addeae87343573223",      // 应用包的校验码
+      "releaseDate"   : "2014.06.20",             // 应用的发布日期
+      "description"   : "第一个Demo插件",         // 应用的说明
+      "instruction"   : "1,xxx; 2,xxx"            // 应用的安装、使用说明
     }
 }
 ```
 
-### 安装插件
+### 安装应用
 
 `POST /api/plugin/install_plugin`
 
@@ -988,7 +988,7 @@ post data:
 
 ```js
 {
-  "id"        : "0000001"                     // 插件的ID
+  "name"        : "modou-samba"                   // 应用名称
 }
 ```
 
@@ -997,11 +997,12 @@ return data:
 ```js
 {
     "code"    : 0,                                // 返回码, 0 成功，非0失败
-    "msg"     : ""                                // 错误消息
+    "msg"     : "",                               // 错误消息
+    "id"      : "72428512"                        // 应用ID
 }
 ```
 
-### 删除插件
+### 删除应用
 
 `POST /api/plugin/uninstall_plugin`
 
@@ -1009,7 +1010,7 @@ post data:
 
 ```js
 {
-  "id"    : "0000001"                     // 插件的ID
+  "id"    : "0000001"                             // 应用ID
 }
 ```
 
@@ -1017,12 +1018,12 @@ return data:
 
 ```js
 {
-  "code"  : 0,                                // 返回码, 0 成功，非0失败
-  "msg"   : ""                                // 错误消息
+  "code"  : 0,                                    // 返回码, 0 成功，非0失败
+  "msg"   : ""                                    // 错误消息
 }
 ```
 
-### 启动插件
+### 启动应用
 
 `POST /api/plugin/start_plugin`
 
@@ -1030,7 +1031,7 @@ post data:
 
 ```js
 {
-  "id"        : "0000001"                     // 插件的ID
+  "id"        : "0000001"                         // 应用ID
 }
 ```
 
@@ -1038,12 +1039,12 @@ return data:
 
 ```js
 {
-  "code"  : 0,                                // 返回码, 0 成功，非0失败
-  "msg"   : ""                                // 错误消息
+  "code"  : 0,                                    // 返回码, 0 成功，非0失败
+  "msg"   : ""                                    // 错误消息
 }
 ```
 
-### 停止插件
+### 停止应用
 
 `POST /api/plugin/stop_plugin`
 
@@ -1051,7 +1052,7 @@ post data:
 
 ```js
 {
-  "id"        : "0000001"                     // 插件的ID
+  "id"        : "0000001"                         // 应用ID
 }
 ```
 
@@ -1064,41 +1065,41 @@ return data:
 }
 ```
 
-### 查询插件状态
+### 查询应用状态
 
 `GET /api/plugin/plugin_status?id=0000001`
 
 ```js
 {
-  "code"      : 0,                            // 返回码, 0 成功，非0失败
-  "msg"       : "",                           // 错误消息
-  "id"        : "0000001",                    // 插件的ID
-  "isRunning" : true,                         // 是否正在运行
-  "status"    : "xxxxxxxxxxx"                 // 附件状态信息
+  "code"      : 0,                                // 返回码, 0 成功，非0失败
+  "msg"       : "",                               // 错误消息
+  "id"        : "0000001",                        // 应用ID
+  "isRunning" : true,                             // 是否正在运行
+  "status"    : "xxxxxxxxxxx"                     // 附件状态信息
 }
 ```
 
-### 查询插件的安装状态
+### 查询应用的安装状态
 
 `GET /api/plugin/plugin_install_status?id=0000001`
 
 ```js
 {
-  "code"      : 0,                            // 返回码, 0 成功，非0失败
-  "msg"       : ""                            // 错误消息
+  "code"      : 0,                                // 返回码, 0 成功，非0失败
+  "msg"       : ""                                // 错误消息
 }
 ```
-| 状态码  | 消息                                                 |      意义           |
+| 状态码  | 消息                                               |      意义           |
 | ------ | --------------------------------------------------  | ------------------- |
-| -1     | "plugin ID missing"                                 |  缺少插件ID          |
-| -2     | "It's not installing plugin:&lt;PLUGIN_ID&gt;"      | 当前不在安装插件      |
-| 1      | "downloading plugin config file"                    | 正在下载插件配置文件   |
-| 2      | "parsing plugin config file"                        | 正在解析插件配置文件   |
+| -1     | "plugin ID missing"                                 | 缺少应用ID          |
+| -2     | "It's not installing plugin:&lt;PLUGIN_ID&gt;"      | 当前不在安装应用      |
+| 1      | "downloading plugin config file"                    | 正在下载应用配置文件   |
+| 2      | "parsing plugin config file"                        | 正在解析应用配置文件   |
 | 3      | "downloading the install package of plugin"         | 正在下载安装包        |
 | 4      | "checking md5 checksum of install package"          | 正在校验安装包        |
 | 5      | "installing plugin"                                 | 正在安装             |
-| 6      | "updating installed plugin list"                    | 更新已安装插件列表    |
-| 7      | "plugin installed"                                  | 插件安装成功         |
+| 6      | "updating installed plugin list"                    | 更新已安装应用列表    |
+| 7      | "plugin installed"                                  | 应用安装成功         |
 | 101    | "failed to open status file:&lt;FILENAME&gt;"       | 读取状态失败         |
 | 901    | "failed to download the plugin config file"         | 下载配置文件失败      |
 | 902    | "failed to read plugin config file : &lt;CODE&gt;"  | 读取配置文件失败      |
@@ -1108,7 +1109,7 @@ return data:
 | 906    | "extract the install package failed"                | 解压安装包失败        |
 
 
-### 对插件进行配置
+### 对应用进行配置
 
 `POST /api/plugin/config`
 
@@ -1116,7 +1117,7 @@ post data:
 
 ```js
 {
-  "id"        : "0000001",                    // 插件的ID
+  "id"        : "0000001",                    // 应用ID
   "filename"  : "test.conf",                  // 配置文件名
   "content"   : "xxxxcvvadfafad"              // 配置文件的内容, base64编码
 }
@@ -1131,7 +1132,7 @@ return data:
 }
 ```
 
-### 安装非认证插件
+### 安装非认证应用
 
 `POST /api/plugin/install_custom`
 
@@ -1139,7 +1140,7 @@ post data:
 
 ```js
 {
-  "name"      : "mypluginname",               // 插件的名字
+  "name"      : "app-name",                   // 应用名称
   "file"      : "xxxxcvvadfafad",             // 安装包的内容
   "size"      :  10240                        // 文件的大小
 }
@@ -1150,7 +1151,7 @@ return data:
 ```js
 {
   "code"      : 0,                            // 返回码, 0 成功，非0失败
-  "id"        : "mypluginId",                 // 生成的pluginId
+  "id"        : "app-id",                     // 生成的应用ID
   "msg"       : ""                            // 错误消息
 }
 ```
