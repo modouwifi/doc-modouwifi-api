@@ -1217,7 +1217,7 @@ return data:
 
 ### 搜索热点信息
 
-`GET /api/apclient/get_site_survey`           
+`GET /api/apclient/get_site_survey?interface=rai0` // ra0, rt2860(2.4G); rai0 mt7160(5G)
 
 return data:
 ```js
