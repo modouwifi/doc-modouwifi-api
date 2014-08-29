@@ -1215,3 +1215,25 @@ return data:
 }
 ```
 
+### 搜索热点信息
+
+`GET /api/apclient/get_site_survey`           
+
+return data:
+```js
+{
+    "code"   : 0                // 0, 成功; -1, 失败
+    "survey" : [
+        {
+            "Channel"    :   "161",
+            "SSID"       :   "Modou-1234",
+            "BSSID"      :   "24:de:c6:5a:19:d8", // MAC address
+            "Security"   :   "WPA1PSKWPA2PSK", // OPEN, WPAPSK, WPA2PSK, WPA1PSKWPA2PSK
+            "EncrypType" :   "TKIPAES",  // NONE, WEP, TKIP, AES, TKIPAES
+            "Signal"     :   "99",
+            "W-Mode"     :   "11a/n"
+        },
+        ...
+    ]
+}
+```
