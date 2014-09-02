@@ -581,6 +581,16 @@ return data:
 }
 ```
 
+### 请求打开wps
+
+`GET /api/wifi/start_wps`
+```js
+{
+  "code"            : 0,         // 0为成功，其他为失败
+}
+```
+
+
 ## LAN 口
 
 ### 获取 LAN 口设置
