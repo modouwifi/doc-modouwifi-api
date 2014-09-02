@@ -1248,7 +1248,10 @@ return data:
 }
 ```
 
-### 测试链上路由器的速度
 
-`GET /api/speedtest?size=1024` `size` 参数以KB为单位。
+### 测试连上路由器的速度
+
+`GET /api/speedtest?size=1024`
+
+`size` 以 KB 为单位。
 
