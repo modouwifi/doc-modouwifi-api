@@ -1247,3 +1247,8 @@ return data:
     ]
 }
 ```
+
+### 测试链上路由器的速度
+
+`GET /api/speedtest?size=1024` `size` 参数以KB为单位。
+
