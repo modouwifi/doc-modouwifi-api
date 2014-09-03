@@ -1227,7 +1227,8 @@ return data:
 
 ### 搜索热点信息
 
-`GET /api/apclient/survey?deviceAlias=rai0` // ra0, rt2860(2.4G); rai0 mt7160(5G)
+/* 2g, rt2860(ra0, 2.4G); 5g, mt7160/rtdev(raii0, 5G) */
+`GET /api/apclient/survey?deviceAlias=5g`
 
 return data:
 ```js
@@ -1245,6 +1246,33 @@ return data:
         },
         ...
     ]
+}
+```
+
+### 连接到 AP
+`POST /api/apclient/connectToAP`
+
+post data:
+```js
+{
+    /*2g, rt2860(ra0, 2.4G); 5g, mt7160/rtdev(raii0, 5G) */
+    "deviceAlias"    :  "5g", 
+    "connectionInfo" :  {
+        "channel"    :  "161",
+        "ssid"       :  "modou-0a10",
+        "bssid"      :  "24:de:c6:5a:19:d8", // MAC address
+        "security"   :  "WPA1PSKWPA2PSK", // OPEN, WPAPSK, WPA2PSK, WPA1PSKWPA2PSK
+        "encrypType" :  "TKIPAES",  // NONE, WEP, TKIP, AES, TKIPAES
+        "password"   :  "12345678"  
+    }
+}
+```
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, 成功; -1, 失败
+    "msg"    : "Error Message" 
 }
 ```
 
