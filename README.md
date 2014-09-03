@@ -1230,7 +1230,7 @@ return data:
 ### 搜索热点信息
 
 /* 2g, rt2860(ra0, 2.4G); 5g, mt7160/rtdev(raii0, 5G) */
-`GET /api/apclient/survey?deviceAlias=5g`
+ `GET /api/apclient/survey?deviceAlias=5g`
 
 return data:
 ```js
