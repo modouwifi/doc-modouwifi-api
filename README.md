@@ -1227,7 +1227,7 @@ return data:
 
 ### 搜索热点信息
 
-`GET /api/apclient/get_site_survey?interface=rai0` // ra0, rt2860(2.4G); rai0 mt7160(5G)
+`GET /api/apclient/survey?deviceAlias=rai0` // ra0, rt2860(2.4G); rai0 mt7160(5G)
 
 return data:
 ```js
@@ -1235,13 +1235,13 @@ return data:
     "code"   : 0                // 0, 成功; -1, 失败
     "survey" : [
         {
-            "Channel"    :   "161",
-            "SSID"       :   "Modou-1234",
-            "BSSID"      :   "24:de:c6:5a:19:d8", // MAC address
-            "Security"   :   "WPA1PSKWPA2PSK", // OPEN, WPAPSK, WPA2PSK, WPA1PSKWPA2PSK
-            "EncrypType" :   "TKIPAES",  // NONE, WEP, TKIP, AES, TKIPAES
-            "Signal"     :   "99",
-            "W-Mode"     :   "11a/n"
+            "channel"    :   "161",
+            "ssid"       :   "Modou-1234",
+            "bssid"      :   "24:de:c6:5a:19:d8", // MAC address
+            "security"   :   "WPA1PSKWPA2PSK", // OPEN, WPAPSK, WPA2PSK, WPA1PSKWPA2PSK
+            "encrypType" :   "TKIPAES",  // NONE, WEP, TKIP, AES, TKIPAES
+            "signal"     :   "99",
+            "w-Mode"     :   "11a/n"
         },
         ...
     ]
