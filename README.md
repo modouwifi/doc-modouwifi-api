@@ -1287,5 +1287,44 @@ return data:
 
 `GET /api/speedtest?size=1024`
 
-`size` 以 KB 为单位。
+`size` 以 KB 为单
 
+### QoS设置
+
+#### 开启/关闭智能QoS
+`POST /api/qos/set_smart`
+
+post data:
+```js
+{
+    "enable" :  true/false       // true，开启；false, 关闭
+}
+```
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, 成功; -1, 失败
+    "msg"    : "Error Message" 
+}
+```
+
+#### 设置设备的优先级（仅QoS为优先级模式时有效）
+`POST /api/qos/set_prio`
+
+post data:
+```js
+{
+    "ip"    : "192.168.18.123",     // 被设置优先级的设备的IP地址
+    "mac"   : "11:22:33:44:55:66",  // 被设置优先级的设备的MAC地址
+    "prio"  : 3                     // 优先级，数值小的优先级高;目前支持1,2,3
+}
+```
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, 成功; -1, 失败
+    "msg"    : "Error Message" 
+}
+```
