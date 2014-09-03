@@ -1251,6 +1251,8 @@ return data:
 
 ### 测试连上路由器的速度
 
+**不需要身份验证**
+
 `GET /api/speedtest?size=1024`
 
 `size` 以 KB 为单位。
