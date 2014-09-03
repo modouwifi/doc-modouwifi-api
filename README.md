@@ -1108,8 +1108,10 @@ return data:
 | 3      | "downloading the install package of plugin"         | 正在下载安装包        |
 | 4      | "checking md5 checksum of install package"          | 正在校验安装包        |
 | 5      | "installing plugin"                                 | 正在安装             |
-| 6      | "updating installed plugin list"                    | 更新已安装应用列表    |
-| 7      | "plugin installed"                                  | 应用安装成功         |
+| 6      | "remove old app"                                    | 删除老应用         |
+| 7      | "updating installed plugin list"                    | 更新已安装应用列表    |
+| 0      | "plugin successfully installed"                     | 应用安装成功         |
+| 10     | "plugin alreay installed"                           | 应用已安装         |
 | 101    | "failed to open status file:&lt;FILENAME&gt;"       | 读取状态失败         |
 | 901    | "failed to download the plugin config file"         | 下载配置文件失败      |
 | 902    | "failed to read plugin config file : &lt;CODE&gt;"  | 读取配置文件失败      |
