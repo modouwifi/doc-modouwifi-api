@@ -1287,7 +1287,7 @@ return data:
 
 `GET /api/speedtest?size=1024`
 
-`size` 以 KB 为单
+`size` 以 KB 为单位
 
 ### QoS设置
 
