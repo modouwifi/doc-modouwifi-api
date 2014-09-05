@@ -1328,3 +1328,15 @@ return data:
     "msg"    : "Error Message" 
 }
 ```
+
+### 截图
+
+`GET /api/screenshot`
+
+Response Data:
+```js
+{
+  "code": 0,                // 0, 成功; -1, 失败
+  "url": "http://image.url"
+}
+```
