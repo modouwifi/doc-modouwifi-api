@@ -1289,6 +1289,7 @@ return data:
 
 `size` 以 KB 为单
 
+
 ### QoS设置
 
 #### 开启/关闭智能QoS
@@ -1304,12 +1305,25 @@ post data:
 return data:
 ```js
 {
-    "code"   : 0,                // 0, 成功; -1, 失败
+    "code"   : 0,                // 0, 成功; 非0失败
     "msg"    : "Error Message" 
 }
 ```
 
-#### 设置设备的优先级（仅QoS为优先级模式时有效）
+#### 获取智能QoS状态
+`GET /api/qos/get_smart`
+
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, 成功; 非0失败
+    "enabled":  true/false       // true，开启；false, 关闭
+    "msg"    : "Error Message" 
+}
+```
+
+#### 设置设备的优先级（仅QoS为VIP优先模式时有效）
 `POST /api/qos/set_prio`
 
 post data:
@@ -1324,7 +1338,90 @@ post data:
 return data:
 ```js
 {
-    "code"   : 0,                // 0, 成功; -1, 失败
+    "code"   : 0,                // 0, 成功; 非0失败
     "msg"    : "Error Message" 
+}
+```
+
+#### 删除设备的优先级（仅QoS为VIP优先模式时有效）
+`POST /api/qos/rm_prio`
+
+post data:
+```js
+{
+    "ip"    : "192.168.18.123",     // 被设置优先级的设备的IP地址
+    "mac"   : "11:22:33:44:55:66",  // 被设置优先级的设备的MAC地址
+    "prio"  : 3                     // 优先级，数值小的优先级高;目前支持1,2,3
+}
+```
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, 成功; 非0失败
+    "msg"    : "Error Message" 
+}
+```
+
+#### 查询优先级配置（仅QoS为VIP优先模式时有效）
+`GET /api/qos/get_prio_config`
+
+return data:
+```js
+{
+1   {[
+        {
+            "ip"    : "192.168.18.121",     // 被设置优先级的设备的IP地址
+            "mac"   : "11:22:33:44:55:61",  // 被设置优先级的设备的MAC地址
+            "prio"  : 1                     // 优先级，数值小的优先级高;目前支持1,2,3
+        },
+        ......
+    ]},
+2   {[
+        {
+            "ip"    : "192.168.18.122",     // 被设置优先级的设备的IP地址
+            "mac"   : "11:22:33:44:55:62",  // 被设置优先级的设备的MAC地址
+            "prio"  : 2                     // 优先级，数值小的优先级高;目前支持1,2,3
+        },
+        ......
+    ]},
+3   {[
+        {
+            "ip"    : "192.168.18.123",     // 被设置优先级的设备的IP地址
+            "mac"   : "11:22:33:44:55:63",  // 被设置优先级的设备的MAC地址
+            "prio"  : 3                     // 优先级，数值小的优先级高;目前支持1,2,3
+        },
+        ......
+    ]}
+}
+```
+
+#### 设定优先模式
+`POST /api/qos/set_mode`
+
+post data:
+```js
+{
+    "mode"  : "vip"              // 优先级模式, 暫支持VIP
+}
+```
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, 成功; 非0失败
+    "msg"    : "Error Message" 
+}
+```
+
+#### 查询优先模式
+`GET /api/qos/get_mode`
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, 成功; 非0失败
+    "mode"   : "vip"             // 优先级模式, vip
+    "msg"    : "Error Message"   
 }
 ```
