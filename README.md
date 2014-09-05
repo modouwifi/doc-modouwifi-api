@@ -1287,7 +1287,7 @@ return data:
 
 `GET /api/speedtest?size=1024`
 
-`size` 以 KB 为单
+`size` 以 KB 为单位
 
 
 ### QoS设置
@@ -1423,5 +1423,17 @@ return data:
     "code"   : 0,                // 0, 成功; 非0失败
     "mode"   : "vip"             // 优先级模式, vip
     "msg"    : "Error Message"   
+}
+```
+
+### 截图
+
+`GET /api/screenshot`
+
+Response Data:
+```js
+{
+  "code": 0,                // 0, 成功; -1, 失败
+  "url": "http://image.url"
 }
 ```
