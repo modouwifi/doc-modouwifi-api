@@ -1292,6 +1292,36 @@ return data:
 
 ### QoS设置
 
+#### 设定优先模式
+`POST /api/qos/set_mode`
+
+post data:
+```js
+{
+    "mode"  : "vip"              // 优先级模式, 暫支持VIP
+}
+```
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, 成功; 非0失败
+    "msg"    : "Error Message" 
+}
+```
+
+#### 查询优先模式
+`GET /api/qos/get_mode`
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, 成功; 非0失败
+    "mode"   : "vip"             // 优先级模式, none,vip,speedlimit
+    "msg"    : "Error Message"   
+}
+```
+
 #### 开启/关闭智能QoS
 `POST /api/qos/set_smart`
 
@@ -1364,45 +1394,49 @@ return data:
 ```
 
 #### 查询优先级配置（仅QoS为VIP优先模式时有效）
-`GET /api/qos/get_prio_config`
+`GET /api/qos/vip_config`
 
 return data:
 ```js
-{
-1   {[
+{ "code" : 0,
+  "conf" : [
+    [
         {
             "ip"    : "192.168.18.121",     // 被设置优先级的设备的IP地址
             "mac"   : "11:22:33:44:55:61",  // 被设置优先级的设备的MAC地址
             "prio"  : 1                     // 优先级，数值小的优先级高;目前支持1,2,3
         },
         ......
-    ]},
-2   {[
+    ],
+    [
         {
             "ip"    : "192.168.18.122",     // 被设置优先级的设备的IP地址
             "mac"   : "11:22:33:44:55:62",  // 被设置优先级的设备的MAC地址
             "prio"  : 2                     // 优先级，数值小的优先级高;目前支持1,2,3
         },
         ......
-    ]},
-3   {[
+    ],
+    [
         {
             "ip"    : "192.168.18.123",     // 被设置优先级的设备的IP地址
             "mac"   : "11:22:33:44:55:63",  // 被设置优先级的设备的MAC地址
             "prio"  : 3                     // 优先级，数值小的优先级高;目前支持1,2,3
         },
         ......
-    ]}
-}
+    ] 
+]}
 ```
 
-#### 设定优先模式
-`POST /api/qos/set_mode`
+#### 设置设备的速度限制（仅QoS为speedlimit模式时有效）
+`POST /api/qos/set_bandwidth`
 
 post data:
 ```js
 {
-    "mode"  : "vip"              // 优先级模式, 暫支持VIP
+    "ip"    : "192.168.18.123",     // 被设置优先级的设备的IP地址
+    "mac"   : "11:22:33:44:55:66",  // 被设置优先级的设备的MAC地址
+    "up"    : 100,
+    "down"  : 500
 }
 ```
 
@@ -1414,18 +1448,63 @@ return data:
 }
 ```
 
-#### 查询优先模式
-`GET /api/qos/get_mode`
+#### 删除设备的速度限制（仅QoS为speedlimit模式时有效）
+`POST /api/qos/rm_bandwidth`
+
+post data:
+```js
+{
+    "ip"    : "192.168.18.123",     // 被设置优先级的设备的IP地址
+    "mac"   : "11:22:33:44:55:66",  // 被设置优先级的设备的MAC地址
+    "up"    : 100,
+    "down"  : 500
+}
+```
 
 return data:
 ```js
 {
     "code"   : 0,                // 0, 成功; 非0失败
-    "mode"   : "vip"             // 优先级模式, vip
-    "msg"    : "Error Message"   
+    "msg"    : "Error Message" 
 }
 ```
 
+#### 查询网速限制配置（仅QoS为speedlimit模式时有效）
+`GET /api/qos/bandwidth_config`
+
+return data:
+```js
+{ "code" : 0,
+  "conf" : [
+    [
+        {
+            "ip"    : "192.168.18.121",     // 被限制设备的IP
+            "mac"   : "11:22:33:44:55:61",  // 被限制设备的MAC, 可选
+            "up"    : 100,                  // 上行带宽限制,单位 kbps
+            "down"  : 500                   // 下行宽限制,单位 kbps
+        },
+        ......
+    ],
+    [
+        {
+            "ip"    : "192.168.18.121",     // 被限制设备的IP
+            "mac"   : "11:22:33:44:55:61",  // 被限制设备的MAC, 可选
+            "up"    : 100,                  // 上行带宽限制,单位 kbps
+            "down"  : 500                   // 下行宽限制,单位 kbps
+        },
+        ......
+    ],
+    [
+        {
+            "ip"    : "192.168.18.121",     // 被限制设备的IP
+            "mac"   : "11:22:33:44:55:61",  // 被限制设备的MAC, 可选
+            "up"    : 100,                  // 上行带宽限制,单位 kbps
+            "down"  : 500                   // 下行宽限制,单位 kbps
+        },
+        ......
+    ] 
+]}
+```
 ### 截图
 
 `GET /api/screenshot`
