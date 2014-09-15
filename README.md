@@ -58,14 +58,14 @@
 
 `GET /api/system/check_download_upgrade`
 
-该接口为集成接口，其直接返回的json格式和/api/system/check_remote_version_upgrade相同。
-调用者需要根据接口的返回状态，再结合检查、下载、升级各子过程的状态检查接口，获知当前的操作状态。
-参考:
-    /api/system/check_remote_version_upgrade
-    /api/system/download_version_upgrade
-    /api/system/check_download_progress
-    /api/system/upgrade_version
-    /api/system/check_upgrade_progress
+`该接口为集成接口，其直接返回的json格式和/api/system/check_remote_version_upgrade相同。`
+`调用者需要根据接口的返回状态，再结合检查、下载、升级各子过程的状态检查接口，获知当前的操作状态。`
+`参考:`
+`   /api/system/check_remote_version_upgrade`
+`   /api/system/download_version_upgrade`
+`   /api/system/check_download_progress`
+`   /api/system/upgrade_version`
+`   /api/system/check_upgrade_progress`
 
 ### 检查是否有新版本
 
