@@ -54,6 +54,23 @@
 }
 ```
 
+### 全自动检查新版本、下载新版本、升级新版本
+
+`GET /api/system/check_download_upgrade`
+
+```js
+该接口为集成接口，其直接返回的json格式和/api/system/check_remote_version_upgrade
+相同。
+调用者需要根据接口的返回状态，再结合检查、下载、升级各子过程的状态检查接口，获知
+当前的操作状态。
+参考:
+`GET /api/system/check_remote_version_upgrade`
+`GET /api/system/download_version_upgrade`
+`POST /api/system/check_download_progress`
+`GET /api/system/upgrade_version`
+`GET /api/system/check_upgrade_progress`
+```
+
 ### 检查是否有新版本
 
 `GET /api/system/check_remote_version_upgrade`
