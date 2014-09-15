@@ -54,17 +54,15 @@
 }
 ```
 
-### 全自动检查新版本、下载新版本、升级新版本
+### 全自动下载新版本、升级新版本
 
-`GET /api/system/check_download_upgrade`
+`GET /api/system/download_and_upgrade`
 
-`该接口为集成接口，其直接返回的json格式和/api/system/check_remote_version_upgrade相同。`
+`该接口为集成接口，其直接返回的json格式和/api/system/download_version_upgrade相同。`
 
-`调用者需要根据接口的返回状态，再结合检查、下载、升级各子过程的状态检查接口，获知当前的操作状态。`
+`调用者需要根据接口的返回状态，再结合下载、升级各子过程的状态检查接口，获知当前的操作状态。`
 
 `参考:`
-
-`   /api/system/check_remote_version_upgrade`
 
 `   /api/system/download_version_upgrade`
 
