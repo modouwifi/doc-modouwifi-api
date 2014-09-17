@@ -1310,6 +1310,77 @@ return data:
 }
 ```
 
+### 断开 AP Client 连接
+/* 2g, rt2860(ra0, 2.4G); 5g, mt7160/rtdev(raii0, 5G) */
+`GET /api/apclient/disconnect?deviceAlias=5g`
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, 成功; -1, 失败
+    "msg"    : "Error Message" 
+}
+```
+
+### 重新连接到 AP
+/* 2g, rt2860(ra0, 2.4G); 5g, mt7160/rtdev(raii0, 5G) */
+`GET /api/apclient/reconnectToAP?deviceAlias=5g`
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, 成功; -1, 失败
+    "msg"    : "Error Message" 
+}
+```
+
+### 使能 AP Client
+/* 2g, rt2860(ra0, 2.4G); 5g, mt7160/rtdev(raii0, 5G) */
+`GET /api/apclient/eableAPClient?deviceAlias=5g`
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, 成功; -1, 失败
+    "msg"    : "Error Message" 
+}
+``` 
+
+### 关闭 AP Client
+/* 2g, rt2860(ra0, 2.4G); 5g, mt7160/rtdev(raii0, 5G) */
+`GET /api/apclient/disableAPClient?deviceAlias=5g`
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, 成功; -1, 失败
+    "msg"    : "Error Message" 
+}
+```
+
+### 获取 AP Client 当前状态
+/* 2g, rt2860(ra0, 2.4G); 5g, mt7160/rtdev(raii0, 5G) */
+`GET /api/apclient/apClientStatus?deviceAlias=5g`
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, disable; 1, enable; -1, 获取状态失败
+    "msg"    : "Error Message" 
+}
+```
+
+### 获取上一次的连接信息
+/* 2g, rt2860(ra0, 2.4G); 5g, mt7160/rtdev(raii0, 5G) */
+`GET /api/apclient/prevConnectionInfo?deviceAlias=5g`
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, disable; 1, enable; -1, 获取状态失败
+    "msg"    : "Error Message" 
+}
+```
 
 ### 测试连上路由器的速度
 
