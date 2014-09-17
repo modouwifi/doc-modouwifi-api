@@ -72,6 +72,18 @@
 
 `   /api/system/check_upgrade_progress`
 
+### 检查当前为下载中、升级中或升级结束
+
+`GET /api/system/check_upgrade_global_status`
+
+```js
+{
+  "code"        : -1,     //-1->无状态， 1->下载中，2->升级中, 3->升级结束
+  "msg"         : ""
+}
+```
+
+
 ### 检查是否有新版本
 
 `GET /api/system/check_remote_version_upgrade`
