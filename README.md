@@ -1316,7 +1316,7 @@ return data:
 post data:
 ```js
 {
-    "mode"  : "vip"              // 优先级模式, 暫支持VIP
+    "mode"  : "vip"              // 优先级模式, 暫支持none|vip|speedlimit|game
 }
 ```
 
