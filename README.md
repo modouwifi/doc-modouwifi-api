@@ -83,6 +83,19 @@
 }
 ```
 
+| 状态码  | 消息                                    |      意义              |
+| ------  | --------------------------------------- | ---------------------- |
+| -1      | "donothing"                             | 没有在升级             |
+| -2      | "/data is not mounted"                  | data分区没有挂载       |
+| -3      | "fail to download json file"            | 配置文件下载失败       |
+| -4      | "fail to decode json file"              | 配置文件解析失败       |
+| -5      | "no newer release"                      | 没有新版本             |
+| -6      | "md5 check failed"                      | 升级包校验出错         |
+| -7      | "signature error"                       | 升级包签名出错         |
+| -8      | "hardware version not match"            | 升级包和硬件版本不匹配 |
+| 1       | "downloading"                           | 正在下载               |
+| 2       | "upgrading"                             | 正在升级               |
+| 3       | "upgrade done"                          | 升级完成               |
 
 ### 检查是否有新版本
 
@@ -440,6 +453,31 @@ return data:
   "tx_packets"  : 282499,               // 发包
   "rx_rate"     : 0,                    // 收丢包率
   "tx_dropped"  : 0                     // 发丢包
+}
+```
+
+### 获取 WAN 口自定义的DNS
+
+`GET /api/wan/custom_dns/get`
+
+return: 
+
+```js
+{
+  "code"        : 0,                    // 返回码，0正常，非0出错
+  "dns1"        : "8.8.8.8",            // 自定义DNS1
+  "dns2"        : "8.8.4.4"             // 自定义DNS2
+}
+```
+
+### 设置 WAN 口自定义DNS
+
+`POST /api/wan/custom_dns/set`
+
+```js
+{
+  "dns1"        : "8.8.8.8",            // 自定义DNS1
+  "dns2"        : "8.8.4.4"             // 自定义DNS2
 }
 ```
 
