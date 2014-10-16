@@ -1210,7 +1210,7 @@ return data:
 ```js
 {
   "code"      : 0,                            // 返回码, 0 成功，非0失败
-  "msg"       : ""                            // 错误消息
+  "msg"       : "",                           // 错误消息
   "data"      : <JSON OBJECT>                 // 应用自行维护的JSON配置数据
 }
 ```
@@ -1224,9 +1224,9 @@ return data:
 ```js
 {
   "code"      : 0,                            // 返回码, 0 成功，非0失败
-  "msg"       : ""                            // 错误消息
-  "data"      : <JSON OBJECT>                 // 应用自行维护的JSON配置数据
-  "views"     : <JSON OBJECT>                 // 应用的视图配置信息
+  "msg"       : "",                           // 错误消息
+  "data"      : <JSON OBJECT>,                // 应用自行维护的JSON配置数据
+  "views"     : <JSON OBJECT>,                // 应用的视图配置信息
   "actions"   : <JSON OBJECT>                 // 应用的命令列表
 }
 ```
@@ -1249,28 +1249,28 @@ return data:
 ```js
 {
   "code"      : 0,                            // 返回码, 0 成功，非0失败
-  "msg"       : ""                            // 错误消息
-  "data"      : <JSON OBJECT>                 // 应用自行维护的JSON配置数据 
-  "views"     : <JSON OBJECT>                 // 应用的视图配置信息
+  "msg"       : "",                           // 错误消息
+  "data"      : <JSON OBJECT>,                // 应用自行维护的JSON配置数据 
+  "views"     : <JSON OBJECT>,                // 应用的视图配置信息
   "actions"   : <JSON OBJECT>                 // 应用的命令列表
 }
 ```
 
 action的JSON数据格式:
-```
+```js
 {
-  "id"      : "command1",           // 应用的命令ID
-  "is_sync" : true,                 // 是否需要同步阻塞执行,默认阻塞同步
-  "input"   : "100"                 // 应用的命令参数
+  "id"      : "command1",                     // 应用的命令ID
+  "is_sync" : true,                           // 是否需要同步阻塞执行,默认阻塞同步
+  "input"   : "100"                           // 应用的命令参数
 }
 ```
 data的JSON数据格式:
-```
+```js
 {
-  "id"      : "data1",              // 配置数据的ID
-  "name"    : "username",           // 配置数据的名字
-  "value"   : "middle"              // 配置数据的值
-  "group_id": "group1",             // 配置数据的组ID
+  "id"      : "data1",                        // 配置数据的ID
+  "name"    : "username",                     // 配置数据的名字
+  "value"   : "middle",                       // 配置数据的值
+  "group_id": "group1",                       // 配置数据的组ID
   "type"    : {
                  "class" : "ENUM|BOOL|INT|STRING|FLOAT|SET",
                  "items" : ["high", "middle", "low"],  // ENUM，SET适用
@@ -1281,31 +1281,31 @@ data的JSON数据格式:
 }
 ```
 view的JSON数据格式:
-```
+```js
 {
-  "id"      : "view1",              // 配置视图的ID
-  "name"    : "viewname",           // 配置视图的名字
+  "id"      : "view1",                        // 配置视图的ID
+  "name"    : "viewname",                     // 配置视图的名字
   "data"    : [
-                {"id" : "data1",    // 视图需要展示的数据的ID
-                 "acess" : "RO|RW"  // 数据是否可修改
+                {"id" : "data1",              // 视图需要展示的数据的ID
+                 "acess" : "RO|RW"            // 数据是否可修改
                 },
                 ...
                ],
-  "menu"    : [                     // 主视图适用
+  "menu"    : [                               // 主视图适用
                   { "index"  : 1, 
                     "text"   : "contract", 
                     "type"   : "COMMAND|MENU|VIEW",
-                    "action" : actionid, // COMMAND适用
-                    "input"  : data1,    // COMMAND适用
-                    "viewid" : viewid,   // VIEW适用
-                    "items"  : [
+                    "action" : actionid,      // COMMAND适用
+                    "input"  : data1,         // COMMAND适用
+                    "viewid" : viewid,        // VIEW适用
+                    "items"  : [              // MENU适用
                                  {
-                                    "index" : 1,
-                                    "text"  : "item1",
+                                    "index"  : 1,
+                                    "text"   : "item1",
                                     "type"   : "COMMAND|VIEW",
                                     "action" : actionid, // COMMAND适用
                                     "input"  : data1,    // COMMAND适用
-                                    "viewid" : viewid   // VIEW适用
+                                    "viewid" : viewid    // VIEW适用
                                  },
                                  ...
                                 ]
@@ -1315,7 +1315,6 @@ view的JSON数据格式:
   
 }
 ```
-
 
 ### 安装非认证应用
 
