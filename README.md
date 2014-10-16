@@ -1250,9 +1250,7 @@ return data:
 {
   "code"      : 0,                            // 返回码, 0 成功，非0失败
   "msg"       : "",                           // 错误消息
-  "data"      : <JSON OBJECT>,                // 应用自行维护的JSON配置数据 
-  "views"     : <JSON OBJECT>,                // 应用的视图配置信息
-  "actions"   : <JSON OBJECT>                 // 应用的命令列表
+  "data"      : <JSON OBJECT>                 // 应用自行维护的JSON配置数据 
 }
 ```
 
