@@ -1191,15 +1191,15 @@ return data:
 
 ### 对应用进行配置
 
-`POST /api/plugin/config`
+`POST /api/plugin/config/set`
+`POST /api/plugin/config` (不建议使用)
 
 post data:
 
 ```js
 {
-  "id"        : "0000001",                    // 应用ID
-  "filename"  : "test.conf",                  // 配置文件名
-  "content"   : "xxxxcvvadfafad"              // 配置文件的内容, base64编码
+  "package_id"  : "0000001",                  // 应用ID
+  "data"        : $lt;JSON OBJECT&gt;         // 应用自行维护的JSON配置数据
 }
 ```
 
@@ -1209,8 +1209,111 @@ return data:
 {
   "code"      : 0,                            // 返回码, 0 成功，非0失败
   "msg"       : ""                            // 错误消息
+  "data"      : $lt;JSON OBJECT&gt;           // 应用自行维护的JSON配置数据
 }
 ```
+
+### 获取应用的配置信息
+
+`GET /api/plugin/config/get?id=&lt;package_id&gt;&type=&lt;TP|MOBILE|WEB&gt;`
+
+return data:
+
+```js
+{
+  "code"      : 0,                            // 返回码, 0 成功，非0失败
+  "msg"       : ""                            // 错误消息
+  "data"      : $lt;JSON OBJECT&gt;           // 应用自行维护的JSON配置数据
+  "views"     : $lt;JSON OBJECT&gt;           // 应用的视图配置信息
+  "actions"   : $lt;JSON OBJECT&gt;           // 应用的命令列表
+}
+```
+
+### 执行应用的某个操作
+
+`POST /api/plugin/execute`
+
+post data:
+
+```js
+{
+  "package_id"  : "0000001",                  // 应用ID
+  "type"        : "TP|MOBILE|WEB",            // 调用来源类型
+  "actions"     : $lt;JSON OBJECT&gt;         // 应用的命令列表
+}
+```
+return data:
+
+```js
+{
+  "code"      : 0,                            // 返回码, 0 成功，非0失败
+  "msg"       : ""                            // 错误消息
+  "data"      : $lt;JSON OBJECT&gt;           // 应用自行维护的JSON配置数据
+  "views"     : $lt;JSON OBJECT&gt;           // 应用的视图配置信息
+  "actions"   : $lt;JSON OBJECT&gt;           // 应用的命令列表
+}
+```
+
+action的JSON数据格式:
+```
+{
+  "id"      : "command1",           // 应用的命令ID
+  "is_sync" : true,                 // 是否需要同步阻塞执行,默认阻塞同步
+  "input"   : "100"                 // 应用的命令参数
+}
+```
+data的JSON数据格式:
+```
+{
+  "id"      : "data1",              // 配置数据的ID
+  "name"    : "username",           // 配置数据的名字
+  "value"   : "middle"              // 配置数据的值
+  "group_id": "group1",             // 配置数据的组ID
+  "type"    : {
+                 "class" : "ENUM|BOOL|INT|STRING|FLOAT|SET",
+                 "items" : ["high", "middle", "low"],  // ENUM，SET适用
+                 "min"   : 0,                          // INT, FLOAT, STRING使用
+                 "max"   : 100,                        // INT, FLOAT, STRING使用
+                 "multiple" : true|false
+              }
+}
+```
+view的JSON数据格式:
+```
+{
+  "id"      : "view1",              // 配置视图的ID
+  "name"    : "viewname",           // 配置视图的名字
+  "data"    : [
+                {"id" : "data1",    // 视图需要展示的数据的ID
+                 "acess" : "RO|RW"  // 数据是否可修改
+                },
+                ...
+               ],
+  "menu"    : [                     // 主视图适用
+                  { "index"  : 1, 
+                    "text"   : "contract", 
+                    "type"   : "COMMAND|MENU|VIEW",
+                    "action" : actionid, // COMMAND适用
+                    "input"  : data1,    // COMMAND适用
+                    "viewid" : viewid,   // VIEW适用
+                    "items"  : [
+                                 {
+                                    "index" : 1,
+                                    "text"  : "item1",
+                                    "type"   : "COMMAND|VIEW",
+                                    "action" : actionid, // COMMAND适用
+                                    "input"  : data1,    // COMMAND适用
+                                    "viewid" : viewid   // VIEW适用
+                                 },
+                                 ...
+                                ]
+                   },
+                   ...
+               ]
+  
+}
+```
+
 
 ### 安装非认证应用
 
