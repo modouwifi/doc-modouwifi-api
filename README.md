@@ -1192,6 +1192,7 @@ return data:
 ### 对应用进行配置
 
 `POST /api/plugin/config/set`
+
 `POST /api/plugin/config` (不建议使用)
 
 post data:
@@ -1199,7 +1200,7 @@ post data:
 ```js
 {
   "package_id"  : "0000001",                  // 应用ID
-  "data"        : $lt;JSON OBJECT&gt;         // 应用自行维护的JSON配置数据
+  "data"        : <JSON OBJECT>               // 应用自行维护的JSON配置数据
 }
 ```
 
@@ -1209,13 +1210,13 @@ return data:
 {
   "code"      : 0,                            // 返回码, 0 成功，非0失败
   "msg"       : ""                            // 错误消息
-  "data"      : $lt;JSON OBJECT&gt;           // 应用自行维护的JSON配置数据
+  "data"      : <JSON OBJECT>                 // 应用自行维护的JSON配置数据
 }
 ```
 
 ### 获取应用的配置信息
 
-`GET /api/plugin/config/get?id=&lt;package_id&gt;&type=&lt;TP|MOBILE|WEB&gt;`
+`GET /api/plugin/config/get?id=<package_id>&type=<TP|MOBILE|WEB>`
 
 return data:
 
@@ -1223,9 +1224,9 @@ return data:
 {
   "code"      : 0,                            // 返回码, 0 成功，非0失败
   "msg"       : ""                            // 错误消息
-  "data"      : $lt;JSON OBJECT&gt;           // 应用自行维护的JSON配置数据
-  "views"     : $lt;JSON OBJECT&gt;           // 应用的视图配置信息
-  "actions"   : $lt;JSON OBJECT&gt;           // 应用的命令列表
+  "data"      : <JSON OBJECT>                 // 应用自行维护的JSON配置数据
+  "views"     : <JSON OBJECT>                 // 应用的视图配置信息
+  "actions"   : <JSON OBJECT>                 // 应用的命令列表
 }
 ```
 
@@ -1239,7 +1240,7 @@ post data:
 {
   "package_id"  : "0000001",                  // 应用ID
   "type"        : "TP|MOBILE|WEB",            // 调用来源类型
-  "actions"     : $lt;JSON OBJECT&gt;         // 应用的命令列表
+  "actions"     : <JSON OBJECT>               // 应用的命令列表
 }
 ```
 return data:
@@ -1248,9 +1249,9 @@ return data:
 {
   "code"      : 0,                            // 返回码, 0 成功，非0失败
   "msg"       : ""                            // 错误消息
-  "data"      : $lt;JSON OBJECT&gt;           // 应用自行维护的JSON配置数据
-  "views"     : $lt;JSON OBJECT&gt;           // 应用的视图配置信息
-  "actions"   : $lt;JSON OBJECT&gt;           // 应用的命令列表
+  "data"      : <JSON OBJECT>                 // 应用自行维护的JSON配置数据 
+  "views"     : <JSON OBJECT>                 // 应用的视图配置信息
+  "actions"   : <JSON OBJECT>                 // 应用的命令列表
 }
 ```
 
