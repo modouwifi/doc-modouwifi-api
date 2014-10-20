@@ -1257,60 +1257,66 @@ return data:
 action的JSON数据格式:
 ```js
 {
-  "id"      : "command1",                     // 应用的命令ID
-  "is_sync" : true,                           // 是否需要同步阻塞执行,默认阻塞同步
-  "input"   : "100"                           // 应用的命令参数
+    "command1" : {
+      "id"      : "command1",                 // 应用的命令ID
+      "is_sync" : true,                       // 是否需要同步阻塞执行,默认阻塞同步
+      "input"   : "100"                       // 应用的命令参数
+    }
 }
 ```
 data的JSON数据格式:
 ```js
 {
-  "id"      : "data1",                        // 配置数据的ID
-  "name"    : "username",                     // 配置数据的名字
-  "value"   : "middle",                       // 配置数据的值
-  "group_id": "group1",                       // 配置数据的组ID
-  "type"    : {
-                 "class" : "ENUM|BOOL|INT|STRING|FLOAT|SET",
-                 "items" : ["high", "middle", "low"],  // ENUM，SET适用
-                 "min"   : 0,                          // INT, FLOAT, STRING使用
-                 "max"   : 100,                        // INT, FLOAT, STRING使用
-                 "multiple" : true|false
-              }
+    "data1" : {
+      "id"      : "data1",                    // 配置数据的ID
+      "name"    : "username",                 // 配置数据的名字
+      "value"   : "middle",                   // 配置数据的值
+      "group_id": "group1",                   // 配置数据的组ID
+      "type"    : {
+                     "class" : "ENUM|BOOL|INT|STRING|FLOAT|SET",
+                     "items" : ["high", "middle", "low"],  // ENUM，SET适用
+                     "min"   : 0,                          // INT, FLOAT, STRING使用
+                     "max"   : 100,                        // INT, FLOAT, STRING使用
+                     "multiple" : true|false
+                  }
+    }
 }
 ```
 view的JSON数据格式:
 ```js
 {
-  "id"      : "view1",                        // 配置视图的ID
-  "name"    : "viewname",                     // 配置视图的名字
-  "data"    : [
-                {"id" : "data1",              // 视图需要展示的数据的ID
-                 "acess" : "RO|RW"            // 数据是否可修改
-                },
-                ...
-               ],
-  "menu"    : [                               // 主视图适用
-                  { "index"  : 1, 
-                    "text"   : "contract", 
-                    "type"   : "COMMAND|MENU|VIEW",
-                    "action" : actionid,      // COMMAND适用
-                    "input"  : data1,         // COMMAND适用
-                    "viewid" : viewid,        // VIEW适用
-                    "items"  : [              // MENU适用
-                                 {
-                                    "index"  : 1,
-                                    "text"   : "item1",
-                                    "type"   : "COMMAND|VIEW",
-                                    "action" : actionid, // COMMAND适用
-                                    "input"  : data1,    // COMMAND适用
-                                    "viewid" : viewid    // VIEW适用
-                                 },
-                                 ...
-                                ]
-                   },
-                   ...
-               ]
-  
+    "view1" : {
+      "id"      : "view1",                    // 配置视图的ID
+      "name"    : "viewname",                 // 配置视图的名字
+      "data"    : {
+                    "data1" : {"id" : "data1",// 视图需要展示的数据的ID
+                     "acess" : "RO|RW"        // 数据是否可修改
+                    },
+                    ...
+                  },
+      "menu"    : {                           // 主视图适用
+                      "1" : { "index"  : 1, 
+                        "text"   : "contract", 
+                        "type"   : "COMMAND|MENU|VIEW",
+                        "action" : actionid,  // COMMAND适用
+                        "input"  : data1,     // COMMAND适用
+                        "viewid" : viewid,    // VIEW适用
+                        "items"  : {          // MENU适用
+                                     "1" : {
+                                        "index"  : 1,
+                                        "text"   : "item1",
+                                        "type"   : "COMMAND|VIEW",
+                                        "action" : actionid, // COMMAND适用
+                                        "input"  : data1,    // COMMAND适用
+                                        "viewid" : viewid    // VIEW适用
+                                     },
+                                     ...
+                                    }
+                       },
+                       ...
+                   }
+      
+    }
 }
 ```
 
