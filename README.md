@@ -313,7 +313,7 @@ return :
 ```js
 {
   "type"              : "STATIC",              // 当前连接方式(DHCP, PPPOE, STATIC, APCLIENT_RT2860,
-                                                               APCLIENT_MT7160)
+                                                               APCLIENT_MT7610)
   "ip"                : "192.168.1.12",
   "mask"              : "182.168.1.1",
   "gateway"           : "255.255.255.0",
@@ -1420,7 +1420,7 @@ return data:
 
 `GET /api/apclient/survey?deviceAlias=5g` /* 
                                            2g, rt2860(ra0, 2.4G); 
-                                           5g, mt7160/rtdev(raii0, 5G) 
+                                           5g, mt7610/rtdev(raii0, 5G) 
                                           */
 
 return data:
@@ -1448,7 +1448,7 @@ return data:
 post data:
 ```js
 {
-    /*2g, rt2860(ra0, 2.4G); 5g, mt7160/rtdev(raii0, 5G) */
+    /*2g, rt2860(ra0, 2.4G); 5g, mt7610/rtdev(raii0, 5G) */
     "deviceAlias"    :  "5g", 
     "connectionInfo" :  {
         "channel"    :  "161",
@@ -1470,7 +1470,7 @@ return data:
 ```
 
 ### 断开 AP Client 连接
-/* 2g, rt2860(ra0, 2.4G); 5g, mt7160/rtdev(raii0, 5G) */
+/* 2g, rt2860(ra0, 2.4G); 5g, mt7610/rtdev(raii0, 5G) */
 `GET /api/apclient/disconnect?deviceAlias=5g`
 
 return data:
@@ -1482,7 +1482,7 @@ return data:
 ```
 
 ### 重新连接到 AP
-/* 2g, rt2860(ra0, 2.4G); 5g, mt7160/rtdev(raii0, 5G) */
+/* 2g, rt2860(ra0, 2.4G); 5g, mt7610/rtdev(raii0, 5G) */
 `GET /api/apclient/reconnectToAP?deviceAlias=5g`
 
 return data:
@@ -1494,7 +1494,7 @@ return data:
 ```
 
 ### 使能 AP Client
-/* 2g, rt2860(ra0, 2.4G); 5g, mt7160/rtdev(raii0, 5G) */
+/* 2g, rt2860(ra0, 2.4G); 5g, mt7610/rtdev(raii0, 5G) */
 `GET /api/apclient/eableAPClient?deviceAlias=5g`
 
 return data:
@@ -1506,7 +1506,7 @@ return data:
 ``` 
 
 ### 关闭 AP Client
-/* 2g, rt2860(ra0, 2.4G); 5g, mt7160/rtdev(raii0, 5G) */
+/* 2g, rt2860(ra0, 2.4G); 5g, mt7610/rtdev(raii0, 5G) */
 `GET /api/apclient/disableAPClient?deviceAlias=5g`
 
 return data:
@@ -1518,7 +1518,7 @@ return data:
 ```
 
 ### 获取 AP Client 当前状态
-/* 2g, rt2860(ra0, 2.4G); 5g, mt7160/rtdev(raii0, 5G) */
+/* 2g, rt2860(ra0, 2.4G); 5g, mt7610/rtdev(raii0, 5G) */
 `GET /api/apclient/apClientStatus?deviceAlias=5g`
 
 return data:
@@ -1530,7 +1530,7 @@ return data:
 ```
 
 ### 获取上一次的连接信息
-/* 2g, rt2860(ra0, 2.4G); 5g, mt7160/rtdev(raii0, 5G) */
+/* 2g, rt2860(ra0, 2.4G); 5g, mt7610/rtdev(raii0, 5G) */
 `GET /api/apclient/prevConnectionInfo?deviceAlias=5g`
 
 return data:
