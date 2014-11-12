@@ -1181,26 +1181,27 @@ return data:
   "msg"       : ""                                // 错误消息
 }
 ```
-| 状态码  | 消息                                               |      意义           |
-| ------ | --------------------------------------------------  | ------------------- |
-| -1     | "plugin ID missing"                                 | 缺少应用ID          |
-| -2     | "It's not installing plugin:&lt;PLUGIN_ID&gt;"      | 当前不在安装应用      |
-| 1      | "downloading plugin config file"                    | 正在下载应用配置文件   |
-| 2      | "parsing plugin config file"                        | 正在解析应用配置文件   |
-| 3      | "downloading the install package of plugin"         | 正在下载安装包        |
-| 4      | "checking md5 checksum of install package"          | 正在校验安装包        |
-| 5      | "installing plugin"                                 | 正在安装             |
-| 6      | "remove old app"                                    | 删除老应用         |
-| 7      | "updating installed plugin list"                    | 更新已安装应用列表    |
-| 0      | "plugin successfully installed"                     | 应用安装成功         |
-| 10     | "plugin alreay installed"                           | 应用已安装         |
-| 101    | "failed to open status file:&lt;FILENAME&gt;"       | 读取状态失败         |
-| 901    | "failed to download the plugin config file"         | 下载配置文件失败      |
-| 902    | "failed to read plugin config file : &lt;CODE&gt;"  | 读取配置文件失败      |
-| 903    | "field missing in plugin config file"               | 配置文件错误         |
-| 904    | "failed to download plugin install package"         | 下载安装包失败        |
-| 905    | "MD5 check sum doesn't match with config"           | MD5校验失败          |
-| 906    | "extract the install package failed"                | 解压安装包失败        |
+| 状态码  | 消息                                                |      意义            |
+| ------- | --------------------------------------------------- | -------------------- |
+| -1      | "plugin ID missing"                                 | 缺少应用ID           |
+| -2      | "It's not installing plugin:&lt;PLUGIN_ID&gt;"      | 当前不在安装应用     |
+| 1       | "downloading plugin config file"                    | 正在下载应用配置文件 |
+| 2       | "parsing plugin config file"                        | 正在解析应用配置文件 |
+| 3       | "downloading the install package of plugin"         | 正在下载安装包       |
+| 4       | "checking md5 checksum of install package"          | 正在校验安装包       |
+| 5       | "installing plugin"                                 | 正在安装             |
+| 6       | "remove old app"                                    | 删除老应用           |
+| 7       | "updating installed plugin list"                    | 更新已安装应用列表   |
+| 8       | "auto start app"                                    | 自动启动应用         |
+| 0       | "plugin successfully installed"                     | 应用安装成功         |
+| 10      | "plugin alreay installed"                           | 应用已安装           |
+| 101     | "failed to open status file:&lt;FILENAME&gt;"       | 读取状态失败         |
+| 901     | "failed to download the plugin config file"         | 下载配置文件失败     |
+| 902     | "failed to read plugin config file : &lt;CODE&gt;"  | 读取配置文件失败     |
+| 903     | "field missing in plugin config file"               | 配置文件错误         |
+| 904     | "failed to download plugin install package"         | 下载安装包失败       |
+| 905     | "MD5 check sum doesn't match with config"           | MD5校验失败          |
+| 906     | "extract the install package failed"                | 解压安装包失败       |
 
 
 ### 对应用进行配置
