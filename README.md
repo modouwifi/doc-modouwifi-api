@@ -38,8 +38,7 @@
 }
 ```
 
-## 版本升级
-
+## 版本升级OP版
 ### 获取当前版本信息
 
 **不需要身份验证**
@@ -53,6 +52,84 @@
   "version2"  :    "m101a"           // 当前硬件版本
 }
 ```
+
+### 获取ota最新版本
+`GET /api/system/upgrade_get_latest_version`
+
+```js
+{
+  “code" :0 : 成功  1:无法获取
+  "msg" : "success or failed", 
+  "version": "0.7.06_beta2",
+  "uri": "http://cdn.ota.imoguyun.com/info/inter_m101b_all_0.7.06_beta2.bin",
+  "filelength": 16213267,
+  "filemd5": "6a013a0f351560a4cc3dc7fe7230efd1",
+  "releasenote": "releasenote"
+}
+```
+
+`升级接口中除了获取ota版本以外，其他接口都需要版本参数，因为可能存在连续推送版本的情况，所以带上版本参数可以升级流程更清晰`
+
+### 开始升级
+
+`POST /api/system/upgrade_start`
+
+post data:
+jsondata[version]
+
+
+```js
+{
+  "code" : 0 : 成功开始,  1 : 升级正在进行中或者已经结束（不需要再次开始一次新的升级过程), 2, 没有足够的存储空间
+  "msg" : "msg"
+}
+```
+
+### 取得升级的进度
+`POST /api/system/upgrade_get_status`
+post data:
+jsondata[version]
+
+```js
+{
+  "version" : "version" // 当前正在进行的版本升级的版本 (如果有的话)
+  "stage" : stage 0:没有升级正在进行, 1:正在下载中, 2:正在检查md5, 3:正在升级（刷机), 4:升级已经结束（可能成功，可能失败)
+  "code" : code -2: 还没开始,  -1 : 正在处理中, 0 : 处理成功,  1:处理失败         "stage和code是相关的，标志了某一个stage的return code"
+  "need_upgrade" : 0or1 // 0：当时的状态不需要start_update(升级正在进行中，或者已经成功升级过版本）  1:需要start update(当前没有升级在进行中，并且刚结束的升级活动不是成功的状态）
+  "percent" : percent // 下载或者刷机的stage中的百分比
+  "msg" : msg
+}
+```
+
+### 取消升级
+`POST /api/system/upgrade_cancel`
+post data:
+jsondata[version]
+
+```js
+{
+  "code" : 0 : 成功  1 : 缺少版本参数
+  "msg" : msg
+}
+```
+
+
+
+## 版本升级
+### 获取当前版本信息
+
+**不需要身份验证**
+
+`GET /api/system/get_version_info`
+
+```js
+{
+  "track"     :    "inter",          // 当前版本线，分内部版、开发版和稳定版
+  "version1"  :    "0.5.27_beta2",   // 当前固件版本
+  "version2"  :    "m101a"           // 当前硬件版本
+}
+```
+
 
 ### 全自动下载新版本、升级新版本
 
