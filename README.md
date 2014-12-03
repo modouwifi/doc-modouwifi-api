@@ -58,7 +58,7 @@
 
 ```js
 {
-  “code" :0 : 成功  1:无法获取
+  “code": code,  //0 成功  1 无法获取
   "msg" : "success or failed", 
   "version": "0.7.06_beta2",
   "uri": "http://cdn.ota.imoguyun.com/info/inter_m101b_all_0.7.06_beta2.bin",
@@ -80,7 +80,7 @@ jsondata[version]
 
 ```js
 {
-  "code" : 0 : 成功开始,  1 : 升级正在进行中或者已经结束（不需要再次开始一次新的升级过程), 2, 没有足够的存储空间
+  "code" : code //0 成功开始,  1 : 升级正在进行中或者已经结束（不需要再次开始一次新的升级过程), 2, 没有足够的存储空间
   "msg" : "msg"
 }
 ```
@@ -92,11 +92,11 @@ jsondata[version]
 
 ```js
 {
-  "version" : "version" // 当前正在进行的版本升级的版本 (如果有的话)
-  "stage" : stage 0:没有升级正在进行, 1:正在下载中, 2:正在检查md5, 3:正在升级（刷机), 4:升级已经结束（可能成功，可能失败)
-  "code" : code -2: 还没开始,  -1 : 正在处理中, 0 : 处理成功,  1:处理失败         "stage和code是相关的，标志了某一个stage的return code"
-  "need_upgrade" : 0or1 // 0：当时的状态不需要start_update(升级正在进行中，或者已经成功升级过版本）  1:需要start update(当前没有升级在进行中，并且刚结束的升级活动不是成功的状态）
-  "percent" : percent // 下载或者刷机的stage中的百分比
+  "version" : "version", // 当前正在进行的版本升级的版本 (如果有的话)
+  "stage" : stage,  //0:没有升级正在进行, 1:正在下载中, 2:正在检查md5, 3:正在升级（刷机), 4:升级已经结束（可能成功，可能失败)
+  "code" : code, // -2: 还没开始,  -1 : 正在处理中, 0 : 处理成功,  1:处理失败         "stage和code是相关的，标志了某一个stage的return code"
+  "need_upgrade" : need_upgrade, // 0：当时的状态不需要start_update(升级正在进行中，或者已经成功升级过版本）  1:需要start update(当前没有升级在进行中，并且刚结束的升级活动不是成功的状态）
+  "percent" : percent, // 下载或者刷机的stage中的百分比
   "msg" : msg
 }
 ```
@@ -108,7 +108,7 @@ jsondata[version]
 
 ```js
 {
-  "code" : 0 : 成功  1 : 缺少版本参数
+  "code" : code, //0 : 成功  1 : 缺少版本参数
   "msg" : msg
 }
 ```
