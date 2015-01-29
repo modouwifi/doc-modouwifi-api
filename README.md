@@ -38,8 +38,7 @@
 }
 ```
 
-## 版本升级
-
+## 版本升级OP版
 ### 获取当前版本信息
 
 **不需要身份验证**
@@ -53,6 +52,127 @@
   "version2"  :    "m101a"           // 当前硬件版本
 }
 ```
+
+### 获取ota最新版本
+`GET /api/system/upgrade_get_latest_version`
+
+```js
+{
+  “code": code,  //0 成功  1 无法获取
+  "msg" : "success or failed", 
+  "version": "0.7.06_beta2",
+  "uri": "http://cdn.ota.imoguyun.com/info/inter_m101b_all_0.7.06_beta2.bin",
+  "filelength": 16213267,
+  "filemd5": "6a013a0f351560a4cc3dc7fe7230efd1",
+  "releasenote": "releasenote"
+}
+```
+
+`升级接口中除了获取ota版本以外，其他接口都需要版本参数，因为可能存在连续推送版本的情况，所以带上版本参数可以升级流程更清晰`
+
+### 开始升级
+
+`POST /api/system/upgrade_start`
+
+post data:
+jsondata[version]
+
+
+```js
+{
+  "code" : code //0 成功开始,  1 : 升级正在进行中或者已经结束（不需要再次开始一次新的升级过程), 2, 没有足够的存储空间
+  "msg" : "msg"
+}
+```
+
+### 取得升级的进度
+`POST /api/system/upgrade_get_status`
+post data:
+jsondata[version]
+
+```js
+{
+  "version" : "version", // 当前正在进行的版本升级的版本 (如果有的话)
+  "stage" : stage,  //0:没有升级正在进行, 1:正在下载中, 2:正在检查md5, 3:正在升级（刷机), 4:升级已经结束（可能成功，可能失败)
+  "code" : code, // -2: 还没开始,  -1 : 正在处理中, 0 : 处理成功,  1:处理失败         "stage和code是相关的，标志了某一个stage的return code"
+  "need_upgrade" : need_upgrade, // 0：当时的状态不需要start_update(升级正在进行中，或者已经成功升级过版本）  1:需要start update(当前没有升级在进行中，并且刚结束的升级活动不是成功的状态）
+  "percent" : percent, // 下载或者刷机的stage中的百分比
+  "msg" : msg
+}
+```
+
+### 取消升级
+`POST /api/system/upgrade_cancel`
+post data:
+jsondata[version]
+
+```js
+{
+  "code" : code, //0 : 成功  1 : 缺少版本参数
+  "msg" : msg
+}
+```
+
+
+
+## 版本升级
+### 获取当前版本信息
+
+**不需要身份验证**
+
+`GET /api/system/get_version_info`
+
+```js
+{
+  "track"     :    "inter",          // 当前版本线，分内部版、开发版和稳定版
+  "version1"  :    "0.5.27_beta2",   // 当前固件版本
+  "version2"  :    "m101a"           // 当前硬件版本
+}
+```
+
+
+### 全自动下载新版本、升级新版本
+
+`GET /api/system/download_and_upgrade`
+
+`该接口为集成接口，其直接返回的json格式和/api/system/download_version_upgrade相同。`
+
+`调用者需要根据接口的返回状态，再结合下载、升级各子过程的状态检查接口，获知当前的操作状态。`
+
+`参考:`
+
+`   /api/system/download_version_upgrade`
+
+`   /api/system/check_download_progress`
+
+`   /api/system/upgrade_version`
+
+`   /api/system/check_upgrade_progress`
+
+### 检查当前为下载中、升级中或升级结束
+
+`GET /api/system/check_upgrade_global_status`
+
+```js
+{
+  "code"        : -1,     //-1->无状态， 1->下载中，2->升级中, 3->升级结束
+  "msg"         : ""
+}
+```
+
+| 状态码  | 消息                                    |      意义              |
+| ------  | --------------------------------------- | ---------------------- |
+| -1      | "donothing"                             | 没有在升级             |
+| -2      | "/data is not mounted"                  | data分区没有挂载       |
+| -3      | "fail to download json file"            | 配置文件下载失败       |
+| -4      | "fail to decode json file"              | 配置文件解析失败       |
+| -5      | "no newer release"                      | 没有新版本             |
+| -6      | "md5 check failed"                      | 升级包校验出错         |
+| -7      | "signature error"                       | 升级包签名出错         |
+| -8      | "hardware version not match"            | 升级包和硬件版本不匹配 |
+| 1       | "downloading"                           | 正在下载               |
+| 2       | "upgrading"                             | 正在升级               |
+| 3       | "upgrade done"                          | 升级完成               |
 
 ### 检查是否有新版本
 
@@ -269,7 +389,8 @@ return :
 
 ```js
 {
-  "type"              : "STATIC",              // 当前连接方式( DHCP, PPPOE, STATIC, wireless-repeater)
+  "type"              : "STATIC",              // 当前连接方式(DHCP, PPPOE, STATIC, APCLIENT_RT2860,
+                                                               APCLIENT_MT7610)
   "ip"                : "192.168.1.12",
   "mask"              : "182.168.1.1",
   "gateway"           : "255.255.255.0",
@@ -339,14 +460,26 @@ return :
 ```js
 {
   "ip"              : "192.168.1.12",
-  "mask"            : "182.168.1.1",
-  "gateway"         : "255.255.255.0",
+  "mask"            : "255.255.255.0",
+  "gateway"         : "182.168.1.1",
   "dns1"            : "8.8.8.8",
   "dns2"            : "8.8.4.4",
   "mtu"             : 2,
   "stp"             : true
 }
 ```
+
+### 获取 AP Client IP 信息
+
+`GET /api/wan/get_info/apclient?deviceAlias=` // 2g, 5g
+```js
+{
+  "ip"              : "192.168.1.12",
+  "mask"            : "255.255.255.0",
+  "gateway"         : "182.168.1.1"",
+}
+```
+
 
 ### 设置 WAN 口连接方式
 
@@ -356,7 +489,7 @@ post data:
 
 ```js
 {
-  "type"                  : "STATIC",             // 当前连接方式( DHCP, PPPOE, STATIC, wireless-repeater)
+  "type"                  : "STATIC",             // 当前连接方式(DHCP, PPPOE, STATIC)
   "ip"                    : "192.168.1.12",
   "mask"                  : "255.255.255.0",
   "gateway"               : "192.168.1.1",
@@ -389,7 +522,9 @@ return data:
 
 ```js
 {
-  "code"    : 0    // 取得外网是否正常可用(0->网通， 1->（不通）不能解析域名，２->（不通）不能到达网关， -1->等待)
+  "code"    : 0    // 检测外网是否可以连接到互联网 (0, 正常连接互联网; 1, 不能正常连接; 
+                                                    2, 解析域名失败; 3, 网路状况不佳, 比如下载导致的)
+  "msg"     : "error message"   // 错误消息, 如果有的话.
 }
 ```
 
@@ -410,6 +545,31 @@ return data:
   "tx_packets"  : 282499,               // 发包
   "rx_rate"     : 0,                    // 收丢包率
   "tx_dropped"  : 0                     // 发丢包
+}
+```
+
+### 获取 WAN 口自定义的DNS
+
+`GET /api/wan/custom_dns/get`
+
+return: 
+
+```js
+{
+  "code"        : 0,                    // 返回码，0正常，非0出错
+  "dns1"        : "8.8.8.8",            // 自定义DNS1
+  "dns2"        : "8.8.4.4"             // 自定义DNS2
+}
+```
+
+### 设置 WAN 口自定义DNS
+
+`POST /api/wan/custom_dns/set`
+
+```js
+{
+  "dns1"        : "8.8.8.8",            // 自定义DNS1
+  "dns2"        : "8.8.4.4"             // 自定义DNS2
 }
 ```
 
@@ -1100,37 +1260,41 @@ return data:
   "msg"       : ""                                // 错误消息
 }
 ```
-| 状态码  | 消息                                               |      意义           |
-| ------ | --------------------------------------------------  | ------------------- |
-| -1     | "plugin ID missing"                                 | 缺少应用ID          |
-| -2     | "It's not installing plugin:&lt;PLUGIN_ID&gt;"      | 当前不在安装应用      |
-| 1      | "downloading plugin config file"                    | 正在下载应用配置文件   |
-| 2      | "parsing plugin config file"                        | 正在解析应用配置文件   |
-| 3      | "downloading the install package of plugin"         | 正在下载安装包        |
-| 4      | "checking md5 checksum of install package"          | 正在校验安装包        |
-| 5      | "installing plugin"                                 | 正在安装             |
-| 6      | "updating installed plugin list"                    | 更新已安装应用列表    |
-| 7      | "plugin installed"                                  | 应用安装成功         |
-| 101    | "failed to open status file:&lt;FILENAME&gt;"       | 读取状态失败         |
-| 901    | "failed to download the plugin config file"         | 下载配置文件失败      |
-| 902    | "failed to read plugin config file : &lt;CODE&gt;"  | 读取配置文件失败      |
-| 903    | "field missing in plugin config file"               | 配置文件错误         |
-| 904    | "failed to download plugin install package"         | 下载安装包失败        |
-| 905    | "MD5 check sum doesn't match with config"           | MD5校验失败          |
-| 906    | "extract the install package failed"                | 解压安装包失败        |
+| 状态码  | 消息                                                |      意义            |
+| ------- | --------------------------------------------------- | -------------------- |
+| -1      | "plugin ID missing"                                 | 缺少应用ID           |
+| -2      | "It's not installing plugin:&lt;PLUGIN_ID&gt;"      | 当前不在安装应用     |
+| 1       | "downloading plugin config file"                    | 正在下载应用配置文件 |
+| 2       | "parsing plugin config file"                        | 正在解析应用配置文件 |
+| 3       | "downloading the install package of plugin"         | 正在下载安装包       |
+| 4       | "checking md5 checksum of install package"          | 正在校验安装包       |
+| 5       | "installing plugin"                                 | 正在安装             |
+| 6       | "remove old app"                                    | 删除老应用           |
+| 7       | "updating installed plugin list"                    | 更新已安装应用列表   |
+| 8       | "auto start app"                                    | 自动启动应用         |
+| 0       | "plugin successfully installed"                     | 应用安装成功         |
+| 10      | "plugin alreay installed"                           | 应用已安装           |
+| 101     | "failed to open status file:&lt;FILENAME&gt;"       | 读取状态失败         |
+| 901     | "failed to download the plugin config file"         | 下载配置文件失败     |
+| 902     | "failed to read plugin config file : &lt;CODE&gt;"  | 读取配置文件失败     |
+| 903     | "field missing in plugin config file"               | 配置文件错误         |
+| 904     | "failed to download plugin install package"         | 下载安装包失败       |
+| 905     | "MD5 check sum doesn't match with config"           | MD5校验失败          |
+| 906     | "extract the install package failed"                | 解压安装包失败       |
 
 
 ### 对应用进行配置
 
-`POST /api/plugin/config`
+`POST /api/plugin/config/set`
+
+`POST /api/plugin/config` (不建议使用)
 
 post data:
 
 ```js
 {
-  "id"        : "0000001",                    // 应用ID
-  "filename"  : "test.conf",                  // 配置文件名
-  "content"   : "xxxxcvvadfafad"              // 配置文件的内容, base64编码
+  "package_id"  : "0000001",                  // 应用ID
+  "data"        : <JSON OBJECT>               // 应用自行维护的JSON配置数据
 }
 ```
 
@@ -1139,7 +1303,113 @@ return data:
 ```js
 {
   "code"      : 0,                            // 返回码, 0 成功，非0失败
-  "msg"       : ""                            // 错误消息
+  "msg"       : "",                           // 错误消息
+  "data"      : <JSON OBJECT>                 // 应用自行维护的JSON配置数据
+}
+```
+
+### 获取应用的配置信息
+
+`GET /api/plugin/config/get?id=<package_id>&type=<TP|MOBILE|WEB>`
+
+return data:
+
+```js
+{
+  "code"      : 0,                            // 返回码, 0 成功，非0失败
+  "msg"       : "",                           // 错误消息
+  "data"      : <JSON OBJECT>,                // 应用自行维护的JSON配置数据
+  "views"     : <JSON OBJECT>,                // 应用的视图配置信息
+  "actions"   : <JSON OBJECT>                 // 应用的命令列表
+}
+```
+
+### 执行应用的某个操作
+
+`POST /api/plugin/execute`
+
+post data:
+
+```js
+{
+  "package_id"  : "0000001",                  // 应用ID
+  "type"        : "TP|MOBILE|WEB",            // 调用来源类型
+  "actions"     : <JSON OBJECT>               // 应用的命令列表
+}
+```
+return data:
+
+```js
+{
+  "code"      : 0,                            // 返回码, 0 成功，非0失败
+  "msg"       : "",                           // 错误消息
+  "data"      : <JSON OBJECT>                 // 应用自行维护的JSON配置数据 
+}
+```
+
+action的JSON数据格式:
+```js
+{
+    "command1" : {
+      "id"      : "command1",                 // 应用的命令ID
+      "is_sync" : true,                       // 是否需要同步阻塞执行,默认阻塞同步
+      "input"   : "100"                       // 应用的命令参数
+    }
+}
+```
+data的JSON数据格式:
+```js
+{
+    "data1" : {
+      "id"      : "data1",                    // 配置数据的ID
+      "name"    : "username",                 // 配置数据的名字
+      "value"   : "middle",                   // 配置数据的值
+      "group_id": "group1",                   // 配置数据的组ID
+      "type"    : {
+                     "class" : "ENUM|BOOL|INT|STRING|FLOAT|SET",
+                     "items" : ["high", "middle", "low"],  // ENUM，SET适用
+                     "min"   : 0,                          // INT, FLOAT, STRING使用
+                     "max"   : 100,                        // INT, FLOAT, STRING使用
+                     "multiple" : true|false
+                  }
+    }
+}
+```
+view的JSON数据格式:
+```js
+{
+    "view1" : {
+      "id"      : "view1",                    // 配置视图的ID
+      "name"    : "viewname",                 // 配置视图的名字
+      "data"    : {
+                    "data1" : {"id" : "data1",// 视图需要展示的数据的ID
+                     "acess" : "RO|RW"        // 数据是否可修改
+                    },
+                    ...
+                  },
+      "menu"    : {                           // 主视图适用
+                      "1" : { "index"  : 1, 
+                        "text"   : "contract", 
+                        "type"   : "COMMAND|MENU|VIEW",
+                        "action" : actionid,  // COMMAND适用
+                        "input"  : data1,     // COMMAND适用
+                        "viewid" : viewid,    // VIEW适用
+                        "items"  : {          // MENU适用
+                                     "1" : {
+                                        "index"  : 1,
+                                        "text"   : "item1",
+                                        "type"   : "COMMAND|VIEW",
+                                        "action" : actionid, // COMMAND适用
+                                        "input"  : data1,    // COMMAND适用
+                                        "viewid" : viewid    // VIEW适用
+                                     },
+                                     ...
+                                    }
+                       },
+                       ...
+                   }
+      
+    }
 }
 ```
 
@@ -1228,7 +1498,10 @@ return data:
 
 ### 搜索热点信息
 
-`GET /api/apclient/get_site_survey?interface=rai0` // ra0, rt2860(2.4G); rai0 mt7160(5G)
+`GET /api/apclient/survey?deviceAlias=5g` /* 
+                                           2g, rt2860(ra0, 2.4G); 
+                                           5g, mt7610/rtdev(raii0, 5G) 
+                                          */
 
 return data:
 ```js
@@ -1236,15 +1509,350 @@ return data:
     "code"   : 0                // 0, 成功; -1, 失败
     "survey" : [
         {
-            "Channel"    :   "161",
-            "SSID"       :   "Modou-1234",
-            "BSSID"      :   "24:de:c6:5a:19:d8", // MAC address
-            "Security"   :   "WPA1PSKWPA2PSK", // OPEN, WPAPSK, WPA2PSK, WPA1PSKWPA2PSK
-            "EncrypType" :   "TKIPAES",  // NONE, WEP, TKIP, AES, TKIPAES
-            "Signal"     :   "99",
-            "W-Mode"     :   "11a/n"
+            "channel"    :   "161",
+            "ssid"       :   "Modou-1234",
+            "bssid"      :   "24:de:c6:5a:19:d8", // MAC address
+            "security"   :   "WPA1PSKWPA2PSK", // OPEN, WPAPSK, WPA2PSK, WPA1PSKWPA2PSK
+            "encrypType" :   "TKIPAES",  // NONE, WEP, TKIP, AES, TKIPAES
+            "signal"     :   "99",
+            "w-Mode"     :   "11a/n"
         },
         ...
     ]
+}
+```
+
+### 连接到 AP
+`POST /api/apclient/connectToAP`
+
+post data:
+```js
+{
+    /*2g, rt2860(ra0, 2.4G); 5g, mt7610/rtdev(raii0, 5G) */
+    "deviceAlias"    :  "5g", 
+    "connectionInfo" :  {
+        "channel"    :  "161",
+        "ssid"       :  "modou-0a10",
+        "bssid"      :  "24:de:c6:5a:19:d8", // MAC address
+        "security"   :  "WPA1PSKWPA2PSK", // OPEN, WPAPSK, WPA2PSK, WPA1PSKWPA2PSK
+        "encrypType" :  "TKIPAES",  // NONE, WEP, TKIP, AES, TKIPAES
+        "password"   :  "12345678"  
+    }
+}
+```
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, 成功; -1, 失败
+    "msg"    : "Error Message" 
+}
+```
+
+### 断开 AP Client 连接
+/* 2g, rt2860(ra0, 2.4G); 5g, mt7610/rtdev(raii0, 5G) */
+`GET /api/apclient/disconnect?deviceAlias=5g`
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, 成功; -1, 失败
+    "msg"    : "Error Message" 
+}
+```
+
+### 重新连接到 AP
+/* 2g, rt2860(ra0, 2.4G); 5g, mt7610/rtdev(raii0, 5G) */
+`GET /api/apclient/reconnectToAP?deviceAlias=5g`
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, 成功; -1, 失败
+    "msg"    : "Error Message" 
+}
+```
+
+### 使能 AP Client
+/* 2g, rt2860(ra0, 2.4G); 5g, mt7610/rtdev(raii0, 5G) */
+`GET /api/apclient/eableAPClient?deviceAlias=5g`
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, 成功; -1, 失败
+    "msg"    : "Error Message" 
+}
+``` 
+
+### 关闭 AP Client
+/* 2g, rt2860(ra0, 2.4G); 5g, mt7610/rtdev(raii0, 5G) */
+`GET /api/apclient/disableAPClient?deviceAlias=5g`
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, 成功; -1, 失败
+    "msg"    : "Error Message" 
+}
+```
+
+### 获取 AP Client 当前状态
+/* 2g, rt2860(ra0, 2.4G); 5g, mt7610/rtdev(raii0, 5G) */
+`GET /api/apclient/apClientStatus?deviceAlias=5g`
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, disable; 1, enable; -1, 获取状态失败
+    "msg"    : "Error Message" 
+}
+```
+
+### 获取上一次的连接信息
+/* 2g, rt2860(ra0, 2.4G); 5g, mt7610/rtdev(raii0, 5G) */
+`GET /api/apclient/prevConnectionInfo?deviceAlias=5g`
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, disable; 1, enable; -1, 获取状态失败
+    "msg"    : "Error Message" 
+}
+```
+
+### 测试连上路由器的速度
+
+**不需要身份验证**
+
+`GET /api/speedtest?size=1024`
+
+`size` 以 KB 为单位
+
+
+### QoS设置
+
+#### 设定优先模式
+`POST /api/qos/set_mode`
+
+post data:
+```js
+{
+    "mode"  : "vip"              // 优先级模式, 暫支持none|vip|speedlimit|game
+}
+```
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, 成功; 非0失败
+    "msg"    : "Error Message" 
+}
+```
+
+#### 查询优先模式
+`GET /api/qos/get_mode`
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, 成功; 非0失败
+    "mode"   : "vip"             // 优先级模式, none,vip,speedlimit
+    "msg"    : "Error Message"   
+}
+```
+
+#### 开启/关闭智能QoS
+`POST /api/qos/set_smart`
+
+post data:
+```js
+{
+    "enable" :  true/false       // true，开启；false, 关闭
+}
+```
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, 成功; 非0失败
+    "msg"    : "Error Message" 
+}
+```
+
+#### 获取智能QoS状态
+`GET /api/qos/get_smart`
+
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, 成功; 非0失败
+    "enabled":  true/false       // true，开启；false, 关闭
+    "msg"    : "Error Message" 
+}
+```
+
+#### 设置设备的优先级（仅QoS为VIP优先模式时有效）
+`POST /api/qos/set_prio`
+
+post data:
+```js
+{
+    "ip"    : "192.168.18.123",     // 被设置优先级的设备的IP地址
+    "mac"   : "11:22:33:44:55:66",  // 被设置优先级的设备的MAC地址
+    "prio"  : 3                     // 优先级，数值小的优先级高;目前支持1,2,3
+}
+```
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, 成功; 非0失败
+    "msg"    : "Error Message" 
+}
+```
+
+#### 删除设备的优先级（仅QoS为VIP优先模式时有效）
+`POST /api/qos/rm_prio`
+
+post data:
+```js
+{
+    "ip"    : "192.168.18.123",     // 被设置优先级的设备的IP地址
+    "mac"   : "11:22:33:44:55:66",  // 被设置优先级的设备的MAC地址
+    "prio"  : 3                     // 优先级，数值小的优先级高;目前支持1,2,3
+}
+```
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, 成功; 非0失败
+    "msg"    : "Error Message" 
+}
+```
+
+#### 查询优先级配置（仅QoS为VIP优先模式时有效）
+`GET /api/qos/vip_config`
+
+return data:
+```js
+{ "code" : 0,
+  "conf" : [
+    [
+        {
+            "ip"    : "192.168.18.121",     // 被设置优先级的设备的IP地址
+            "mac"   : "11:22:33:44:55:61",  // 被设置优先级的设备的MAC地址
+            "prio"  : 1                     // 优先级，数值小的优先级高;目前支持1,2,3
+        },
+        ......
+    ],
+    [
+        {
+            "ip"    : "192.168.18.122",     // 被设置优先级的设备的IP地址
+            "mac"   : "11:22:33:44:55:62",  // 被设置优先级的设备的MAC地址
+            "prio"  : 2                     // 优先级，数值小的优先级高;目前支持1,2,3
+        },
+        ......
+    ],
+    [
+        {
+            "ip"    : "192.168.18.123",     // 被设置优先级的设备的IP地址
+            "mac"   : "11:22:33:44:55:63",  // 被设置优先级的设备的MAC地址
+            "prio"  : 3                     // 优先级，数值小的优先级高;目前支持1,2,3
+        },
+        ......
+    ] 
+]}
+```
+
+#### 设置设备的速度限制（仅QoS为speedlimit模式时有效）
+`POST /api/qos/set_bandwidth`
+
+post data:
+```js
+{
+    "ip"    : "192.168.18.123",     // 被设置优先级的设备的IP地址
+    "mac"   : "11:22:33:44:55:66",  // 被设置优先级的设备的MAC地址
+    "up"    : 100,
+    "down"  : 500
+}
+```
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, 成功; 非0失败
+    "msg"    : "Error Message" 
+}
+```
+
+#### 删除设备的速度限制（仅QoS为speedlimit模式时有效）
+`POST /api/qos/rm_bandwidth`
+
+post data:
+```js
+{
+    "ip"    : "192.168.18.123",     // 被设置优先级的设备的IP地址
+    "mac"   : "11:22:33:44:55:66",  // 被设置优先级的设备的MAC地址
+    "up"    : 100,
+    "down"  : 500
+}
+```
+
+return data:
+```js
+{
+    "code"   : 0,                // 0, 成功; 非0失败
+    "msg"    : "Error Message" 
+}
+```
+
+#### 查询网速限制配置（仅QoS为speedlimit模式时有效）
+`GET /api/qos/bandwidth_config`
+
+return data:
+```js
+{ "code" : 0,
+  "conf" : [
+    [
+        {
+            "ip"    : "192.168.18.121",     // 被限制设备的IP
+            "mac"   : "11:22:33:44:55:61",  // 被限制设备的MAC, 可选
+            "up"    : 100,                  // 上行带宽限制,单位 kbps
+            "down"  : 500                   // 下行宽限制,单位 kbps
+        },
+        ......
+    ],
+    [
+        {
+            "ip"    : "192.168.18.121",     // 被限制设备的IP
+            "mac"   : "11:22:33:44:55:61",  // 被限制设备的MAC, 可选
+            "up"    : 100,                  // 上行带宽限制,单位 kbps
+            "down"  : 500                   // 下行宽限制,单位 kbps
+        },
+        ......
+    ],
+    [
+        {
+            "ip"    : "192.168.18.121",     // 被限制设备的IP
+            "mac"   : "11:22:33:44:55:61",  // 被限制设备的MAC, 可选
+            "up"    : 100,                  // 上行带宽限制,单位 kbps
+            "down"  : 500                   // 下行宽限制,单位 kbps
+        },
+        ......
+    ] 
+]}
+```
+### 截图
+
+`GET /api/screenshot`
+
+Response Data:
+```js
+{
+  "code": 0,                // 0, 成功; -1, 失败
+  "url": "http://image.url"
 }
 ```
