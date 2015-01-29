@@ -959,6 +959,7 @@ return data:
       "installDate"   : "2014.06.21",             // 应用的安装日期
       "description"   : "第一个Demo插件",         // 应用的说明
       "instruction"   : "1,xxx; 2,xxx"            // 应用的安装、使用说明
+      "is_sys_app"    : 是否是内置应用            // 如果是内置系统应用，则不允许删除（可升级）
     }, ...
   ]
 }
