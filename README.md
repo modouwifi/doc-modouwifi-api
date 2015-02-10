@@ -490,7 +490,7 @@ post data:
 ```js
 {
   "type"                  : "STATIC",             // IP 地址获取的方式(DHCP, PPPOE, STATIC)
-  "connect_type"          : "STATIC",             // 连接方式(DHCP, PPOE, STATIC, AP_CLIENT)
+  "connect_type"          : "STATIC",             // 连接方式(DHCP, PPPOE, STATIC, AP_CLIENT)
   "ip"                    : "192.168.1.12",
   "mask"                  : "255.255.255.0",
   "gateway"               : "192.168.1.1",
