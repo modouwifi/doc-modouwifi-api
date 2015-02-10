@@ -389,8 +389,8 @@ return :
 
 ```js
 {
-  "type"              : "STATIC",              // 当前连接方式(DHCP, PPPOE, STATIC, APCLIENT_RT2860,
-                                                               APCLIENT_MT7610)
+  "type"              : "STATIC",              // IP 地址获取的方式(DHCP, PPPOE, STATIC)
+  "connect_type"      : "STATIC",              // 连接方式(DHCP, PPPOE, STATIC, AP_CLIENT)
   "ip"                : "192.168.1.12",
   "mask"              : "182.168.1.1",
   "gateway"           : "255.255.255.0",
@@ -489,7 +489,8 @@ post data:
 
 ```js
 {
-  "type"                  : "STATIC",             // 当前连接方式(DHCP, PPPOE, STATIC)
+  "type"                  : "STATIC",             // IP 地址获取的方式(DHCP, PPPOE, STATIC)
+  "connect_type"          : "STATIC",             // 连接方式(DHCP, PPOE, STATIC, AP_CLIENT)
   "ip"                    : "192.168.1.12",
   "mask"                  : "255.255.255.0",
   "gateway"               : "192.168.1.1",
