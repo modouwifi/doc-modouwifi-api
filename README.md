@@ -1857,3 +1857,27 @@ Response Data:
   "url": "http://image.url"
 }
 ```
+
+### 远程控制消息
+
+{
+    "to"         : "088A",
+    "from"       : "notebook",
+    "id"         : 1425954013,
+    "timestamp"  : 1425954013,
+    "url"        : "http://127.0.0.1/api/auth/login", // 与上面那些 API 相同
+    "post"       : 1, // 1, post; 0, get
+    "argument"   : {"password":"34515251"} // POST 数据, 与上面的 API 所需要的 POST 数据相同
+}
+
+### 远程控制返回的消息
+
+{
+    "to"         : "notebook",
+    "from"       : "088A",
+    "id"         : 1425954013,
+    "timestamp"  : 1425954013,
+    "url"        : "http://127.0.0.1/api/auth/login", // 与上面那些 API 相同
+    "post"       : 1, // 1, post; 0, get
+    "result"   : {"code":0} // 返回的数据，与上面那些 API 返回的数据相同
+}
